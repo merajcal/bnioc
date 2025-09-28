@@ -1896,7 +1896,7 @@ tr:hover {
     }
     
     .hero-slide {
-        width: 100% !important;
+        /* Keep default 25% width so JS translateX works */
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -1908,10 +1908,7 @@ tr:hover {
         max-width: 100%;
         padding: 2rem 1rem;
     }
-    
-    .hero-carousel-track {
-        transform: translateX(0) !important;
-    }
+
     
     .nav-menu {
         position: fixed;

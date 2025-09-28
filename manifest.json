@@ -1,0 +1,81 @@
+{
+  "name": "Bengaluru Nex-Gen Institute of Cricket (BNIOC)",
+  "short_name": "BNIOC",
+  "description": "Premier cricket academy in Bengaluru offering professional coaching and training programs for all ages",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["sports", "education", "training"],
+  "icons": [
+    {
+      "src": "./public/assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./public/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./public/assets/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "./public/assets/screenshot-narrow.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Programs",
+      "short_name": "Programs",
+      "description": "View our cricket training programs",
+      "url": "/#programs",
+      "icons": [
+        {
+          "src": "./public/assets/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch with us",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "./public/assets/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Fees",
+      "short_name": "Fees",
+      "description": "View fee structure",
+      "url": "/#fees",
+      "icons": [
+        {
+          "src": "./public/assets/logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

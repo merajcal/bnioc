@@ -1895,6 +1895,24 @@ tr:hover {
         margin-bottom: 1rem;
     }
     
+    .hero-slide {
+        width: 100% !important;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        padding: 2rem 1rem;
+    }
+    
+    .hero-carousel-track {
+        transform: translateX(0) !important;
+    }
+    
     .nav-menu {
         position: fixed;
         top: 80px;
@@ -2050,7 +2068,68 @@ tr:hover {
 
 @media (max-width: 480px) {
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        line-height: 1.1;
+        margin-bottom: 0.8rem;
+    }
+    
+    .hero-title br {
+        display: none;
+    }
+    
+    .hero-badge {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+        margin-bottom: 0.8rem;
+        display: inline-block;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    
+    .hero-slide {
+        padding: 20px 10px;
+        height: 100vh;
+        width: 100% !important;
+        overflow-y: auto;
+    }
+    
+    .hero-carousel-track {
+        transform: translateX(0) !important;
+    }
+    
+    .hero-text {
+        margin-bottom: 2rem;
+    }
+    
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .stat-card {
+        padding: 1rem 0.5rem;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+        line-height: 1.2;
     }
     
     .programs-grid,
@@ -2061,6 +2140,131 @@ tr:hover {
     
     .gallery-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Extra small screens (6 inch phones - 360px and below) */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.2rem;
+        line-height: 1.0;
+        margin-bottom: 0.6rem;
+    }
+    
+    .hero-title br {
+        display: none;
+    }
+    
+    .hero-badge {
+        font-size: 0.6rem;
+        padding: 3px 6px;
+        margin-bottom: 0.6rem;
+        display: inline-block;
+    }
+    
+    .hero-content {
+        padding: 0.8rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .hero-slide {
+        padding: 10px 5px;
+        height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .hero-text {
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    
+    .hero-buttons {
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+    
+    .stat-card {
+        padding: 0.8rem 0.4rem;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+        margin-top: 0.2rem;
+        line-height: 1.1;
+    }
+    
+    .btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Ultra small screens (320px and below - iPhone SE, etc.) */
+@media (max-width: 320px) {
+    .hero-title {
+        font-size: 1.1rem;
+        line-height: 0.95;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-title br {
+        display: none;
+    }
+    
+    .hero-badge {
+        font-size: 0.55rem;
+        padding: 2px 5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.1;
+    }
+    
+    .hero-content {
+        padding: 0.5rem;
+    }
+    
+    .hero-slide {
+        padding: 5px 3px;
+    }
+    
+    .hero-text {
+        margin-bottom: 1rem;
+    }
+    
+    .hero-buttons {
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+    
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
     }
 }
 

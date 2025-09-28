@@ -563,13 +563,13 @@ function initThemeToggle() {
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
     
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Check for saved theme preference or default to dark mode
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
     
     // Theme toggle event listener
     themeToggle.addEventListener('click', function() {
-        const currentTheme = body.getAttribute('data-theme') || 'light';
+        const currentTheme = body.getAttribute('data-theme') || 'dark';
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('theme', newTheme);

@@ -1,3 +1,20 @@
+// Import CSS for webpack
+import '../css/style.css';
+
+// Enable Hot Module Replacement
+if (module.hot) {
+    module.hot.accept('../css/style.css', function() {
+        console.log('CSS updated via HMR');
+        // Force reload for CSS changes to ensure they apply
+        window.location.reload();
+    });
+    
+    module.hot.accept(function() {
+        console.log('JS updated via HMR');
+        window.location.reload();
+    });
+}
+
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
@@ -621,7 +638,7 @@ function initHeroCarousel() {
         autoSlideInterval = setInterval(() => {
             currentSlide = (currentSlide + 1) % slides.length;
             updateCarousel();
-        }, 10000); // Change slide every 6 seconds
+        }, 6000); // Change slide every 6 seconds
     }
 
     function stopAutoSlide() {

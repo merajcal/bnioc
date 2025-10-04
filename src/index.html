@@ -45,8 +45,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="./css/style.css">
+    <!-- CSS will be injected by webpack -->
 </head>
 <body data-theme="dark">
     <!-- Header -->
@@ -57,7 +56,7 @@
                     <img src="./public/assets/logo.png" alt="BNIOC Logo" class="logo">
                     <div class="brand-text">
                         <h1>BNIOC</h1>
-                        <span>Bengaluru Nex-Gen Institute of Cricket</span>
+                        <span>Shaping the future of cricket stars</span>
                     </div>
                 </div>
                 
@@ -142,110 +141,81 @@
                 </div>
 
                 <!-- Slide 2: Summer Camp 2025 -->
-                <div class="hero-slide">
+                <div class="hero-slide summer-camp-slide">
                     <div class="hero-content">
                         <div class="container">
-                            <div class="hero-text">
-                                <div class="hero-badge">🏏 SUMMER CAMP 2025</div>
-                                <h1 class="hero-title">
-                                    Join Our Exclusive
-                                    <br>Summer Cricket Camp
-                                </h1>
-                                <p class="hero-subtitle">
-                                    Intensive 6-week program with professional coaches, daily practice sessions, and match experience. Limited seats available - Register now!
-                                </p>
-                                <div class="hero-buttons">
-                                    <a href="#programs" class="btn btn-primary">Enroll Now - ₹45,000</a>
-                                    <a href="#contact" class="btn btn-secondary">Get Details</a>
+                            <div class="summer-camp-layout">
+                                <div class="summer-camp-content">
+                                    <div class="hero-badge pulse-animation">🏏 SUMMER CAMP 2025</div>
+                                    <h1 class="hero-title">
+                                        Join Our Exclusive
+                                        <br><span class="highlight-text">Summer Cricket Camp</span>
+                                    </h1>
+                                    <p class="hero-subtitle">
+                                        Intensive 6-week program with professional coaches, daily practice sessions, and match experience. Limited seats available - Register now!
+                                    </p>
+                                    
+                                    <div class="camp-highlights">
+                                        <div class="highlight-item">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>22 Sep 2025</span>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-users"></i>
+                                            <span>Ages 7-14</span>
+                                        </div>
+                                        <div class="highlight-item">
+                                            <i class="fas fa-trophy"></i>
+                                            <span>Boys & Girls</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="hero-buttons">
+                                        <a href="#programs" class="btn btn-primary glow-effect">Enroll Now</a>
+                                        <a href="#contact" class="btn btn-secondary">Get Details</a>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="hero-stats">
-                                <div class="stat-card">
-                                    <div class="stat-number">6</div>
-                                    <div class="stat-label">Weeks Program</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-number">50</div>
-                                    <div class="stat-label">Limited Seats</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-number">5</div>
-                                    <div class="stat-label">Expert Coaches</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 3: Championship Success -->
-                <div class="hero-slide">
-                    <div class="hero-content">
-                        <div class="container">
-                            <div class="hero-text">
-                                <div class="hero-badge">🏆 DISTRICT CHAMPIONS</div>
-                                <h1 class="hero-title">
-                                    Our Students Are
-                                    <br>Champions!
-                                </h1>
-                                <p class="hero-subtitle">
-                                    Proud to announce our students' victory in the District Cricket Tournament 2024. Excellence in training produces champions!
-                                </p>
-                                <div class="hero-buttons">
-                                    <a href="#news" class="btn btn-primary">Read Success Stories</a>
-                                    <a href="#coaches" class="btn btn-secondary">Meet Our Coaches</a>
-                                </div>
-                            </div>
-                            
-                            <div class="hero-stats">
-                                <div class="stat-card">
-                                    <div class="stat-number">1st</div>
-                                    <div class="stat-label">District Position</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-number">12</div>
-                                    <div class="stat-label">Winning Students</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-number">100%</div>
-                                    <div class="stat-label">Success Rate</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 4: New Facilities -->
-                <div class="hero-slide">
-                    <div class="hero-content">
-                        <div class="container">
-                            <div class="hero-text">
-                                <div class="hero-badge">🏟️ NEW FACILITIES</div>
-                                <h1 class="hero-title">
-                                    State-of-the-Art
-                                    <br>Training Facilities
-                                </h1>
-                                <p class="hero-subtitle">
-                                    Experience world-class training with our new indoor facility, professional nets, fitness center, and residential accommodation.
-                                </p>
-                                <div class="hero-buttons">
-                                    <a href="#facilities" class="btn btn-primary">Explore Facilities</a>
-                                    <a href="#contact" class="btn btn-secondary">Schedule Visit</a>
-                                </div>
-                            </div>
-                            
-                            <div class="hero-stats">
-                                <div class="stat-card">
-                                    <div class="stat-number">8</div>
-                                    <div class="stat-label">Practice Nets</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-number">2</div>
-                                    <div class="stat-label">Training Grounds</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-number">24/7</div>
-                                    <div class="stat-label">Facility Access</div>
+                                
+                                <div class="summer-camp-visual">
+                                    <div class="camp-image-container">
+                                        <img src="../../public/assets/images/banners/summer_camp.png" alt="Summer Camp 2025" class="camp-banner-image">
+                                        <div class="image-overlay">
+                                            <div class="overlay-badge">
+                                                <i class="fas fa-star"></i>
+                                                <span>Limited Seats</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="floating-stats">
+                                        <div class="floating-stat">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-number">6</div>
+                                                <div class="stat-label">Weeks</div>
+                                            </div>
+                                        </div>
+                                        <div class="floating-stat">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-users"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-number">50</div>
+                                                <div class="stat-label">Seats</div>
+                                            </div>
+                                        </div>
+                                        <div class="floating-stat">
+                                            <div class="stat-icon">
+                                                <i class="fas fa-medal"></i>
+                                            </div>
+                                            <div class="stat-info">
+                                                <div class="stat-number">5</div>
+                                                <div class="stat-label">Coaches</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -439,171 +409,127 @@
             <div class="programs-grid">
                 <div class="program-card">
                     <div class="program-header">
-                        <h3>Weekend Academy</h3>
-                        <div class="program-price">₹35,000<span class="price-unit">/year</span></div>
+                        <h3>🏏 Weekend Warriors</h3>
                     </div>
                     <div class="program-meta">
                         <span class="program-duration"><i class="fas fa-calendar"></i> Saturdays & Sundays</span>
-                        <span class="program-age"><i class="fas fa-clock"></i> Multiple Time Slots</span>
+                        <span class="program-age"><i class="fas fa-users"></i> All Ages Welcome</span>
                     </div>
                     <div class="program-content">
+                        <p class="program-description">Master cricket skills on weekends with flexible timing options!</p>
                         <ul class="program-features">
-                            <li><i class="fas fa-check"></i> 9:00 AM to 11:00 AM</li>
-                            <li><i class="fas fa-check"></i> 11:00 AM to 1:00 PM</li>
-                            <li><i class="fas fa-check"></i> 4:00 PM to 6:00 PM</li>
-                            <li><i class="fas fa-check"></i> One Full Year Program</li>
+                            <li><i class="fas fa-check"></i> Morning & Afternoon Sessions</li>
                             <li><i class="fas fa-check"></i> Weekend Flexibility</li>
+                            <li><i class="fas fa-check"></i> Year-Round Training</li>
+                            <li><i class="fas fa-check"></i> Expert Coaching</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Join Weekend Academy</a>
+                        <a href="#contact" class="btn btn-primary">Join Weekend Warriors</a>
                     </div>
                 </div>
                 
                 <div class="program-card">
                     <div class="program-header">
-                        <h3>Weekend Night Sessions</h3>
-                        <div class="program-price">₹40,000<span class="price-unit">/year</span></div>
+                        <h3>🌙 Night Owls Cricket</h3>
                     </div>
                     <div class="program-meta">
-                        <span class="program-duration"><i class="fas fa-moon"></i> Fridays & Saturdays</span>
-                        <span class="program-age"><i class="fas fa-clock"></i> 6:30 PM - 8:30 PM</span>
+                        <span class="program-duration"><i class="fas fa-moon"></i> Friday & Saturday Nights</span>
+                        <span class="program-age"><i class="fas fa-briefcase"></i> Working Professionals</span>
                     </div>
                     <div class="program-content">
+                        <p class="program-description">Train under the lights after work hours - perfect for professionals!</p>
                         <ul class="program-features">
                             <li><i class="fas fa-check"></i> Floodlight Training</li>
-                            <li><i class="fas fa-check"></i> Working Professional Friendly</li>
-                            <li><i class="fas fa-check"></i> Advanced Night Coaching</li>
+                            <li><i class="fas fa-check"></i> Professional-Friendly Timing</li>
+                            <li><i class="fas fa-check"></i> Advanced Coaching</li>
                             <li><i class="fas fa-check"></i> Weekend Convenience</li>
-                            <li><i class="fas fa-check"></i> Professional Environment</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Book Night Sessions</a>
+                        <a href="#contact" class="btn btn-primary">Join Night Owls</a>
                     </div>
                 </div>
                 
                 <div class="program-card">
                     <div class="program-header">
-                        <h3>Daily Night Sessions</h3>
-                        <div class="program-price">₹50,000<span class="price-unit">/year</span></div>
+                        <h3>⚡ Daily Champions</h3>
                     </div>
                     <div class="program-meta">
                         <span class="program-duration"><i class="fas fa-calendar"></i> Monday to Saturday</span>
-                        <span class="program-age"><i class="fas fa-clock"></i> 6:30 PM - 8:30 PM</span>
+                        <span class="program-age"><i class="fas fa-rocket"></i> Rapid Improvement</span>
                     </div>
                     <div class="program-content">
+                        <p class="program-description">Daily evening training for serious cricket enthusiasts!</p>
                         <ul class="program-features">
-                            <li><i class="fas fa-check"></i> Daily Evening Training</li>
-                            <li><i class="fas fa-check"></i> Consistent Practice Schedule</li>
-                            <li><i class="fas fa-check"></i> Floodlight Facilities</li>
-                            <li><i class="fas fa-check"></i> Professional Coaching</li>
-                            <li><i class="fas fa-check"></i> Skill Development Focus</li>
+                            <li><i class="fas fa-check"></i> Daily Evening Sessions</li>
+                            <li><i class="fas fa-check"></i> Consistent Practice</li>
+                            <li><i class="fas fa-check"></i> Floodlight Training</li>
+                            <li><i class="fas fa-check"></i> Rapid Skill Development</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Join Daily Sessions</a>
+                        <a href="#contact" class="btn btn-primary">Become a Champion</a>
                     </div>
                 </div>
                 
                 <div class="program-card">
                     <div class="program-header">
-                        <h3>One Session Academy</h3>
-                        <div class="program-price">₹45,000<span class="price-unit">/year</span></div>
+                        <h3>🎯 Focused Training</h3>
                     </div>
                     <div class="program-meta">
-                        <span class="program-duration"><i class="fas fa-clock"></i> Seven Days a Week</span>
-                        <span class="program-age"><i class="fas fa-users"></i> Morning OR Evening</span>
+                        <span class="program-duration"><i class="fas fa-clock"></i> 7 Days a Week</span>
+                        <span class="program-age"><i class="fas fa-sun"></i> Morning or Evening</span>
                     </div>
                     <div class="program-content">
+                        <p class="program-description">Choose your preferred time slot and train every day!</p>
                         <ul class="program-features">
-                            <li><i class="fas fa-check"></i> 6:30 AM to 8:30 AM OR</li>
-                            <li><i class="fas fa-check"></i> 4:00 PM to 6:00 PM</li>
-                            <li><i class="fas fa-check"></i> Weekend: 9:00 AM to 11:00 AM & 4:00 PM to 6:00 PM</li>
-                            <li><i class="fas fa-check"></i> Flexible Timing Choice</li>
+                            <li><i class="fas fa-check"></i> Morning or Evening Choice</li>
                             <li><i class="fas fa-check"></i> Seven Days Training</li>
+                            <li><i class="fas fa-check"></i> Flexible Scheduling</li>
+                            <li><i class="fas fa-check"></i> Consistent Progress</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Join One Session</a>
+                        <a href="#contact" class="btn btn-primary">Start Focused Training</a>
                     </div>
                 </div>
                 
                 <div class="program-card featured">
                     <div class="program-header">
-                        <h3>Two Sessions Academy</h3>
-                        <div class="program-price">₹80,000<span class="price-unit">/year</span></div>
+                        <h3>🔥 Double Impact</h3>
                     </div>
                     <div class="program-meta">
-                        <span class="program-duration"><i class="fas fa-clock"></i> Morning & Evening</span>
-                        <span class="program-age"><i class="fas fa-calendar"></i> Mon to Fri + Weekends</span>
+                        <span class="program-duration"><i class="fas fa-fire"></i> Morning & Evening</span>
+                        <span class="program-age"><i class="fas fa-star"></i> Intensive Training</span>
                     </div>
                     <div class="program-content">
+                        <p class="program-description">Double the training, double the results - our most popular program!</p>
                         <ul class="program-features">
-                            <li><i class="fas fa-check"></i> 6:30 AM to 8:30 AM & 4:00 PM to 6:00 PM</li>
-                            <li><i class="fas fa-check"></i> Weekend: 9:00 AM to 11:00 AM & 4:00 PM to 6:00 PM</li>
-                            <li><i class="fas fa-check"></i> Intensive Training</li>
+                            <li><i class="fas fa-check"></i> Morning & Evening Sessions</li>
                             <li><i class="fas fa-check"></i> Maximum Practice Time</li>
+                            <li><i class="fas fa-check"></i> Intensive Training</li>
                             <li><i class="fas fa-check"></i> Rapid Skill Development</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Join Two Sessions</a>
+                        <a href="#contact" class="btn btn-primary">Double Your Skills</a>
                     </div>
                 </div>
                 
                 <div class="program-card premium">
                     <div class="program-header">
-                        <h3>Full Day Coaching</h3>
-                        <div class="program-price">₹1,20,000<span class="price-unit">/year</span></div>
+                        <h3>👑 Elite Academy</h3>
                     </div>
                     <div class="program-meta">
-                        <span class="program-duration"><i class="fas fa-clock"></i> 6:30 AM - 3:30 PM</span>
-                        <span class="program-age"><i class="fas fa-clock"></i> OR 10:00 AM - 6:00 PM</span>
+                        <span class="program-duration"><i class="fas fa-crown"></i> Full Day Training</span>
+                        <span class="program-age"><i class="fas fa-trophy"></i> Elite Development</span>
                     </div>
                     <div class="program-content">
+                        <p class="program-description">Complete immersion in cricket - for serious aspiring professionals!</p>
                         <ul class="program-features">
-                            <li><i class="fas fa-check"></i> Complete Day Training</li>
-                            <li><i class="fas fa-check"></i> Lunch Hours: 12:00 PM to 1:00 PM</li>
-                            <li><i class="fas fa-check"></i> Weekend: 9:00 AM to 11:00 AM & 4:00 PM to 6:00 PM</li>
+                            <li><i class="fas fa-check"></i> Full Day Training</li>
                             <li><i class="fas fa-check"></i> Professional Development</li>
-                            <li><i class="fas fa-check"></i> Elite Training Program</li>
+                            <li><i class="fas fa-check"></i> Elite Coaching</li>
+                            <li><i class="fas fa-check"></i> Championship Preparation</li>
                         </ul>
-                        <a href="#contact" class="btn btn-primary">Join Full Day</a>
+                        <a href="#contact" class="btn btn-primary">Join Elite Academy</a>
                     </div>
                 </div>
                 
-                <div class="program-card hostel">
-                    <div class="program-header">
-                        <h3>Full Day + A/C Hostel</h3>
-                        <div class="program-price">₹1,20,000<span class="price-unit">/year</span></div>
-                    </div>
-                    <div class="program-meta">
-                        <span class="program-duration"><i class="fas fa-home"></i> Accommodation Included</span>
-                        <span class="program-age"><i class="fas fa-utensils"></i> Food Optional</span>
-                    </div>
-                    <div class="program-content">
-                        <ul class="program-features">
-                            <li><i class="fas fa-check"></i> A/C Hostel: ₹40,000/month</li>
-                            <li><i class="fas fa-check"></i> Non A/C Hostel: ₹10,000/month</li>
-                            <li><i class="fas fa-check"></i> Food (Optional): ₹7,500/month</li>
-                            <li><i class="fas fa-check"></i> Locker Extra: ₹600/month</li>
-                            <li><i class="fas fa-check"></i> Complete Residential Program</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary">Join Residential</a>
-                    </div>
-                </div>
                 
-                <div class="program-card girls">
-                    <div class="program-header">
-                        <h3>Girls Cricket + Hostel</h3>
-                        <div class="program-price">₹1,20,000<span class="price-unit">/year</span></div>
-                    </div>
-                    <div class="program-meta">
-                        <span class="program-duration"><i class="fas fa-female"></i> Girls Only Program</span>
-                        <span class="program-age"><i class="fas fa-home"></i> Hostel Available</span>
-                    </div>
-                    <div class="program-content">
-                        <ul class="program-features">
-                            <li><i class="fas fa-check"></i> Specialized Girls Training</li>
-                            <li><i class="fas fa-check"></i> Female Coaches Available</li>
-                            <li><i class="fas fa-check"></i> Safe & Secure Environment</li>
-                            <li><i class="fas fa-check"></i> Same Hostel Facilities</li>
-                            <li><i class="fas fa-check"></i> Competition Preparation</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary">Join Girls Program</a>
-                    </div>
-                </div>
+                
+                
             </div>
         </div>
     </section>
@@ -883,26 +809,12 @@
                     </div>
                     <div class="coach-info">
                         <h3>Ashith</h3>
-                        <p class="coach-title">Bowling Coach</p>
+                        <p class="coach-title">Bowling and Batting Coach</p>
                         <p class="coach-experience">12+ Years Experience</p>
                         <div class="coach-specialties">
                             <span>Fast Bowling</span>
                             <span>Spin Bowling</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-avatar">AS</div>
-                    </div>
-                    <div class="coach-info">
-                        <h3>Ravi</h3>
-                        <p class="coach-title">Fielding & Fitness Coach</p>
-                        <p class="coach-experience">10+ Years Experience</p>
-                        <div class="coach-specialties">
-                            <span>Fielding Techniques</span>
-                            <span>Fitness Training</span>
+                            <span>Top order batting</span>
                         </div>
                     </div>
                 </div>
@@ -966,37 +878,106 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Gallery</h2>
-                <p class="section-subtitle">Moments from our training sessions and events</p>
+                <p class="section-subtitle">Capturing moments of excellence and passion for cricket</p>
             </div>
             
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Training Session">
-                    <div class="gallery-overlay">
-                        <h4>Training Session</h4>
-                        <p>Professional coaching in action</p>
+            <div class="gallery-container">
+                <!-- Featured Large Image -->
+                <div class="gallery-featured">
+                    <div class="featured-image">
+                        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cricket Academy">
+                        <div class="featured-overlay">
+                            <div class="featured-content">
+                                <h3>🏏 BNIOC Cricket Academy</h3>
+                                <p>Where champions are made through dedication, training, and passion</p>
+                                <div class="featured-stats">
+                                    <span><i class="fas fa-users"></i> 100+ Students</span>
+                                    <span><i class="fas fa-trophy"></i> 15+ Tournaments</span>
+                                    <span><i class="fas fa-medal"></i> 50+ Awards</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Match Practice">
-                    <div class="gallery-overlay">
-                        <h4>Match Practice</h4>
-                        <p>Students in competitive play</p>
+                
+                <!-- Gallery Grid -->
+                <div class="gallery-masonry">
+                    <div class="gallery-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Batting Training">
+                        </div>
+                        <div class="card-content">
+                            <h4>🏏 Batting Training</h4>
+                            <p>Master the art of batting with expert techniques</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1593341646782-e0b495cff86d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Bowling Practice">
+                        </div>
+                        <div class="card-content">
+                            <h4>⚡ Bowling Practice</h4>
+                            <p>Perfect your bowling skills with professional guidance</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Match Day">
+                        </div>
+                        <div class="card-content">
+                            <h4>🏆 Match Day</h4>
+                            <p>Experience the thrill of competitive cricket</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team Spirit">
+                        </div>
+                        <div class="card-content">
+                            <h4>👥 Team Spirit</h4>
+                            <p>Building friendships and teamwork through cricket</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Fielding Drills">
+                        </div>
+                        <div class="card-content">
+                            <h4>🥅 Fielding Drills</h4>
+                            <p>Sharp reflexes and agility training sessions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Awards Ceremony">
+                        </div>
+                        <div class="card-content">
+                            <h4>🥇 Awards Ceremony</h4>
+                            <p>Celebrating achievements and milestones</p>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Summer Camp">
-                    <div class="gallery-overlay">
-                        <h4>Summer Camp 2024</h4>
-                        <p>Memorable moments from last year</p>
+            </div>
+            
+            <!-- Instagram CTA -->
+            <div class="instagram-cta">
+                <div class="cta-content">
+                    <div class="cta-icon">
+                        <i class="fab fa-instagram"></i>
                     </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Awards Ceremony">
-                    <div class="gallery-overlay">
-                        <h4>Awards Ceremony</h4>
-                        <p>Celebrating achievements</p>
+                    <div class="cta-text">
+                        <h3>Follow Our Journey</h3>
+                        <p>🏏 Get daily updates, behind-the-scenes content, and match highlights on Instagram!</p>
                     </div>
+                    <a href="https://www.instagram.com/bnioc_cricketers/" target="_blank" class="btn btn-primary instagram-btn">
+                        <i class="fab fa-instagram"></i>
+                        Follow @bnioc_cricketers
+                    </a>
                 </div>
             </div>
         </div>
@@ -1111,34 +1092,41 @@
                 </div>
                 
                 <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <div class="google-form-container">
+                        <div class="form-header">
+                            <h3>📝 Enrollment & Inquiry Form</h3>
+                            <p>Fill out this form and we'll get back to you within 24 hours!</p>
                         </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        
+                        <!-- Replace this URL with your actual Google Form embed URL -->
+                        <div class="google-form-embed">
+                            <iframe 
+                                src="https://docs.google.com/forms/d/e/1FAIpQLScXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/viewform?embedded=true" 
+                                width="100%" 
+                                height="600" 
+                                frameborder="0" 
+                                marginheight="0" 
+                                marginwidth="0"
+                                title="BNIOC Contact Form">
+                                Loading…
+                            </iframe>
                         </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Your Phone" required>
+                        
+                        <div class="form-footer">
+                            <p><strong>Note:</strong> Having trouble with the form? You can also reach us directly:</p>
+                            <div class="quick-contact">
+                                <a href="tel:+918881113107" class="quick-contact-btn">
+                                    <i class="fas fa-phone"></i> Call Now
+                                </a>
+                                <a href="mailto:info@batkhelo.com" class="quick-contact-btn">
+                                    <i class="fas fa-envelope"></i> Email Us
+                                </a>
+                                <a href="https://wa.me/918881113107" class="quick-contact-btn" target="_blank">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <select id="program" name="program" required>
-                                <option value="">Select Program</option>
-                                <option value="weekend-academy">Weekend Academy - ₹35,000/year</option>
-                                <option value="weekend-night">Weekend Night Sessions - ₹40,000/year</option>
-                                <option value="daily-night">Daily Night Sessions - ₹50,000/year</option>
-                                <option value="one-session">One Session Academy - ₹45,000/year</option>
-                                <option value="two-session">Two Sessions Academy - ₹80,000/year</option>
-                                <option value="full-day">Full Day Coaching - ₹1,20,000/year</option>
-                                <option value="hostel-ac">Full Day + A/C Hostel - ₹1,20,000/year + Hostel</option>
-                                <option value="girls-cricket">Girls Cricket + Hostel - ₹1,20,000/year</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1160,7 +1148,7 @@
                     </p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/bnioc_cricketers/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     </div>

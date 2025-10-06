@@ -1,0 +1,65 @@
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Import components
+import Header from './components/Header';
+import Home from './components/Home';
+import About from './components/About';
+import Founder from './components/Founder';
+import Programs from './components/Programs';
+import Facilities from './components/Facilities';
+import Gallery from './components/Gallery';
+import News from './components/News';
+import Contact from './components/Contact';
+import WhyChooseUs from './components/WhyChooseUs';
+import Testimonials from './components/Testimonials';
+import Footer from './components/Footer';
+
+function App() {
+  const [theme, setTheme] = useState('dark');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Theme toggle functionality
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  // Mobile menu toggle
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <Router>
+      <div className="App">
+        <Header 
+          theme={theme} 
+          toggleTheme={toggleTheme} 
+          isMenuOpen={isMenuOpen} 
+          toggleMenu={toggleMenu} 
+        />
+        
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<><About /><WhyChooseUs /><Testimonials /></>} />
+            <Route path="/founder" element={<Founder />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/facilities" element={<Facilities />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+export default App;

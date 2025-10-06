@@ -1,35 +1,3 @@
-# Bengaluru Nex-Gen Institute of Cricket (BNIOC)
-
-A modern, responsive Progressive Web Application (PWA) for Bengaluru Nex-Gen Institute of Cricket, featuring comprehensive cricket training programs, expert coaching profiles, and seamless user experience.
-
-## 🏏 Features
-
-### Core Features
-- **Responsive Design**: Optimized for all devices (desktop, tablet, mobile)
-- **Progressive Web App**: Installable, offline-capable, and app-like experience
-- **Modern UI/UX**: Clean, professional design with cricket academy branding
-- **Fast Performance**: Optimized loading times and smooth animations
-
-### Sections
-- **Home**: Hero section with academy highlights and statistics
-- **About**: Academy information and key features
-- **Programs**: Detailed training programs with pricing
-- **Coaches**: Expert coaching staff profiles
-- **Gallery**: Photo gallery with lightbox functionality
-- **News & Events**: Latest updates and announcements
-- **Fee Structure**: Transparent pricing table
-- **Contact**: Contact form and academy information
-
-### Technical Features
-- **PWA Capabilities**: Service worker, manifest, offline support
-- **Smooth Scrolling**: Enhanced navigation experience
-- **Form Validation**: Client-side form validation with notifications
-- **Lazy Loading**: Optimized image loading
-- **SEO Optimized**: Meta tags, structured data, and semantic HTML
-- **Accessibility**: WCAG compliant design
-
-## 🚀 Quick Start
-
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 - Local web server (optional for development)
@@ -58,11 +26,7 @@ A modern, responsive Progressive Web Application (PWA) for Bengaluru Nex-Gen Ins
    npx serve .
    ```
    
-   **Option C: Using PHP (if installed)**
-   ```bash
-   php -S localhost:8000
-   ```
-   
+   **Option C: Using Live Server (VS Code Extension)**
    **Option D: Using Live Server (VS Code Extension)**
    - Install "Live Server" extension in VS Code
    - Right-click on `index.html` and select "Open with Live Server"

@@ -21,7 +21,11 @@ function App() {
 
   // Theme toggle functionality
   useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, [theme]);
 
   const toggleTheme = () => {
@@ -35,7 +39,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App min-h-screen bg-white dark:bg-secondary-900 transition-colors duration-300">
         <Header 
           theme={theme} 
           toggleTheme={toggleTheme} 
@@ -43,16 +47,18 @@ function App() {
           toggleMenu={toggleMenu} 
         />
         
-        <main>
+        <main className="pt-16 lg:pt-20">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<><About /><WhyChooseUs /><Testimonials /></>} />
+            <Route path="/about" element={<About />} />
             <Route path="/founder" element={<Founder />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/facilities" element={<Facilities />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/why-choose-us" element={<WhyChooseUs />} />
+            <Route path="/testimonials" element={<Testimonials />} />
           </Routes>
         </main>
         

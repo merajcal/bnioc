@@ -14,7 +14,8 @@ const Programs = () => {
         "Physical fitness training",
         "Equipment provided"
       ],
-      popular: false
+      popular: false,
+      icon: "fas fa-calendar-week"
     },
     {
       id: 2,
@@ -28,7 +29,8 @@ const Programs = () => {
         "Video analysis sessions",
         "Flexible timing options"
       ],
-      popular: false
+      popular: false,
+      icon: "fas fa-moon"
     },
     {
       id: 3,
@@ -42,7 +44,8 @@ const Programs = () => {
         "Nutrition guidance",
         "Tournament preparation"
       ],
-      popular: false
+      popular: false,
+      icon: "fas fa-trophy"
     },
     {
       id: 4,
@@ -56,11 +59,12 @@ const Programs = () => {
         "Flexible scheduling",
         "Rapid skill improvement"
       ],
-      popular: false
+      popular: false,
+      icon: "fas fa-user"
     },
     {
       id: 5,
-      name: "Double Impact",
+      name: "Summer Camp",
       schedule: "Summer Intensive",
       description: "Our flagship summer camp program offering the most comprehensive cricket training experience.",
       features: [
@@ -71,7 +75,8 @@ const Programs = () => {
         "Certificate of completion",
         "Performance assessment"
       ],
-      popular: true
+      popular: true,
+      icon: "fas fa-sun"
     },
     {
       id: 6,
@@ -87,77 +92,130 @@ const Programs = () => {
         "Career guidance and mentorship"
       ],
       popular: false,
-      premium: true
+      premium: true,
+      icon: "fas fa-crown"
     }
   ];
 
   return (
-    <section id="programs" className="programs">
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Training Programs</h2>
-          <p className="section-subtitle">Choose the perfect program to elevate your cricket journey</p>
+    <section id="programs" className="py-16 lg:py-24 bg-white dark:bg-secondary-900 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary-900 dark:text-white mb-4 font-primary">
+            Training Programs
+          </h2>
+          <p className="text-lg md:text-xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto font-secondary">
+            Choose the perfect program to elevate your cricket journey
+          </p>
         </div>
         
-        <div className="programs-grid">
+        {/* Programs Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programs.map((program) => (
             <div 
               key={program.id} 
-              className={`program-card ${program.popular ? 'popular' : ''} ${program.premium ? 'premium' : ''}`}
+              className={`relative bg-white dark:bg-secondary-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden ${
+                program.popular ? 'ring-2 ring-primary-500' : ''
+              } ${program.premium ? 'bg-gradient-to-br from-accent-50 to-primary-50 dark:from-secondary-700 dark:to-secondary-600' : ''}`}
             >
-              {program.popular && <div className="popular-badge">Most Popular</div>}
-              {program.premium && <div className="premium-badge">Premium</div>}
-              
-              <div className="program-header">
-                <h3 className="program-name">{program.name}</h3>
-                <div className="program-schedule">
-                  <i className="fas fa-calendar-alt"></i>
-                  {program.schedule}
+              {/* Popular Badge */}
+              {program.popular && (
+                <div className="absolute top-4 right-4 bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">
+                  Most Popular
                 </div>
-              </div>
+              )}
               
-              <div className="program-content">
-                <p className="program-description">{program.description}</p>
+              {/* Premium Badge */}
+              {program.premium && (
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-accent-500 to-primary-500 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">
+                  Premium
+                </div>
+              )}
+              
+              {/* Program Header */}
+              <div className="p-6 pb-4">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center mr-4">
+                    <i className={`${program.icon} text-white text-xl`}></i>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-secondary-900 dark:text-white font-primary">
+                      {program.name}
+                    </h3>
+                    <div className="flex items-center text-secondary-600 dark:text-secondary-300 text-sm">
+                      <i className="fas fa-calendar-alt mr-2"></i>
+                      {program.schedule}
+                    </div>
+                  </div>
+                </div>
                 
-                <div className="program-features">
-                  <h4>What's Included:</h4>
-                  <ul>
-                    {program.features.map((feature, index) => (
-                      <li key={index}>
-                        <i className="fas fa-check"></i>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed font-secondary">
+                  {program.description}
+                </p>
               </div>
               
-              <div className="program-footer">
-                <button className="btn btn-primary program-btn">
-                  Enroll Now
-                </button>
-                <button className="btn btn-secondary">
-                  Learn More
-                </button>
+              {/* Program Features */}
+              <div className="px-6 pb-6">
+                <h4 className="text-lg font-semibold text-secondary-900 dark:text-white mb-3 font-primary">
+                  What's Included:
+                </h4>
+                <ul className="space-y-2">
+                  {program.features.map((feature, index) => (
+                    <li key={index} className="flex items-start text-sm">
+                      <i className="fas fa-check text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                      <span className="text-secondary-600 dark:text-secondary-300 font-secondary">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* Program Footer */}
+              <div className="px-6 pb-6 pt-2 border-t border-gray-200 dark:border-secondary-700">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button className="btn-primary flex-1 text-center">
+                    Enroll Now
+                  </button>
+                  <button className="btn-secondary flex-1 text-center">
+                    Learn More
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
         
-        <div className="programs-note">
-          <div className="note-content">
-            <h4>📞 Need Help Choosing?</h4>
-            <p>Our expert counselors are here to help you select the perfect program based on your goals, age, and availability.</p>
-            <div className="contact-options">
-              <a href="tel:+917974094110" className="contact-btn">
-                <i className="fas fa-phone"></i>
-                Call Us: +91 79740 94110
-              </a>
-              <a href="mailto:info@batkhelo.com" className="contact-btn">
-                <i className="fas fa-envelope"></i>
-                Email: info@batkhelo.com
-              </a>
-            </div>
+        {/* Help Section */}
+        <div className="mt-16 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl p-8 lg:p-12 text-white text-center">
+          <h4 className="text-2xl md:text-3xl font-bold mb-4 font-primary flex items-center justify-center">
+            <span className="text-3xl mr-3">📞</span>
+            Need Help Choosing?
+          </h4>
+          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto font-secondary">
+            Our expert counselors are here to help you select the perfect program based on your goals and availability.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a 
+              href="https://wa.me/918881113107" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-6 py-3 rounded-full transition-all duration-300 hover:scale-105"
+            >
+              <i className="fab fa-whatsapp text-lg"></i>
+              <span className="font-semibold">WhatsApp: +91 88811 13107</span>
+            </a>
+            <a 
+              href="https://instagram.com/bnioc_cricket" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-6 py-3 rounded-full transition-all duration-300 hover:scale-105"
+            >
+              <i className="fab fa-instagram text-lg"></i>
+              <span className="font-semibold">Follow Us on Instagram</span>
+            </a>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ const Home = () => {
       title: 'Our Students',
       subtitle: 'Dominate the Field',
       description: 'Celebrating our recent victories in district and state-level tournaments. Our training methodology produces champions who excel under pressure.',
-      backgroundImage: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      backgroundImage: '/assets/images/gallery/academy-facilities.jpg',
       achievements: [
         { icon: 'fas fa-medal', text: 'State Champions 2024' },
         { icon: 'fas fa-trophy', text: '15 Tournament Wins' },
@@ -86,63 +86,98 @@ const Home = () => {
   };
 
   return (
-    <section id="home" className="hero">
-      <div className="hero-carousel">
-        <div className="carousel-container">
-          <div className="carousel-track" style={{ transform: `translateX(-${currentSlide * 25}%)` }}>
-            {slides.map((slide, index) => (
+    <section id="home" className="relative min-h-screen overflow-hidden -mt-16 lg:-mt-20">
+      {/* Carousel Container */}
+      <div className="relative w-full h-screen overflow-hidden">
+        {/* Carousel Track */}
+        <div 
+          className="flex w-[400%] h-full transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${currentSlide * 25}%)` }}
+        >
+          {slides.map((slide, index) => (
+            <div 
+              key={slide.id}
+              className="w-1/4 h-screen relative flex items-center flex-shrink-0"
+            >
+              {/* Background Image */}
               <div 
-                key={slide.id}
-                className={`hero-slide ${index === currentSlide ? 'active' : ''} ${slide.id === 1 ? 'cricket-themed' : ''}`}
-              >
-                <div className="hero-bg" style={{ backgroundImage: `url("${slide.backgroundImage}")` }}></div>
-                <div className="hero-overlay"></div>
-                <div className="hero-content">
-                  <div className="container">
-                    
-                    <div className="hero-text">
-                      <div className="hero-badge">{slide.badge}</div>
-                      <h1 className="hero-title">
-                        {slide.id === 1 ? `${slide.title} ${slide.subtitle}` : (
-                          <>
-                            {slide.title}
-                            <br />{slide.subtitle}
-                          </>
-                        )}
-                      </h1>
-                      <p className="hero-subtitle">
-                        {slide.description}
-                      </p>
-                      
-                      <div className="hero-buttons">
-                        <a href="/programs" className="btn btn-primary">Explore Programs</a>
-                        <a href="/contact" className="btn btn-secondary">Book Free Trial</a>
-                      </div>
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url("${slide.backgroundImage}")` }}
+              ></div>
+              
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/40"></div>
+              
+              {/* Content */}
+              <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                  
+                  {/* Hero Text */}
+                  <div className="text-center lg:text-left mb-8 lg:mb-12">
+                    <div className="hero-badge">
+                      {slide.badge}
                     </div>
                     
-                    {/* Render achievements for all slides with consistent styling */}
-                    {slide.achievements && (
-                      <div className="hero-achievements">
-                        {slide.achievements.map((achievement, idx) => (
-                          <div key={idx} className="achievement-item">
-                            <i className={achievement.icon}></i>
-                            <span>{achievement.text}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    <h1 className="hero-title">
+                      {slide.id === 1 ? `${slide.title} ${slide.subtitle}` : (
+                        <>
+                          {slide.title}
+                          <br className="hidden sm:block" />
+                          <span className="sm:hidden"> </span>
+                          {slide.subtitle}
+                        </>
+                      )}
+                    </h1>
+                    
+                    <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
+                      {slide.description}
+                    </p>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
+                      <a href="/programs" className="btn-primary">
+                        Explore Programs
+                      </a>
+                      <a href="/contact" className="btn-secondary">
+                        Book Free Trial
+                      </a>
+                    </div>
                   </div>
+                  
+                  {/* Achievement Items - Mobile First Grid */}
+                  {slide.achievements && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 max-w-6xl mx-auto lg:mx-0">
+                      {slide.achievements.map((achievement, idx) => (
+                        <div key={idx} className="achievement-item">
+                          <i className={`${achievement.icon} text-primary-400 text-xl flex-shrink-0`}></i>
+                          <span className="text-sm sm:text-base font-medium truncate">
+                            {achievement.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
         
         {/* Carousel Controls */}
-        <button className="carousel-btn carousel-prev" onClick={prevSlide}>
+        <button 
+          className="carousel-btn carousel-prev"
+          onClick={prevSlide}
+          aria-label="Previous slide"
+        >
           <i className="fas fa-chevron-left"></i>
         </button>
-        <button className="carousel-btn carousel-next" onClick={nextSlide}>
+        
+        <button 
+          className="carousel-btn carousel-next"
+          onClick={nextSlide}
+          aria-label="Next slide"
+        >
           <i className="fas fa-chevron-right"></i>
         </button>
         
@@ -153,6 +188,7 @@ const Home = () => {
               key={index}
               className={`indicator ${index === currentSlide ? 'active' : ''}`}
               onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
             ></button>
           ))}
         </div>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A modern, responsive React Progressive Web Application (PWA) for Bengaluru Nex-Gen Institute of Cricket, featuring comprehensive cricket training programs, expert coaching profiles, and seamless user experience.",
   "main": "src/index.js",
-  "homepage": "https://merajcal.github.io/bnioc",
+  "homepage": "https://merajcal.github.io",
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run generate-gallery && react-scripts build",

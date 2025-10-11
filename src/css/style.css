@@ -5333,6 +5333,7 @@ tr:hover {
 }
 
 @media (max-width: 480px) {
+    /* Mobile-first hero design - no overrides needed */
     .hero-title {
         font-size: 1.5rem;
         line-height: 1.1;
@@ -5348,25 +5349,6 @@ tr:hover {
         padding: 4px 8px;
         margin-bottom: 0.8rem;
         display: inline-block;
-    }
-    
-    .hero-content {
-        padding: 1rem;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 100vh;
-    }
-    
-    .hero-slide {
-        padding: 20px 10px;
-        height: 100vh;
-        overflow-y: auto;
-    }
-    
-    .hero-text {
-        margin-bottom: 2rem;
     }
     
     .hero-stats {
@@ -5421,24 +5403,6 @@ tr:hover {
         padding: 3px 6px;
         margin-bottom: 0.6rem;
         display: inline-block;
-    }
-    
-    .hero-content {
-        padding: 0.8rem;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    
-    .hero-slide {
-        padding: 10px 5px;
-        height: 100vh;
-        overflow-y: auto;
-    }
-    
-    .hero-text {
-        margin-bottom: 1.5rem;
     }
     
     .hero-subtitle {
@@ -5504,18 +5468,6 @@ tr:hover {
         font-size: 0.75rem;
         margin-bottom: 0.8rem;
         line-height: 1.1;
-    }
-    
-    .hero-content {
-        padding: 0.5rem;
-    }
-    
-    .hero-slide {
-        padding: 5px 3px;
-    }
-    
-    .hero-text {
-        margin-bottom: 1rem;
     }
     
     .hero-buttons {

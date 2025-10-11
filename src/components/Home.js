@@ -86,108 +86,115 @@ const Home = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden -mt-16 lg:-mt-20">
-      {/* Carousel Container */}
-      <div className="relative w-full h-screen overflow-hidden">
-        {/* Carousel Track */}
+    <section id="home" className="relative w-full bg-white dark:bg-secondary-900">
+      {/* Mobile-First Hero Section */}
+      <div className="relative w-full min-h-screen flex flex-col">
+        {/* Current Slide Background */}
         <div 
-          className="flex w-[400%] h-full transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(-${currentSlide * 25}%)` }}
-        >
-          {slides.map((slide, index) => (
-            <div 
-              key={slide.id}
-              className="w-1/4 h-screen relative flex items-center flex-shrink-0"
-            >
-              {/* Background Image */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url("${slide.backgroundImage}")` }}
-              ></div>
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
+          style={{ backgroundImage: `url("${slides[currentSlide].backgroundImage}")` }}
+        ></div>
+        
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60"></div>
+        
+        {/* Content Container - Mobile First */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center px-6 py-20 sm:px-12 lg:px-16">
+          <div className="max-w-7xl mx-auto w-full">
+            
+            {/* Hero Content */}
+            <div className="text-center space-y-6 sm:space-y-8">
               
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/20 to-black/40"></div>
-              
-              {/* Content */}
-              <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
-                  
-                  {/* Hero Text */}
-                  <div className="text-center lg:text-left mb-8 lg:mb-12">
-                    <div className="hero-badge">
-                      {slide.badge}
-                    </div>
-                    
-                    <h1 className="hero-title">
-                      {slide.id === 1 ? `${slide.title} ${slide.subtitle}` : (
-                        <>
-                          {slide.title}
-                          <br className="hidden sm:block" />
-                          <span className="sm:hidden"> </span>
-                          {slide.subtitle}
-                        </>
-                      )}
-                    </h1>
-                    
-                    <p className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
-                      {slide.description}
-                    </p>
-                    
-                    {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-8">
-                      <a href="/programs" className="btn-primary">
-                        Explore Programs
-                      </a>
-                      <a href="/contact" className="btn-secondary">
-                        Book Free Trial
-                      </a>
-                    </div>
-                  </div>
-                  
-                  {/* Achievement Items - Mobile First Grid */}
-                  {slide.achievements && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 max-w-6xl mx-auto lg:mx-0">
-                      {slide.achievements.map((achievement, idx) => (
-                        <div key={idx} className="achievement-item">
-                          <i className={`${achievement.icon} text-primary-400 text-xl flex-shrink-0`}></i>
-                          <span className="text-sm sm:text-base font-medium truncate">
-                            {achievement.text}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  
-                </div>
+              {/* Badge */}
+              <div className="inline-block bg-primary-500/90 text-white px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm border border-white/20">
+                {slides[currentSlide].badge}
               </div>
+              
+              {/* Title */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                {slides[currentSlide].id === 1 ? (
+                  `${slides[currentSlide].title} ${slides[currentSlide].subtitle}`
+                ) : (
+                  <>
+                    {slides[currentSlide].title}
+                    <br />
+                    {slides[currentSlide].subtitle}
+                  </>
+                )}
+              </h1>
+              
+              {/* Description */}
+              <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                {slides[currentSlide].description}
+              </p>
+              
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a 
+                  href="/programs" 
+                  className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                >
+                  Explore Programs
+                </a>
+                <a 
+                  href="/contact" 
+                  className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-500 font-semibold py-3 px-8 rounded-lg transition-all duration-300 text-center"
+                >
+                  Book Free Trial
+                </a>
+              </div>
+              
+              {/* Achievement Items - Mobile Optimized */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-12 max-w-6xl mx-auto px-4 sm:px-0">
+                {slides[currentSlide].achievements.map((achievement, idx) => (
+                  <div 
+                    key={idx} 
+                    className="flex items-center gap-3 p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white transition-all duration-300 hover:bg-primary-500/20 pointer-events-auto"
+                  >
+                    <i className={`${achievement.icon} text-primary-400 text-lg flex-shrink-0`}></i>
+                    <span className="text-sm font-medium">
+                      {achievement.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              
             </div>
-          ))}
+          </div>
         </div>
         
-        {/* Carousel Controls */}
-        <button 
-          className="carousel-btn carousel-prev"
-          onClick={prevSlide}
-          aria-label="Previous slide"
-        >
-          <i className="fas fa-chevron-left"></i>
-        </button>
+        {/* Navigation Controls - Higher z-index and better positioning */}
+        <div className="absolute top-1/2 left-2 sm:left-4 transform -translate-y-1/2 z-50">
+          <button 
+            onClick={prevSlide}
+            className="bg-black/50 hover:bg-black/70 border-none text-white w-14 h-14 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 flex items-center justify-center shadow-lg"
+            aria-label="Previous slide"
+          >
+            <i className="fas fa-chevron-left text-lg"></i>
+          </button>
+        </div>
         
-        <button 
-          className="carousel-btn carousel-next"
-          onClick={nextSlide}
-          aria-label="Next slide"
-        >
-          <i className="fas fa-chevron-right"></i>
-        </button>
+        <div className="absolute top-1/2 right-2 sm:right-4 transform -translate-y-1/2 z-50">
+          <button 
+            onClick={nextSlide}
+            className="bg-black/50 hover:bg-black/70 border-none text-white w-14 h-14 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 flex items-center justify-center shadow-lg"
+            aria-label="Next slide"
+          >
+            <i className="fas fa-chevron-right text-lg"></i>
+          </button>
+        </div>
         
-        {/* Carousel Indicators */}
-        <div className="carousel-indicators">
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-40">
           {slides.map((_, index) => (
             <button
               key={index}
-              className={`indicator ${index === currentSlide ? 'active' : ''}`}
               onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer shadow-lg ${
+                index === currentSlide 
+                  ? 'bg-white w-8' 
+                  : 'bg-white/40 hover:bg-white/60'
+              }`}
               aria-label={`Go to slide ${index + 1}`}
             ></button>
           ))}

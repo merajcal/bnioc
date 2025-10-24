@@ -32,33 +32,9 @@ const News = () => {
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       readTime: "4 min read"
     },
-    {
-      id: 4,
-      title: "International Coach Workshop Scheduled",
-      date: "January 20, 2024",
-      category: "Training",
-      excerpt: "Renowned international cricket coaches will conduct a special workshop for our students, focusing on advanced batting and bowling techniques.",
-      image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      readTime: "3 min read"
-    },
-    {
-      id: 5,
-      title: "New Academy Facilities Unveiled",
-      date: "January 5, 2024",
-      category: "Infrastructure",
-      excerpt: "BNIOC proudly unveils new state-of-the-art training facilities including modern clubhouse and advanced video analysis center.",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      readTime: "5 min read"
-    },
-    {
-      id: 6,
-      title: "Alumni Success Stories",
-      date: "December 15, 2023",
-      category: "Achievement",
-      excerpt: "Former BNIOC students making waves in professional cricket leagues across India and internationally.",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      readTime: "6 min read"
-    }
+    
+    
+    
   ];
 
   const handleNewsletterSubmit = (e) => {

@@ -21,6 +21,50 @@ const Home = () => {
     },
     {
       id: 2,
+      badge: '🤝 SPORTS PARTNERSHIP',
+      title: 'Collaborating with',
+      subtitle: 'Vanaprastha International School',
+      description: 'Proud to partner with Vanaprastha International School in developing sports excellence. BNIOC will train their coaches and students, bringing world-class sports education and training programs to their campus.',
+      backgroundImage: 'assets/images/collaboration/vanaprastha_school_img.jpg',
+      achievements: [
+        { icon: 'fas fa-chalkboard-teacher', text: 'Sports Coach Training' },
+        { icon: 'fas fa-graduation-cap', text: 'Athletic Development' },
+        { icon: 'fas fa-school', text: 'Campus Sports Programs' },
+        { icon: 'fas fa-handshake', text: 'Strategic Partnership' }
+      ],
+      partnerLogo: 'assets/images/collaboration/vanaprastha_school.jpeg'
+    },
+    {
+      id: 3,
+      badge: '🤝 SPORTS PARTNERSHIP',
+      title: 'Collaborating with',
+      subtitle: 'Wellspring Academy',
+      description: 'Expanding our reach through partnership with Wellspring Academy. BNIOC brings professional sports training and coaching excellence to nurture young athletic talent at their prestigious institution.',
+      backgroundImage: 'https://wellspringsacademy.in/static/images/What_makes_us_uncommon_banner.webp',
+      achievements: [
+        { icon: 'fas fa-chalkboard-teacher', text: 'Sports Coach Training' },
+        { icon: 'fas fa-graduation-cap', text: 'Athletic Development' },
+        { icon: 'fas fa-school', text: 'Campus Sports Programs' },
+        { icon: 'fas fa-users-cog', text: 'Professional Training' }
+      ],
+      partnerLogo: 'https://wellspringsacademy.in/static/images/Logo_02_01.webp'
+    },
+    {
+      id: 4,
+      badge: '🎯 TRAINING PROGRAMS',
+      title: 'Choose Your Path',
+      subtitle: 'to Cricket Excellence',
+      description: 'Discover our comprehensive range of training programs designed for every skill level and commitment. From weekend sessions to intensive camps, find the perfect program to elevate your game.',
+      backgroundImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      achievements: [
+        { icon: 'fas fa-calendar-week', text: 'Weekend Programs' },
+        { icon: 'fas fa-sun', text: 'Summer Camps' },
+        { icon: 'fas fa-user', text: 'Individual Coaching' },
+        { icon: 'fas fa-users', text: 'Group Training' }
+      ]
+    },
+    {
+      id: 5,
       badge: '🏏 SUMMER CAMP 2025',
       title: 'Join Our Exclusive',
       subtitle: 'Summer Cricket Camp',
@@ -34,7 +78,7 @@ const Home = () => {
       ]
     },
     {
-      id: 3,
+      id: 6,
       badge: '🏆 CHAMPIONSHIP SUCCESS',
       title: 'Our Students',
       subtitle: 'Dominate the Field',
@@ -48,7 +92,7 @@ const Home = () => {
       ]
     },
     {
-      id: 4,
+      id: 7,
       badge: '🏟️ WORLD-CLASS FACILITIES',
       title: 'State-of-the-Art',
       subtitle: 'Training Infrastructure',
@@ -57,9 +101,7 @@ const Home = () => {
       achievements: [
         { icon: 'fas fa-baseball-ball', text: '5 Turf Pitches' },
         { icon: 'fas fa-lightbulb', text: 'LED Floodlights' },
-        { icon: 'fas fa-dumbbell', text: 'Fitness Center' },
         { icon: 'fas fa-video', text: 'Video Analysis' },
-        { icon: 'fas fa-home', text: 'Modern Clubhouse' },
         { icon: 'fas fa-shield-alt', text: '24/7 Security' }
       ]
     }
@@ -90,10 +132,17 @@ const Home = () => {
       {/* Mobile-First Hero Section */}
       <div className="relative w-full min-h-screen flex flex-col">
         {/* Current Slide Background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-1000"
-          style={{ backgroundImage: `url("${slides[currentSlide].backgroundImage}")` }}
-        ></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <img 
+            src={slides[currentSlide].backgroundImage}
+            alt="Background"
+            className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000"
+            style={{ 
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </div>
         
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60"></div>
@@ -127,6 +176,19 @@ const Home = () => {
               <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
                 {slides[currentSlide].description}
               </p>
+
+              {/* Partner Logo - Only show for collaboration slide */}
+              {slides[currentSlide].partnerLogo && (
+                <div className="flex justify-center mt-6">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 max-w-xs">
+                    <img 
+                      src={slides[currentSlide].partnerLogo} 
+                      alt={`${slides[currentSlide].subtitle} Logo`}
+                      className="w-full h-auto max-h-24 object-contain"
+                    />
+                  </div>
+                </div>
+              )}
               
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -145,11 +207,11 @@ const Home = () => {
               </div>
               
               {/* Achievement Items - Mobile Optimized */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-12 max-w-6xl mx-auto px-4 sm:px-0">
+              <div className="flex flex-wrap justify-center gap-4 mt-12 max-w-6xl mx-auto px-4 sm:px-0">
                 {slides[currentSlide].achievements.map((achievement, idx) => (
                   <div 
                     key={idx} 
-                    className="flex items-center gap-3 p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white transition-all duration-300 hover:bg-primary-500/20 pointer-events-auto"
+                    className="flex items-center gap-3 p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white transition-all duration-300 hover:bg-primary-500/20 pointer-events-auto min-w-[200px] max-w-[250px]"
                   >
                     <i className={`${achievement.icon} text-primary-400 text-lg flex-shrink-0`}></i>
                     <span className="text-sm font-medium">

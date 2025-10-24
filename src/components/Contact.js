@@ -85,7 +85,7 @@ const Contact = () => {
               
               <div className="relative overflow-hidden rounded-xl shadow-lg bg-white">
                 <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLScQq3FpAhgH4FDSgkUvffp4n-hTaLVXhe_4i4U0h_1U-y51aw/viewform?embedded=true"
+                  src="https://docs.google.com/forms/d/e/1FAIpQLSc1rK8lpP1km9Bj-b0PdpCPhOwV9Hisp0Qnep8SGbcKu93GuQ/viewform?usp=dialog"
                   width="100%"
                   height="900"
                   frameBorder="0"

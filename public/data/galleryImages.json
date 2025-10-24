@@ -49,6 +49,14 @@
   },
   {
     "id": 7,
+    "src": "/assets/images/gallery/catching_practice.jpg",
+    "alt": "Catching_practice",
+    "title": "Catching_practice",
+    "description": "BNIOC Catching_practice",
+    "filename": "catching_practice.jpg"
+  },
+  {
+    "id": 8,
     "src": "/assets/images/gallery/championship.jpg",
     "alt": "Championship",
     "title": "Championship",
@@ -56,7 +64,7 @@
     "filename": "championship.jpg"
   },
   {
-    "id": 8,
+    "id": 9,
     "src": "/assets/images/gallery/coaching-session.jpg",
     "alt": "Coaching Session",
     "title": "Coaching Session",
@@ -64,7 +72,7 @@
     "filename": "coaching-session.jpg"
   },
   {
-    "id": 9,
+    "id": 10,
     "src": "/assets/images/gallery/cricket-academy.jpg",
     "alt": "Cricket Academy",
     "title": "Cricket Academy",
@@ -72,7 +80,7 @@
     "filename": "cricket-academy.jpg"
   },
   {
-    "id": 10,
+    "id": 11,
     "src": "/assets/images/gallery/cricket-coaching.jpg",
     "alt": "Cricket Coaching",
     "title": "Cricket Coaching",
@@ -80,7 +88,7 @@
     "filename": "cricket-coaching.jpg"
   },
   {
-    "id": 11,
+    "id": 12,
     "src": "/assets/images/gallery/cricket-excellence.jpg",
     "alt": "Cricket Excellence",
     "title": "Cricket Excellence",
@@ -88,7 +96,7 @@
     "filename": "cricket-excellence.jpg"
   },
   {
-    "id": 12,
+    "id": 13,
     "src": "/assets/images/gallery/cricket-match.jpg",
     "alt": "Cricket Match",
     "title": "Cricket Match",
@@ -96,7 +104,7 @@
     "filename": "cricket-match.jpg"
   },
   {
-    "id": 13,
+    "id": 14,
     "src": "/assets/images/gallery/cricket-skills.jpg",
     "alt": "Cricket Skills",
     "title": "Cricket Skills",
@@ -104,7 +112,7 @@
     "filename": "cricket-skills.jpg"
   },
   {
-    "id": 14,
+    "id": 15,
     "src": "/assets/images/gallery/fielding-drills.jpg",
     "alt": "Fielding Drills",
     "title": "Fielding Drills",
@@ -112,7 +120,7 @@
     "filename": "fielding-drills.jpg"
   },
   {
-    "id": 15,
+    "id": 16,
     "src": "/assets/images/gallery/group-training.jpg",
     "alt": "Group Training",
     "title": "Group Training",
@@ -120,7 +128,7 @@
     "filename": "group-training.jpg"
   },
   {
-    "id": 16,
+    "id": 17,
     "src": "/assets/images/gallery/match-practice.jpg",
     "alt": "Match Practice",
     "title": "Match Practice",
@@ -128,7 +136,7 @@
     "filename": "match-practice.jpg"
   },
   {
-    "id": 17,
+    "id": 18,
     "src": "/assets/images/gallery/practice-ground.jpg",
     "alt": "Practice Ground",
     "title": "Practice Ground",
@@ -136,7 +144,7 @@
     "filename": "practice-ground.jpg"
   },
   {
-    "id": 18,
+    "id": 19,
     "src": "/assets/images/gallery/sports-training.jpg",
     "alt": "Sports Training",
     "title": "Sports Training",
@@ -144,7 +152,7 @@
     "filename": "sports-training.jpg"
   },
   {
-    "id": 19,
+    "id": 20,
     "src": "/assets/images/gallery/student-achievement.jpg",
     "alt": "Student Achievement",
     "title": "Student Achievement",
@@ -152,7 +160,7 @@
     "filename": "student-achievement.jpg"
   },
   {
-    "id": 20,
+    "id": 21,
     "src": "/assets/images/gallery/student-success.jpg",
     "alt": "Student Success",
     "title": "Student Success",
@@ -160,7 +168,7 @@
     "filename": "student-success.jpg"
   },
   {
-    "id": 21,
+    "id": 22,
     "src": "/assets/images/gallery/team-celebration.jpg",
     "alt": "Team Celebration",
     "title": "Team Celebration",
@@ -168,7 +176,7 @@
     "filename": "team-celebration.jpg"
   },
   {
-    "id": 22,
+    "id": 23,
     "src": "/assets/images/gallery/team-photo.jpg",
     "alt": "Team Photo",
     "title": "Team Photo",
@@ -176,7 +184,7 @@
     "filename": "team-photo.jpg"
   },
   {
-    "id": 23,
+    "id": 24,
     "src": "/assets/images/gallery/team-spirit.jpg",
     "alt": "Team Spirit",
     "title": "Team Spirit",
@@ -184,7 +192,7 @@
     "filename": "team-spirit.jpg"
   },
   {
-    "id": 24,
+    "id": 25,
     "src": "/assets/images/gallery/tournament-action.jpg",
     "alt": "Tournament Action",
     "title": "Tournament Action",
@@ -192,7 +200,7 @@
     "filename": "tournament-action.jpg"
   },
   {
-    "id": 25,
+    "id": 26,
     "src": "/assets/images/gallery/training-ground.jpg",
     "alt": "Training Ground",
     "title": "Training Ground",
@@ -200,7 +208,7 @@
     "filename": "training-ground.jpg"
   },
   {
-    "id": 26,
+    "id": 27,
     "src": "/assets/images/gallery/training-session-1.jpg",
     "alt": "Training Session 1",
     "title": "Training Session 1",
@@ -208,7 +216,7 @@
     "filename": "training-session-1.jpg"
   },
   {
-    "id": 27,
+    "id": 28,
     "src": "/assets/images/gallery/winning-moment.jpg",
     "alt": "Winning Moment",
     "title": "Winning Moment",

@@ -69,7 +69,7 @@ const Home = () => {
       title: 'Join Our Exclusive',
       subtitle: 'Summer Cricket Camp',
       description: 'Intensive 6-week program with professional coaches, daily practice sessions, and match experience. Limited seats available - Register now!',
-      backgroundImage: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      backgroundImage: '/assets/images/banners/summer_camp_2025.png.PNG',
       achievements: [
         { icon: 'fas fa-calendar-alt', text: '22 Sep 2025' },
         { icon: 'fas fa-clock', text: '6 Weeks Intensive' },

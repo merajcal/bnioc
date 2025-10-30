@@ -87,6 +87,16 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
                 Facilities
               </Link>
               <Link 
+                to="/achievements" 
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  isActive('/achievements') 
+                    ? 'bg-primary-500 text-white' 
+                    : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
+                }`}
+              >
+                Achievements
+              </Link>
+              <Link 
                 to="/gallery" 
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive('/gallery') 
@@ -202,6 +212,17 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
               onClick={toggleMenu}
             >
               Facilities
+            </Link>
+            <Link 
+              to="/achievements" 
+              className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                isActive('/achievements') 
+                  ? 'bg-primary-500 text-white' 
+                  : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
+              onClick={toggleMenu}
+            >
+              Achievements
             </Link>
             <Link 
               to="/gallery" 

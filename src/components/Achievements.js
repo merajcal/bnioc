@@ -1,0 +1,267 @@
+import React, { useState } from 'react';
+
+const Achievements = () => {
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleExpanded = (playerId) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [playerId]: !prev[playerId]
+    }));
+  };
+
+  const playerAchievements = [
+     {
+      id: 2,
+      name: "Ishant Bharadwaj",
+      achievement: "Selected for Haryana Ranji Trophy Team",
+      year: "2025",
+      category: "Ranji Trophy Selection",
+      image: "/assets/images/achievers/ishant_bharadwaj.jpeg",
+      description: "Ishant Bharadwaj has been selected to represent Haryana in the prestigious Ranji Trophy, marking a significant milestone in his professional cricket career. This achievement reflects his exceptional dedication, technical skills, and consistent performance under BNIOC's comprehensive training program. His selection demonstrates the academy's commitment to developing players for elite-level competition and validates our systematic approach to cricket excellence. Ishant's journey from academy training to state-level representation exemplifies the pathway BNIOC provides for aspiring cricketers to achieve their professional goals."
+    },
+   
+    {
+      id: 3,
+      name: "Sushant Reddy",
+      achievement: "Selected for Chambal Division Senior Team",
+      year: "2024",
+      category: "Rest of Madhya Pradesh Selection",
+      image: "/assets/images/achievers/sushant_reddy.jpg",
+      description: `Congratulations, Sushanth Reddy!
+Proud moment as you get selected for the Chambal Division Senior Team in the Madhya Pradesh Senior Inter-Divisional M.Y. Memorial Trophy, organized by the Madhya Pradesh Cricket Association a major step towards selection for the Ranji Trophy Team!
+Wishing you continued success and great performances ahead!`
+    },
+    {
+      id: 4,
+      name: "Elagandhala Ramananda",
+      achievement: "Outstanding Performance in Regional Tournament",
+      year: "2023, 2024",
+      category: "Multi-Tournament Champion",
+      image: "/assets/images/achievers/rama.jpg",
+      description: "Ramananda has established himself as a versatile and consistent performer across multiple prestigious tournaments organized by the Indore Divisional Cricket Association. His exceptional achievements include outstanding performances in the Late Shashtri Memorial 'A' Grade One Day League cum Knockout Trophy (2024-25) organized by Vijay Club, and the ICC Mahaveer T-20 Trophy 'A' Grade T-20 League cum Knockout Trophy (2024-25) organized by ICC. Additionally, he demonstrated his skills in the Late Shri Ramesh Bhatia Memorial 'A' Grade One Day League cum Knockout Trophy (2024-25) organized by RBCF. Rama's participation in the upcoming Karimnagar Intra District U-25 Cricket League at St Alphonse Ground, Satavahana University Ground and Vemulawada (21/05/2025 to 06/06/2025) further showcases his commitment to competitive cricket. His consistent performance across different formats - from T-20 to One Day tournaments - reflects his adaptability and technical proficiency developed through BNIOC's comprehensive training program."
+    },
+    {
+      id: 5,
+      name: "County Cricket Player",
+      achievement: "Selected for County Cricket Championship",
+      year: "2024",
+      category: "International Opportunity",
+      image: "/assets/images/achievers/county.jpg",
+      description: "This exceptional player has achieved the remarkable milestone of being selected for County Cricket, representing a significant leap in their professional cricket career. County Cricket selection is one of the most prestigious achievements in cricket, opening doors to international opportunities and professional leagues. This achievement demonstrates the player's exceptional skill level, consistent performance, and dedication to the sport. Under BNIOC's world-class training program, they have developed the technical expertise and mental fortitude required to compete at the highest levels of cricket. This selection validates BNIOC's commitment to nurturing talent capable of reaching international standards and showcases the academy's ability to prepare players for global cricket opportunities."
+    }
+   
+    
+  ];
+
+
+  const getCategoryColor = (category) => {
+    const colors = {
+      'State Selection': 'bg-green-500',
+      'Rest of Madhya Pradesh Selection': 'bg-blue-600',
+      'Multi-Tournament Champion': 'bg-gradient-to-r from-purple-500 to-pink-500',
+      'International Opportunity': 'bg-gradient-to-r from-emerald-500 to-teal-500',
+      'Regional Excellence': 'bg-purple-600',
+      'Championship': 'bg-yellow-500',
+      'District Championship': 'bg-orange-500',
+      'Individual Award': 'bg-blue-500',
+      'Record': 'bg-purple-500',
+      'Professional': 'bg-red-500',
+      'Recognition': 'bg-yellow-500',
+      'Milestone': 'bg-green-500',
+      'Partnership': 'bg-blue-500',
+      'Tournament': 'bg-red-500',
+      'Infrastructure': 'bg-purple-500',
+      'Education': 'bg-indigo-500',
+      'Social': 'bg-pink-500',
+      'Ranji Trophy Selection': 'bg-red-600'
+    };
+    return colors[category] || 'bg-gray-500';
+  };
+
+  const highlightAchievements = (text) => {
+    const achievementKeywords = [
+      'Ranji Trophy',
+      'County Cricket',
+      'County Cricket Championship',
+      'international opportunities',
+      'professional leagues',
+      'Haryana',
+      'Chambal Division Senior Team',
+      'Madhya Pradesh Cricket Association',
+      'Late Shashtri Memorial',
+      'ICC Mahaveer T-20 Trophy',
+      'Late Shri Ramesh Bhatia Memorial',
+      'Karimnagar Intra District U-25 Cricket League',
+      'Indore Divisional Cricket Association',
+      "'A' Grade",
+      'One Day League',
+      'T-20 League',
+      'Knockout Trophy',
+      'selected',
+      'outstanding performance',
+      'exceptional achievements',
+      'remarkable milestone',
+      'prestigious achievements',
+      'international standards'
+    ];
+
+    let highlightedText = text;
+    achievementKeywords.forEach(keyword => {
+      const regex = new RegExp(`(${keyword})`, 'gi');
+      highlightedText = highlightedText.replace(regex, '<span class="bg-yellow-200 dark:bg-yellow-800 px-1 rounded font-medium text-secondary-900 dark:text-secondary-100">$1</span>');
+    });
+
+    return highlightedText;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50 dark:from-secondary-900 dark:to-secondary-800 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-6">
+            <div className="flex items-center space-x-3">
+              <i className="fas fa-trophy text-4xl text-primary-500"></i>
+              <h1 className="text-4xl md:text-5xl font-bold text-secondary-900 dark:text-white font-primary">
+                Our Achievements
+              </h1>
+              <i className="fas fa-star text-4xl text-primary-500"></i>
+            </div>
+          </div>
+          <p className="text-xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto font-secondary">
+            Celebrating the remarkable success stories of our students and academy milestones that define our journey of excellence
+          </p>
+        </div>
+
+
+        {/* Player Achievements */}
+        <div className="space-y-8 mb-16">
+          
+            
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              {playerAchievements.map((player) => (
+                <div key={player.id} className="group">
+                  <div className="bg-white dark:bg-secondary-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200 dark:border-secondary-700 overflow-hidden h-fit">
+                    
+                    <div className="flex flex-col lg:flex-row p-4 xl:p-5 gap-4">
+                      {/* Passport-sized Image Section */}
+                      <div className="flex-shrink-0 relative mx-auto lg:mx-0">
+                        <div className="w-32 h-40 xl:w-36 xl:h-44 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 rounded-lg overflow-hidden shadow-md border-2 border-primary-200 dark:border-primary-700">
+                          <img 
+                            src={player.image} 
+                            alt={player.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          <div className="w-full h-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center" style={{display: 'none'}}>
+                            <i className="fas fa-user text-xl text-white"></i>
+                          </div>
+                        </div>
+                        
+                        {/* Year Badge */}
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg whitespace-nowrap min-w-fit">
+                          {player.year}
+                        </div>
+                      </div>
+
+                      {/* Content Section */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
+                          <h3 className="text-base xl:text-lg font-bold text-secondary-900 dark:text-white leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                            {player.name}
+                          </h3>
+                          <div className={`${getCategoryColor(player.category)} text-white px-2 py-1 rounded-full text-xs font-medium shadow-sm flex-shrink-0 w-fit`}>
+                            {player.category}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start mb-3">
+                          <i className="fas fa-trophy text-primary-500 mr-2 mt-1 text-sm flex-shrink-0"></i>
+                          <div className="min-w-0">
+                            <h4 className="text-primary-600 dark:text-primary-400 font-semibold text-sm xl:text-base mb-2 leading-tight">
+                              {player.achievement}
+                            </h4>
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <div 
+                            className={`text-secondary-600 dark:text-secondary-300 text-xs xl:text-sm leading-relaxed ${
+                              expandedCards[player.id] ? '' : 'line-clamp-3 xl:line-clamp-4'
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: highlightAchievements(player.description) }}
+                          />
+                          {player.description.length > 200 && (
+                            <button
+                              onClick={() => toggleExpanded(player.id)}
+                              className="mt-2 text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 text-xs font-medium transition-colors duration-200 flex items-center"
+                            >
+                              {expandedCards[player.id] ? (
+                                <>
+                                  <span>Show Less</span>
+                                  <i className="fas fa-chevron-up ml-1"></i>
+                                </>
+                              ) : (
+                                <>
+                                  <span>Show More</span>
+                                  <i className="fas fa-chevron-down ml-1"></i>
+                                </>
+                              )}
+                            </button>
+                          )}
+                        </div>
+                        
+                        <div className="flex items-center justify-end">
+                          <div className="flex items-center text-primary-500 bg-primary-50 dark:bg-primary-900/20 px-3 py-1 rounded-full">
+                            <i className="fas fa-star mr-1 text-xs"></i>
+                            <span className="text-xs font-medium">Excellence</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+        </div>
+
+
+
+        {/* Call to Action */}
+        <div className="mt-16 text-center">
+          <div className="bg-white dark:bg-secondary-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-secondary-700">
+            <h3 className="text-2xl font-bold text-secondary-900 dark:text-white mb-4">
+              🚀 Ready to Create Your Success Story?
+            </h3>
+            <p className="text-secondary-600 dark:text-secondary-300 mb-6 max-w-2xl mx-auto">
+              Join BNIOC and become part of our growing list of achievers. With world-class training and dedicated mentorship, your cricket dreams are within reach.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="/programs" 
+                className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 inline-flex items-center justify-center"
+              >
+                <i className="fas fa-rocket mr-2"></i>
+                Explore Programs
+              </a>
+              <a 
+                href="/contact" 
+                className="border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 inline-flex items-center justify-center"
+              >
+                <i className="fas fa-phone mr-2"></i>
+                Contact Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Achievements;

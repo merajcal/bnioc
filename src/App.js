@@ -11,6 +11,7 @@ import Facilities from './components/Facilities';
 import Gallery from './components/Gallery';
 import News from './components/News';
 import Contact from './components/Contact';
+import Achievements from './components/Achievements';
 import WhyChooseUs from './components/WhyChooseUs';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -54,6 +55,7 @@ function App() {
             <Route path="/founder" element={<Founder />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/facilities" element={<Facilities />} />
+            <Route path="/achievements" element={<Achievements />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />

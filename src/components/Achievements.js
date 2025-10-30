@@ -43,12 +43,15 @@ Wishing you continued success and great performances ahead!`
     },
     {
       id: 5,
-      name: "County Cricket Player",
-      achievement: "Selected for County Cricket Championship",
+      name: "Brajesh Kapri",
+      achievement: "700 Runs in 14 Matches - Ilford Cricket Club, England",
       year: "2024",
       category: "International Opportunity",
       image: "/assets/images/achievers/county.jpg",
-      description: "This exceptional player has achieved the remarkable milestone of being selected for County Cricket, representing a significant leap in their professional cricket career. County Cricket selection is one of the most prestigious achievements in cricket, opening doors to international opportunities and professional leagues. This achievement demonstrates the player's exceptional skill level, consistent performance, and dedication to the sport. Under BNIOC's world-class training program, they have developed the technical expertise and mental fortitude required to compete at the highest levels of cricket. This selection validates BNIOC's commitment to nurturing talent capable of reaching international standards and showcases the academy's ability to prepare players for global cricket opportunities."
+      description: `We are immensely proud to congratulate our BNIOC student Brajesh Kapri for his outstanding performance at 33 years of age, scoring 700 runs in just 14 matches for Ilford Cricket Club, England - 3rd Division.
+Your dedication, consistency, and passion for the game are truly commendable. This remarkable achievement is a testament to your hard work and talent, and it brings great pride to all of us at BNIOC.
+Keep shining and continue to break new records—this is just the beginning!
+Well done, Brajesh! Age is just a number`
     }
    
     
@@ -103,7 +106,20 @@ Wishing you continued success and great performances ahead!`
       'exceptional achievements',
       'remarkable milestone',
       'prestigious achievements',
-      'international standards'
+      'international standards',
+      'Brajesh Kapri',
+      '700 runs',
+      '14 matches',
+      'Ilford Cricket Club',
+      'England',
+      '3rd Division',
+      '33 years of age',
+      'dedication',
+      'consistency',
+      'passion for the game',
+      'remarkable achievement',
+      'hard work and talent',
+      'break new records'
     ];
 
     let highlightedText = text;

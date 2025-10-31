@@ -18,7 +18,13 @@ const Achievements = () => {
       year: "2025",
       category: "Ranji Trophy Selection",
       image: "/assets/images/achievers/ishant_bharadwaj.jpeg",
-      description: "Ishant Bharadwaj has been selected to represent Haryana in the prestigious Ranji Trophy, marking a significant milestone in his professional cricket career. This achievement reflects his exceptional dedication, technical skills, and consistent performance under BNIOC's comprehensive training program. His selection demonstrates the academy's commitment to developing players for elite-level competition and validates our systematic approach to cricket excellence. Ishant's journey from academy training to state-level representation exemplifies the pathway BNIOC provides for aspiring cricketers to achieve their professional goals."
+      shortDesc: "Selected to represent Haryana in the prestigious Ranji Trophy, marking a significant milestone in his professional cricket career.",
+      achievements: [
+        "Selected for Haryana Ranji Trophy Team",
+        "Demonstrated exceptional dedication and technical skills",
+        "Consistent performance under BNIOC's comprehensive training program",
+        "Exemplifies pathway from academy training to state-level representation"
+      ]
     },
    
     {
@@ -28,9 +34,13 @@ const Achievements = () => {
       year: "2024",
       category: "Rest of Madhya Pradesh Selection",
       image: "/assets/images/achievers/sushant_reddy.jpg",
-      description: `Congratulations, Sushanth Reddy!
-Proud moment as you get selected for the Chambal Division Senior Team in the Madhya Pradesh Senior Inter-Divisional M.Y. Memorial Trophy, organized by the Madhya Pradesh Cricket Association a major step towards selection for the Ranji Trophy Team!
-Wishing you continued success and great performances ahead!`
+      shortDesc: "Selected for the Chambal Division Senior Team in Madhya Pradesh Senior Inter-Divisional M.Y. Memorial Trophy - a major step towards Ranji Trophy selection.",
+      achievements: [
+        "Selected for Chambal Division Senior Team",
+        "Participated in Madhya Pradesh Senior Inter-Divisional M.Y. Memorial Trophy",
+        "Organized by Madhya Pradesh Cricket Association",
+        "Major step towards Ranji Trophy Team selection"
+      ]
     },
     {
       id: 4,
@@ -39,7 +49,14 @@ Wishing you continued success and great performances ahead!`
       year: "2023, 2024",
       category: "Multi-Tournament Champion",
       image: "/assets/images/achievers/rama.jpg",
-      description: "Ramananda has established himself as a versatile and consistent performer across multiple prestigious tournaments organized by the Indore Divisional Cricket Association. His exceptional achievements include outstanding performances in the Late Shashtri Memorial 'A' Grade One Day League cum Knockout Trophy (2024-25) organized by Vijay Club, and the ICC Mahaveer T-20 Trophy 'A' Grade T-20 League cum Knockout Trophy (2024-25) organized by ICC. Additionally, he demonstrated his skills in the Late Shri Ramesh Bhatia Memorial 'A' Grade One Day League cum Knockout Trophy (2024-25) organized by RBCF. Rama's participation in the upcoming Karimnagar Intra District U-25 Cricket League at St Alphonse Ground, Satavahana University Ground and Vemulawada (21/05/2025 to 06/06/2025) further showcases his commitment to competitive cricket. His consistent performance across different formats - from T-20 to One Day tournaments - reflects his adaptability and technical proficiency developed through BNIOC's comprehensive training program."
+      shortDesc: "Established himself as a versatile performer across multiple prestigious tournaments organized by the Indore Divisional Cricket Association.",
+      achievements: [
+        "Outstanding performance in Late Shashtri Memorial 'A' Grade One Day League",
+        "Excelled in ICC Mahaveer T-20 Trophy 'A' Grade T-20 League",
+        "Participated in Late Shri Ramesh Bhatia Memorial 'A' Grade Tournament",
+        "Upcoming participation in Karimnagar Intra District U-25 Cricket League",
+        "Consistent performance across T-20 and One Day formats"
+      ]
     },
     {
       id: 5,
@@ -48,10 +65,14 @@ Wishing you continued success and great performances ahead!`
       year: "2024",
       category: "International Opportunity",
       image: "/assets/images/achievers/county.jpg",
-      description: `We are immensely proud to congratulate our BNIOC student Brajesh Kapri for his outstanding performance at 33 years of age, scoring 700 runs in just 14 matches for Ilford Cricket Club, England - 3rd Division.
-Your dedication, consistency, and passion for the game are truly commendable. This remarkable achievement is a testament to your hard work and talent, and it brings great pride to all of us at BNIOC.
-Keep shining and continue to break new records—this is just the beginning!
-Well done, Brajesh! Age is just a number`
+      shortDesc: "Outstanding performance at 33 years of age, scoring 700 runs in just 14 matches for Ilford Cricket Club, England - 3rd Division.",
+      achievements: [
+        "Scored 700 runs in just 14 matches",
+        "Played for Ilford Cricket Club, England - 3rd Division",
+        "Remarkable achievement at 33 years of age",
+        "Demonstrated dedication, consistency, and passion for the game",
+        "Testament to hard work and talent developed at BNIOC"
+      ]
     }
    
     
@@ -82,53 +103,17 @@ Well done, Brajesh! Age is just a number`
     return colors[category] || 'bg-gray-500';
   };
 
-  const highlightAchievements = (text) => {
-    const achievementKeywords = [
-      'Ranji Trophy',
-      'County Cricket',
-      'County Cricket Championship',
-      'international opportunities',
-      'professional leagues',
-      'Haryana',
-      'Chambal Division Senior Team',
-      'Madhya Pradesh Cricket Association',
-      'Late Shashtri Memorial',
-      'ICC Mahaveer T-20 Trophy',
-      'Late Shri Ramesh Bhatia Memorial',
-      'Karimnagar Intra District U-25 Cricket League',
-      'Indore Divisional Cricket Association',
-      "'A' Grade",
-      'One Day League',
-      'T-20 League',
-      'Knockout Trophy',
-      'selected',
-      'outstanding performance',
-      'exceptional achievements',
-      'remarkable milestone',
-      'prestigious achievements',
-      'international standards',
-      'Brajesh Kapri',
-      '700 runs',
-      '14 matches',
-      'Ilford Cricket Club',
-      'England',
-      '3rd Division',
-      '33 years of age',
-      'dedication',
-      'consistency',
-      'passion for the game',
-      'remarkable achievement',
-      'hard work and talent',
-      'break new records'
-    ];
-
-    let highlightedText = text;
-    achievementKeywords.forEach(keyword => {
-      const regex = new RegExp(`(${keyword})`, 'gi');
-      highlightedText = highlightedText.replace(regex, '<span class="bg-yellow-200 dark:bg-yellow-800 px-1 rounded font-medium text-secondary-900 dark:text-secondary-100">$1</span>');
-    });
-
-    return highlightedText;
+  const renderAchievements = (achievements, isExpanded, maxItems = 3) => {
+    const itemsToShow = isExpanded ? achievements : achievements.slice(0, maxItems);
+    
+    return itemsToShow.map((achievement, index) => (
+      <div key={index} className="flex items-start mb-2">
+        <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+        <span className="text-secondary-600 dark:text-secondary-300 text-xs xl:text-sm leading-relaxed">
+          {achievement}
+        </span>
+      </div>
+    ));
   };
 
   return (
@@ -179,18 +164,21 @@ Well done, Brajesh! Age is just a number`
                           </div>
                         </div>
                         
-                        {/* Year Badge */}
-                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg whitespace-nowrap min-w-fit">
-                          {player.year}
+                        {/* Name below image */}
+                        <div className="mt-3 text-center">
+                          <h3 className="text-sm xl:text-base font-bold text-secondary-900 dark:text-white leading-tight mb-2">
+                            {player.name}
+                          </h3>
+                          {/* Year Badge below name */}
+                          <div className="inline-block bg-primary-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-sm">
+                            {player.year}
+                          </div>
                         </div>
                       </div>
 
                       {/* Content Section */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 gap-2">
-                          <h3 className="text-base xl:text-lg font-bold text-secondary-900 dark:text-white leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
-                            {player.name}
-                          </h3>
+                        <div className="flex justify-end mb-3">
                           <div className={`${getCategoryColor(player.category)} text-white px-2 py-1 rounded-full text-xs font-medium shadow-sm flex-shrink-0 w-fit`}>
                             {player.category}
                           </div>
@@ -206,13 +194,17 @@ Well done, Brajesh! Age is just a number`
                         </div>
 
                         <div className="mb-4">
-                          <div 
-                            className={`text-secondary-600 dark:text-secondary-300 text-xs xl:text-sm leading-relaxed ${
-                              expandedCards[player.id] ? '' : 'line-clamp-3 xl:line-clamp-4'
-                            }`}
-                            dangerouslySetInnerHTML={{ __html: highlightAchievements(player.description) }}
-                          />
-                          {player.description.length > 200 && (
+                          {/* Short Description */}
+                          <p className="text-secondary-600 dark:text-secondary-300 text-xs xl:text-sm leading-relaxed mb-3">
+                            {player.shortDesc}
+                          </p>
+                          
+                          {/* Achievement Bullets */}
+                          <div className="space-y-1">
+                            {renderAchievements(player.achievements, expandedCards[player.id])}
+                          </div>
+                          
+                          {player.achievements.length > 3 && (
                             <button
                               onClick={() => toggleExpanded(player.id)}
                               className="mt-2 text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 text-xs font-medium transition-colors duration-200 flex items-center"
@@ -224,7 +216,7 @@ Well done, Brajesh! Age is just a number`
                                 </>
                               ) : (
                                 <>
-                                  <span>Show More</span>
+                                  <span>Show More Achievements</span>
                                   <i className="fas fa-chevron-down ml-1"></i>
                                 </>
                               )}

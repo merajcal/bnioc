@@ -14,7 +14,7 @@ const Footer = () => {
               <img 
                 src="/assets/logo.png" 
                 alt="BNIOC Logo" 
-                className="h-12 w-12 rounded-full bg-white p-1"
+                className="h-12 w-12 rounded-full bg-gray-800 p-1"
               />
               <div>
                 <h3 className="text-2xl font-bold text-white font-primary">BNIOC</h3>

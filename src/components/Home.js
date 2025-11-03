@@ -48,7 +48,7 @@ const Home = () => {
         { icon: 'fas fa-school', text: 'Campus Sports Programs' },
         { icon: 'fas fa-users-cog', text: 'Professional Training' }
       ],
-      partnerLogo: 'https://wellspringsacademy.in/static/images/Logo_02_01.webp'
+      partnerLogo: '/assets/images/collaboration/WSA_Logo_1.png'
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ const Home = () => {
       title: 'Choose Your Path',
       subtitle: 'to Cricket Excellence',
       description: 'Discover our comprehensive range of training programs designed for every skill level and commitment. From weekend sessions to intensive camps, find the perfect program to elevate your game.',
-      backgroundImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      backgroundImage: '/assets/images/banners/catching_practice.jpg',
       achievements: [
         { icon: 'fas fa-calendar-week', text: 'Weekend Programs' },
         { icon: 'fas fa-sun', text: 'Summer Camps' },
@@ -70,7 +70,7 @@ const Home = () => {
       title: 'Join Our Exclusive',
       subtitle: 'Summer Cricket Camp',
       description: 'Intensive 6-week program with professional coaches, daily practice sessions, and match experience. Limited seats available - Register now!',
-      backgroundImage: '/assets/images/banners/summer_camp_2025.png.PNG',
+      backgroundImage: '/assets/images/banners/academy-facilities.jpg',
       achievements: [
         { icon: 'fas fa-calendar-alt', text: '22 Sep 2025' },
         { icon: 'fas fa-clock', text: '6 Weeks Intensive' },
@@ -78,27 +78,14 @@ const Home = () => {
         { icon: 'fas fa-trophy', text: 'Certificates' }
       ]
     },
-    {
-      id: 6,
-      badge: '🏆 CHAMPIONSHIP SUCCESS',
-      title: 'Our Students',
-      subtitle: 'Dominate the Field',
-      description: 'Celebrating our recent victories in district and state-level tournaments. Our training methodology produces champions who excel under pressure.',
-      backgroundImage: '/assets/images/gallery/academy-facilities.jpg',
-      achievements: [
-        { icon: 'fas fa-medal', text: 'State Champions 2024' },
-        { icon: 'fas fa-trophy', text: '15 Tournament Wins' },
-        { icon: 'fas fa-star', text: '50+ Individual Awards' },
-        { icon: 'fas fa-crown', text: 'District Champions' }
-      ]
-    },
+   
     {
       id: 7,
       badge: '🏟️ WORLD-CLASS FACILITIES',
       title: 'State-of-the-Art',
       subtitle: 'Training Infrastructure',
       description: 'Experience cricket training like never before with our world-class facilities, featuring international-standard pitches and modern equipment.',
-      backgroundImage: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      backgroundImage: 'assets/images/academy_bg.jpeg',
       achievements: [
         { icon: 'fas fa-baseball-ball', text: '5 Turf Pitches' },
         { icon: 'fas fa-lightbulb', text: 'LED Floodlights' },
@@ -112,7 +99,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 10000);
+    }, 20000);
     return () => clearInterval(timer);
   }, [slides.length]);
 

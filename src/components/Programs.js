@@ -205,7 +205,7 @@ const Programs = () => {
               className="flex items-center space-x-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-6 py-3 rounded-full transition-all duration-300 hover:scale-105"
             >
               <i className="fab fa-whatsapp text-lg"></i>
-              <span className="font-semibold">WhatsApp: +91 88811 13107</span>
+              <span className="font-semibold">WhatsApp: +91 8881113107</span>
             </a>
             <a 
               href="https://instagram.com/bnioc_cricket" 

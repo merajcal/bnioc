@@ -12,16 +12,16 @@ const Contact = () => {
     {
       icon: 'fas fa-phone',
       title: 'Call Us',
-      content: '+91 79740 94110\n+91 88811 13107',
+      content: '+91 7974098410\n+91 8881113107',
       color: 'text-green-500',
-      links: ['tel:+917974094110', 'tel:+918881113107']
+      links: ['tel:+917974098410', 'tel:+918881113107']
     },
     {
       icon: 'fas fa-envelope',
       title: 'Email Us',
-      content: 'info@batkhelo.com',
+      content: 'bnioc25@gmail.com',
       color: 'text-blue-500',
-      links: ['mailto:info@batkhelo.com']
+      links: ['mailto:bnioc25@gmail.com']
     },
     {
       icon: 'fas fa-clock',
@@ -122,7 +122,7 @@ const Contact = () => {
               <h3 className="text-xl font-bold mb-4 font-primary">Quick Connect</h3>
               <div className="space-y-3">
                 <a
-                  href="tel:+917974094110"
+                  href="tel:+917974098410"
                   className="flex items-center gap-3 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg transition-all duration-200 hover:scale-105"
                 >
                   <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
@@ -132,7 +132,7 @@ const Contact = () => {
                 </a>
                 
                 <a
-                  href="https://wa.me/917974094110"
+                  href="https://wa.me/917974098410"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg transition-all duration-200 hover:scale-105"
@@ -144,7 +144,7 @@ const Contact = () => {
                 </a>
                 
                 <a
-                  href="mailto:info@batkhelo.com"
+                  href="mailto:bnioc25@gmail.com"
                   className="flex items-center gap-3 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg transition-all duration-200 hover:scale-105"
                 >
                   <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">

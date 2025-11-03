@@ -181,17 +181,17 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <i className="fas fa-phone text-primary-400 flex-shrink-0"></i>
                 <div>
-                  <p className="text-gray-300 text-sm">+91 79740 94110</p>
-                  <p className="text-gray-300 text-sm">+91 88811 13107</p>
+                  <p className="text-gray-300 text-sm">+91 7974098410</p>
+                  <p className="text-gray-300 text-sm">+91 8881113107</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <i className="fas fa-envelope text-primary-400 flex-shrink-0"></i>
                 <a 
-                  href="mailto:info@batkhelo.com" 
+                  href="mailto:bnioc25@gmail.com" 
                   className="text-gray-300 hover:text-primary-400 transition-colors duration-200 text-sm"
                 >
-                  info@batkhelo.com
+                  bnioc25@gmail.com
                 </a>
               </div>
             </div>

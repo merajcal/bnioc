@@ -113,11 +113,11 @@ const Rules = () => {
           <div className="contact-admin">
             <h4>Questions about Rules?</h4>
             <div className="admin-contact">
-              <a href="tel:+917974094110" className="contact-btn">
+              <a href="tel:+917974098410" className="contact-btn">
                 <i className="fas fa-phone"></i>
                 Call Administration
               </a>
-              <a href="mailto:info@batkhelo.com" className="contact-btn">
+              <a href="mailto:bnioc25@gmail.com" className="contact-btn">
                 <i className="fas fa-envelope"></i>
                 Email Us
               </a>

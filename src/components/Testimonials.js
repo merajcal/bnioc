@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -225,20 +226,20 @@ const Testimonials = () => {
               Join our community of successful cricketers and experience the BNIOC difference. Your journey to cricket excellence starts here.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/contact" 
+              <Link 
+                to="/contact" 
                 className="inline-flex items-center gap-2 bg-white text-primary-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
               >
                 <i className="fas fa-rocket"></i>
                 Start Your Journey
-              </a>
-              <a 
-                href="/programs" 
+              </Link>
+              <Link 
+                to="/programs" 
                 className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-6 py-3 rounded-lg font-semibold transition-all duration-200"
               >
                 <i className="fas fa-info-circle"></i>
                 Learn More
-              </a>
+              </Link>
             </div>
           </div>
         </div>

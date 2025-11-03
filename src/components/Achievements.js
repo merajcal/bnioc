@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Achievements = () => {
   const [expandedCards, setExpandedCards] = useState({});
@@ -73,6 +74,22 @@ const Achievements = () => {
         "Demonstrated dedication, consistency, and passion for the game",
         "Testament to hard work and talent developed at BNIOC"
       ]
+    },
+    {
+      id: 6,
+      name: "Ghanshyam Lomash",
+      achievement: "All India Inter-University (East Zone) Consecutive Achievements",
+      year: "2018-20",
+      category: "Inter-University Champion",
+      image: "/assets/images/achievers/ghanshyam-lomash2.jpeg",
+      shortDesc: "Achieved consecutive success in All India Inter-University (East Zone) tournaments over two years, reaching semifinals and finals.",
+      achievements: [
+        "All India Inter-University (East Zone) participant for consecutive two years",
+        "2018-19: Reached semifinals in prestigious tournament",
+        "2019-20: Advanced to finals showcasing consistent improvement",
+        "Demonstrated exceptional performance at national university level",
+        "Consistent excellence across multiple competitive seasons"
+      ]
     }
    
     
@@ -98,7 +115,8 @@ const Achievements = () => {
       'Infrastructure': 'bg-purple-500',
       'Education': 'bg-indigo-500',
       'Social': 'bg-pink-500',
-      'Ranji Trophy Selection': 'bg-red-600'
+      'Ranji Trophy Selection': 'bg-red-600',
+      'Inter-University Champion': 'bg-gradient-to-r from-blue-500 to-indigo-600'
     };
     return colors[category] || 'bg-gray-500';
   };
@@ -250,20 +268,20 @@ const Achievements = () => {
               Join BNIOC and become part of our growing list of achievers. With world-class training and dedicated mentorship, your cricket dreams are within reach.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/programs" 
+              <Link 
+                to="/programs" 
                 className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 inline-flex items-center justify-center"
               >
                 <i className="fas fa-rocket mr-2"></i>
                 Explore Programs
-              </a>
-              <a 
-                href="/contact" 
+              </Link>
+              <Link 
+                to="/contact" 
                 className="border-2 border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 inline-flex items-center justify-center"
               >
                 <i className="fas fa-phone mr-2"></i>
                 Contact Us
-              </a>
+              </Link>
             </div>
           </div>
         </div>

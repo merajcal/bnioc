@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -32,7 +33,7 @@ const Home = () => {
         { icon: 'fas fa-school', text: 'Campus Sports Programs' },
         { icon: 'fas fa-handshake', text: 'Strategic Partnership' }
       ],
-      partnerLogo: 'assets/images/collaboration/vanaprastha_school.jpeg'
+      partnerLogo: '/assets/images/collaboration/vanaprastha_school.png'
     },
     {
       id: 3,
@@ -180,11 +181,11 @@ const Home = () => {
               {/* Partner Logo - Only show for collaboration slide */}
               {slides[currentSlide].partnerLogo && (
                 <div className="flex justify-center mt-6">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 max-w-xs">
+                  <div className="max-w-xs">
                     <img 
                       src={slides[currentSlide].partnerLogo} 
                       alt={`${slides[currentSlide].subtitle} Logo`}
-                      className="w-full h-auto max-h-24 object-contain"
+                      className="w-full h-auto max-h-40 object-contain"
                     />
                   </div>
                 </div>
@@ -192,18 +193,18 @@ const Home = () => {
               
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a 
-                  href="/programs" 
+                <Link 
+                  to="/programs" 
                   className="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                 >
                   Explore Programs
-                </a>
-                <a 
-                  href="/contact" 
+                </Link>
+                <Link 
+                  to="/contact" 
                   className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-500 font-semibold py-3 px-8 rounded-lg transition-all duration-300 text-center"
                 >
                   Book Free Trial
-                </a>
+                </Link>
               </div>
               
               {/* Achievement Items - Mobile Optimized */}

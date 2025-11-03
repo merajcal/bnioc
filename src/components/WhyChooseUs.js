@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const WhyChooseUs = () => {
   const [activeAccordion, setActiveAccordion] = useState(0); // Start with first item open
@@ -110,20 +111,20 @@ const WhyChooseUs = () => {
               Join hundreds of successful cricketers who have trained at BNIOC. Experience the difference that quality coaching and world-class facilities can make.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/contact" 
+              <Link 
+                to="/contact" 
                 className="inline-flex items-center gap-2 bg-white text-primary-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
               >
                 <i className="fas fa-phone"></i>
                 Contact Us Today
-              </a>
-              <a 
-                href="/programs" 
+              </Link>
+              <Link 
+                to="/programs" 
                 className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-6 py-3 rounded-lg font-semibold transition-all duration-200"
               >
                 <i className="fas fa-eye"></i>
                 View Programs
-              </a>
+              </Link>
             </div>
           </div>
         </div>

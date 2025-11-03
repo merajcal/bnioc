@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Facilities = () => {
   const facilities = [
@@ -134,12 +135,12 @@ const Facilities = () => {
               Visit our academy to see these world-class facilities in person and understand why BNIOC is the preferred choice for serious cricket training.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/contact" 
+              <Link 
+                to="/contact" 
                 className="btn-primary"
               >
                 Schedule a Visit
-              </a>
+              </Link>
               <a 
                 href="https://wa.me/918881113107" 
                 target="_blank"

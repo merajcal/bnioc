@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
@@ -141,13 +142,13 @@ const About = () => {
             </div>
             <h4 className="text-xl font-bold mb-3 font-primary">Discover Our Advantages</h4>
             <p className="mb-4 opacity-90 font-secondary text-sm">Explore detailed reasons why BNIOC stands out from other cricket academies.</p>
-            <a 
-              href="/why-choose-us"
+            <Link 
+              to="/why-choose-us"
               className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-sm"
             >
               <i className="fas fa-arrow-right"></i>
-              Why Choose BNIOC
-            </a>
+              Learn More
+            </Link>
           </div>
           
           <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white text-center hover:shadow-lg transition-all duration-300">
@@ -156,13 +157,13 @@ const About = () => {
             </div>
             <h4 className="text-xl font-bold mb-3 font-primary">Hear From Our Community</h4>
             <p className="mb-4 opacity-90 font-secondary text-sm">Read inspiring success stories from students and parents who chose BNIOC.</p>
-            <a 
-              href="/testimonials"
+            <Link 
+              to="/testimonials"
               className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-sm"
             >
               <i className="fas fa-arrow-right"></i>
-              Read Success Stories
-            </a>
+              Read Stories
+            </Link>
           </div>
         </div>
 
@@ -175,20 +176,20 @@ const About = () => {
             Join hundreds of successful cricketers who have trained at BNIOC. Experience world-class coaching and facilities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact" 
+            <Link 
+              to="/contact" 
               className="inline-flex items-center gap-2 bg-white text-primary-500 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
             >
               <i className="fas fa-phone"></i>
               Contact Us Today
-            </a>
-            <a 
-              href="/programs" 
+            </Link>
+            <Link 
+              to="/programs" 
               className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm px-6 py-3 rounded-lg font-semibold transition-all duration-200"
             >
               <i className="fas fa-eye"></i>
               View Programs
-            </a>
+            </Link>
           </div>
         </div>
       </div>

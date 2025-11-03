@@ -6,10 +6,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run generate-gallery && react-scripts build",
+    "build:prod": "npm run generate-gallery && react-scripts build && npm run zip:build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "rename-gallery": "node scripts/rename-gallery-images.js",
-    "generate-gallery": "node scripts/generate-gallery.js"
+    "generate-gallery": "node scripts/generate-gallery.js",
+    "zip:build": "node scripts/create-deployment-zip.js"
   },
   "keywords": [
     "cricket",

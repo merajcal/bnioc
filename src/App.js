@@ -15,6 +15,7 @@ import Achievements from './components/Achievements';
 import WhyChooseUs from './components/WhyChooseUs';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import ScrollIndicator from './components/ScrollIndicator';
 
 function App() {
   const [theme, setTheme] = useState('dark');
@@ -65,6 +66,9 @@ function App() {
         </main>
         
         <Footer />
+        
+        {/* Global Scroll Indicator */}
+        <ScrollIndicator />
       </div>
     </Router>
   );

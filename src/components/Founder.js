@@ -318,6 +318,7 @@ const Founder = () => {
         </div>
       </div>
 
+
       {/* Lightbox Modal */}
       {lightboxImage && (
         <div 

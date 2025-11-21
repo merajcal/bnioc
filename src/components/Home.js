@@ -85,7 +85,7 @@ const Home = () => {
       title: 'Learn from the Best',
       subtitle: 'Professional Experience',
       description: 'Train under Coach Kamal, who has worked alongside India\'s finest cricketers at elite training facilities. Experience world-class coaching methodologies used at the highest levels.',
-      backgroundImage: '/assets/images/coach-with-i8n-players/with-shami.jpeg',
+      backgroundImage: 'assets/images/academy_bg.jpeg', // Use default background
       achievements: [
         { icon: 'fas fa-star', text: '15+ Years Elite Coaching' },
         { icon: 'fas fa-users', text: 'International Players' },
@@ -99,21 +99,11 @@ const Home = () => {
         { src: "/assets/images/coach-with-i8n-players/with-ishan-kishan.jpeg", caption: "Elite Level Training" },
         { src: "/assets/images/coach-with-i8n-players/with-shami.jpeg", caption: "High Performance Coaching" },
         { src: "/assets/images/coach-with-i8n-players/with-mulitpl-1.jpeg", caption: "Team Training Sessions" },
-        { src: "/assets/images/coach-with-i8n-players/with-washinton.jpeg", caption: "Professional Development" }
-      ]
-    },
-    {
-      id: 7,
-      badge: '🏟️ WORLD-CLASS FACILITIES',
-      title: 'State-of-the-Art',
-      subtitle: 'Training Infrastructure',
-      description: 'Experience cricket training like never before with our world-class facilities, featuring international-standard pitches and modern equipment.',
-      backgroundImage: 'assets/images/academy_bg.jpeg',
-      achievements: [
-        { icon: 'fas fa-baseball-ball', text: '5 Turf Pitches' },
-        { icon: 'fas fa-lightbulb', text: 'LED Floodlights' },
-        { icon: 'fas fa-video', text: 'Video Analysis' },
-        { icon: 'fas fa-shield-alt', text: '24/7 Security' }
+        { src: "/assets/images/coach-with-i8n-players/with-washinton.jpeg", caption: "Professional Development" },
+        { src: "/assets/images/coach-with-i8n-players/with-shyrash.jpeg", caption: "Elite Coaching Experience" },
+        { src: "/assets/images/coach-with-i8n-players/with-newzeland.jpeg", caption: "International Exposure" },
+        { src: "/assets/images/coach-with-i8n-players/with-ishan-kishan-2.jpeg", caption: "Advanced Training Methods" },
+        { src: "/assets/images/coach-with-i8n-players/with-laxman-sir.jpeg", caption: "Mentorship & Learning" }
       ]
     }
   ];
@@ -165,11 +155,6 @@ const Home = () => {
             {/* Hero Content */}
             <div className="text-center space-y-6 sm:space-y-8">
               
-              {/* Badge */}
-              <div className="inline-block bg-primary-500/90 text-white px-4 py-2 rounded-full text-sm font-bold backdrop-blur-sm border border-white/20">
-                {slides[currentSlide].badge}
-              </div>
-              
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
                 {slides[currentSlide].id === 1 ? (
@@ -204,37 +189,41 @@ const Home = () => {
               {/* Professional Experience Gallery - Only show for experience slide */}
               {slides[currentSlide].isExperienceSlide && (
                 <div className="mt-8">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto">
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-4 text-center">
-                      Elite Training Experience
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-6 max-w-6xl mx-auto">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-6 text-center">
+                      Elite Training Experience Gallery
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
                       {slides[currentSlide].experienceImages.map((image, idx) => (
                         <div 
                           key={idx}
-                          className="relative group overflow-hidden rounded-lg aspect-square bg-white/5 border border-white/10"
+                          className="relative group overflow-hidden rounded-xl aspect-square bg-white/5 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300"
                         >
                           <img
                             src={image.src}
                             alt={image.caption}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div className="absolute bottom-2 left-2 right-2">
-                              <p className="text-white text-xs font-medium leading-tight">
+                              <p className="text-white text-xs font-semibold leading-tight">
                                 {image.caption}
                               </p>
                             </div>
                           </div>
+                          {/* Overlay indicator */}
+                          <div className="absolute top-2 right-2 bg-primary-500/80 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i className="fas fa-eye"></i>
+                          </div>
                         </div>
                       ))}
                     </div>
-                    <div className="text-center mt-4">
+                    <div className="text-center mt-6">
                       <Link 
                         to="/founder" 
-                        className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors duration-200"
+                        className="inline-flex items-center gap-2 bg-primary-500/20 hover:bg-primary-500/30 text-primary-300 hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-primary-400/30"
                       >
-                        View Full Experience <i className="fas fa-arrow-right text-xs"></i>
+                        View Complete Experience <i className="fas fa-arrow-right text-xs"></i>
                       </Link>
                     </div>
                   </div>

@@ -16,6 +16,7 @@ import WhyChooseUs from './components/WhyChooseUs';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ScrollIndicator from './components/ScrollIndicator';
+import BeforeAfterPlayer from './components/BeforeAfterPlayer';
 
 function App() {
   const [theme, setTheme] = useState('dark');
@@ -62,6 +63,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/why-choose-us" element={<WhyChooseUs />} />
             <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/progress" element={<BeforeAfterPlayer />} />
           </Routes>
         </main>
         

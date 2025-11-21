@@ -1,0 +1,135 @@
+/* Fullscreen video styles */
+.video-container:fullscreen {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container:-webkit-full-screen {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container:-moz-full-screen {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container:-ms-fullscreen {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Video in fullscreen mode */
+.video-container:fullscreen video,
+.video-container:-webkit-full-screen video,
+.video-container:-moz-full-screen video,
+.video-container:-ms-fullscreen video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Controls in fullscreen mode */
+.video-container:fullscreen .video-controls,
+.video-container:-webkit-full-screen .video-controls,
+.video-container:-moz-full-screen .video-controls,
+.video-container:-ms-fullscreen .video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 20px;
+  z-index: 10;
+}
+
+/* Enhanced controls for fullscreen */
+.video-container:fullscreen .video-controls button,
+.video-container:-webkit-full-screen .video-controls button,
+.video-container:-moz-full-screen .video-controls button,
+.video-container:-ms-fullscreen .video-controls button {
+  padding: 12px;
+  font-size: 16px;
+}
+
+.video-container:fullscreen .video-controls input[type="range"],
+.video-container:-webkit-full-screen .video-controls input[type="range"],
+.video-container:-moz-full-screen .video-controls input[type="range"],
+.video-container:-ms-fullscreen .video-controls input[type="range"] {
+  height: 4px;
+}
+
+.video-container:fullscreen .video-controls span,
+.video-container:-webkit-full-screen .video-controls span,
+.video-container:-moz-full-screen .video-controls span,
+.video-container:-ms-fullscreen .video-controls span {
+  font-size: 14px;
+}
+
+/* Cursor auto-hide in fullscreen */
+.video-container:fullscreen {
+  cursor: none;
+}
+
+.video-container:fullscreen:hover {
+  cursor: default;
+}
+
+.video-container:fullscreen .video-controls:hover {
+  cursor: default;
+}
+
+/* Smooth transitions */
+.video-container {
+  transition: all 0.3s ease;
+}
+
+/* Range slider styling for better visibility in fullscreen */
+.video-controls input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.video-controls input[type="range"]::-webkit-slider-track {
+  background: rgba(255, 255, 255, 0.3);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.video-controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #fff;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.video-controls input[type="range"]::-moz-range-track {
+  background: rgba(255, 255, 255, 0.3);
+  height: 4px;
+  border-radius: 2px;
+  border: none;
+}
+
+.video-controls input[type="range"]::-moz-range-thumb {
+  background: #fff;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}

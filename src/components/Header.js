@@ -107,6 +107,16 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
                 Gallery
               </Link>
               <Link 
+                to="/progress" 
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  isActive('/progress') 
+                    ? 'bg-primary-500 text-white' 
+                    : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
+                }`}
+              >
+                Progress
+              </Link>
+              <Link 
                 to="/news" 
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive('/news') 
@@ -234,6 +244,17 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
               onClick={toggleMenu}
             >
               Gallery
+            </Link>
+            <Link 
+              to="/progress" 
+              className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                isActive('/progress') 
+                  ? 'bg-primary-500 text-white' 
+                  : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
+              onClick={toggleMenu}
+            >
+              Progress
             </Link>
             <Link 
               to="/news" 

@@ -80,6 +80,29 @@ const Home = () => {
     },
    
     {
+      id: 6,
+      badge: '⭐ ELITE COACHING',
+      title: 'Learn from the Best',
+      subtitle: 'Professional Experience',
+      description: 'Train under Coach Kamal, who has worked alongside India\'s finest cricketers at elite training facilities. Experience world-class coaching methodologies used at the highest levels.',
+      backgroundImage: '/assets/images/coach-with-i8n-players/with-shami.jpeg',
+      achievements: [
+        { icon: 'fas fa-star', text: '15+ Years Elite Coaching' },
+        { icon: 'fas fa-users', text: 'International Players' },
+        { icon: 'fas fa-trophy', text: 'Professional Standards' },
+        { icon: 'fas fa-graduation-cap', text: 'Proven Methods' }
+      ],
+      isExperienceSlide: true,
+      experienceImages: [
+        { src: "/assets/images/coach-with-i8n-players/with-bumrah.jpeg", caption: "Elite Training Session" },
+        { src: "/assets/images/coach-with-i8n-players/with-gaikwad.jpeg", caption: "Professional Coaching" },
+        { src: "/assets/images/coach-with-i8n-players/with-ishan-kishan.jpeg", caption: "Elite Level Training" },
+        { src: "/assets/images/coach-with-i8n-players/with-shami.jpeg", caption: "High Performance Coaching" },
+        { src: "/assets/images/coach-with-i8n-players/with-mulitpl-1.jpeg", caption: "Team Training Sessions" },
+        { src: "/assets/images/coach-with-i8n-players/with-washinton.jpeg", caption: "Professional Development" }
+      ]
+    },
+    {
       id: 7,
       badge: '🏟️ WORLD-CLASS FACILITIES',
       title: 'State-of-the-Art',
@@ -124,10 +147,10 @@ const Home = () => {
           <img 
             src={slides[currentSlide].backgroundImage}
             alt="Background"
-            className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000"
+            className="absolute inset-0 w-full h-full object-cover transition-all duration-1000"
             style={{ 
               objectFit: 'cover',
-              objectPosition: 'center'
+              objectPosition: slides[currentSlide].isExperienceSlide ? 'center 25%' : 'center'
             }}
           />
         </div>
@@ -174,6 +197,46 @@ const Home = () => {
                       alt={`${slides[currentSlide].subtitle} Logo`}
                       className="w-full h-auto max-h-40 object-contain"
                     />
+                  </div>
+                </div>
+              )}
+
+              {/* Professional Experience Gallery - Only show for experience slide */}
+              {slides[currentSlide].isExperienceSlide && (
+                <div className="mt-8">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-4 text-center">
+                      Elite Training Experience
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                      {slides[currentSlide].experienceImages.map((image, idx) => (
+                        <div 
+                          key={idx}
+                          className="relative group overflow-hidden rounded-lg aspect-square bg-white/5 border border-white/10"
+                        >
+                          <img
+                            src={image.src}
+                            alt={image.caption}
+                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="absolute bottom-2 left-2 right-2">
+                              <p className="text-white text-xs font-medium leading-tight">
+                                {image.caption}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-center mt-4">
+                      <Link 
+                        to="/founder" 
+                        className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors duration-200"
+                      >
+                        View Full Experience <i className="fas fa-arrow-right text-xs"></i>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               )}

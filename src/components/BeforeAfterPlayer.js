@@ -10,6 +10,7 @@ const BeforeAfterPlayer = () => {
   const [duration, setDuration] = useState({ before: 0, after: 0 });
   const [searchTerm, setSearchTerm] = useState('');
   const [isFullscreen, setIsFullscreen] = useState({ before: false, after: false });
+  const [playbackSpeed, setPlaybackSpeed] = useState({ before: 1, after: 1 });
   
   const beforeVideoRef = useRef(null);
   const afterVideoRef = useRef(null);
@@ -98,6 +99,34 @@ const BeforeAfterPlayer = () => {
     const videoRef = type === 'before' ? beforeVideoRef : afterVideoRef;
     if (videoRef.current) {
       videoRef.current.currentTime = value;
+    }
+  };
+
+  const handleSkip = (type, seconds) => {
+    const videoRef = type === 'before' ? beforeVideoRef : afterVideoRef;
+    if (videoRef.current) {
+      const newTime = videoRef.current.currentTime + seconds;
+      const maxTime = videoRef.current.duration || 0;
+      
+      // Ensure the new time is within bounds
+      if (newTime < 0) {
+        videoRef.current.currentTime = 0;
+      } else if (newTime > maxTime) {
+        videoRef.current.currentTime = maxTime;
+      } else {
+        videoRef.current.currentTime = newTime;
+      }
+    }
+  };
+
+  const handleSpeedChange = (type, speed) => {
+    const videoRef = type === 'before' ? beforeVideoRef : afterVideoRef;
+    if (videoRef.current) {
+      videoRef.current.playbackRate = speed;
+      setPlaybackSpeed(prev => ({
+        ...prev,
+        [type]: speed
+      }));
     }
   };
 
@@ -329,10 +358,26 @@ const BeforeAfterPlayer = () => {
                     <div className="video-controls absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
                       <div className="flex items-center gap-3">
                         <button
+                          onClick={() => handleSkip('before', -10)}
+                          className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
+                          title="Skip back 10 seconds"
+                        >
+                          <i className="fas fa-backward text-sm"></i>
+                        </button>
+                        
+                        <button
                           onClick={() => handleVideoPlay('before')}
                           className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
                         >
                           <i className={`fas ${isPlaying.before ? 'fa-pause' : 'fa-play'} text-sm`}></i>
+                        </button>
+                        
+                        <button
+                          onClick={() => handleSkip('before', 10)}
+                          className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
+                          title="Skip forward 10 seconds"
+                        >
+                          <i className="fas fa-forward text-sm"></i>
                         </button>
                         
                         <div className="flex-1">
@@ -357,6 +402,23 @@ const BeforeAfterPlayer = () => {
                         >
                           <i className={`fas ${isFullscreen.before ? 'fa-compress' : 'fa-expand'} text-sm`}></i>
                         </button>
+                        
+                        <div className="relative">
+                          <select
+                            value={playbackSpeed.before}
+                            onChange={(e) => handleSpeedChange('before', parseFloat(e.target.value))}
+                            className="bg-white/20 hover:bg-white/30 text-white text-xs px-2 py-1 rounded border-none outline-none appearance-none cursor-pointer"
+                            title="Playback Speed"
+                          >
+                            <option value={0.25} className="bg-black text-white">0.25x</option>
+                            <option value={0.5} className="bg-black text-white">0.5x</option>
+                            <option value={0.75} className="bg-black text-white">0.75x</option>
+                            <option value={1} className="bg-black text-white">1x</option>
+                            <option value={1.25} className="bg-black text-white">1.25x</option>
+                            <option value={1.5} className="bg-black text-white">1.5x</option>
+                            <option value={2} className="bg-black text-white">2x</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -387,10 +449,26 @@ const BeforeAfterPlayer = () => {
                     <div className="video-controls absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
                       <div className="flex items-center gap-3">
                         <button
+                          onClick={() => handleSkip('after', -10)}
+                          className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
+                          title="Skip back 10 seconds"
+                        >
+                          <i className="fas fa-backward text-sm"></i>
+                        </button>
+                        
+                        <button
                           onClick={() => handleVideoPlay('after')}
                           className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
                         >
                           <i className={`fas ${isPlaying.after ? 'fa-pause' : 'fa-play'} text-sm`}></i>
+                        </button>
+                        
+                        <button
+                          onClick={() => handleSkip('after', 10)}
+                          className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors"
+                          title="Skip forward 10 seconds"
+                        >
+                          <i className="fas fa-forward text-sm"></i>
                         </button>
                         
                         <div className="flex-1">
@@ -415,6 +493,23 @@ const BeforeAfterPlayer = () => {
                         >
                           <i className={`fas ${isFullscreen.after ? 'fa-compress' : 'fa-expand'} text-sm`}></i>
                         </button>
+                        
+                        <div className="relative">
+                          <select
+                            value={playbackSpeed.after}
+                            onChange={(e) => handleSpeedChange('after', parseFloat(e.target.value))}
+                            className="bg-white/20 hover:bg-white/30 text-white text-xs px-2 py-1 rounded border-none outline-none appearance-none cursor-pointer"
+                            title="Playback Speed"
+                          >
+                            <option value={0.25} className="bg-black text-white">0.25x</option>
+                            <option value={0.5} className="bg-black text-white">0.5x</option>
+                            <option value={0.75} className="bg-black text-white">0.75x</option>
+                            <option value={1} className="bg-black text-white">1x</option>
+                            <option value={1.25} className="bg-black text-white">1.25x</option>
+                            <option value={1.5} className="bg-black text-white">1.5x</option>
+                            <option value={2} className="bg-black text-white">2x</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>

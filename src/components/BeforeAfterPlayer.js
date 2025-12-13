@@ -15,7 +15,7 @@ const BeforeAfterPlayer = () => {
   const beforeVideoRef = useRef(null);
   const afterVideoRef = useRef(null);
 
-  // Base player data - videos paths will be generated dynamically
+  // Base player data - using video streaming platforms to save storage
   const basePlayerData = [
     {
       id: 1,
@@ -28,13 +28,29 @@ const BeforeAfterPlayer = () => {
         "Increased confidence"
       ],
       beforeDescription: "Initial assessment - basic technique",
-      afterDescription: "After training - professional form"
+      afterDescription: "After training - professional form",
+      // Cloudinary streaming URLs
+      beforeVideo: "https://player.cloudinary.com/embed/?cloud_name=detni0iyt&public_id=sushant_reddy_before_trim_wlh6qg&profile=cld-default",
+      afterVideo: "https://player.cloudinary.com/embed/?cloud_name=detni0iyt&public_id=sushant_reddy_trim_zq7zf3&profile=cld-default",
+      isStreamingVideo: true // Flag to indicate this uses streaming platform
     },
     
   ];
 
-  // Generate complete player data with dynamic video paths
-  const playerProgressData = generatePlayerData(basePlayerData);
+  // Helper function to detect if URL is from streaming platform
+  const isStreamingPlatform = (url) => {
+    return url && (url.includes('cloudinary.com/embed') || url.includes('youtube.com/embed') || url.includes('vimeo.com'));
+  };
+
+  // Use player data directly (videos are already specified in basePlayerData)
+  const playerProgressData = basePlayerData.map(player => ({
+    ...player,
+    // Use direct URLs if provided, otherwise generate local paths
+    beforeVideo: player.beforeVideo || `/videos/before_${player.id}.mp4`,
+    afterVideo: player.afterVideo || `/videos/after_${player.id}.mp4`,
+    beforeThumbnail: player.beforeThumbnail || `/images/thumbnails/before_${player.id}.jpg`,
+    afterThumbnail: player.afterThumbnail || `/images/thumbnails/after_${player.id}.jpg`
+  }));
 
   // Filter players based on search term
   const filteredPlayers = playerProgressData.filter(player => {
@@ -343,16 +359,27 @@ const BeforeAfterPlayer = () => {
                   </h4>
                   
                   <div className="video-container relative bg-black rounded-lg overflow-hidden aspect-video">
-                    <video
-                      ref={beforeVideoRef}
-                      className="w-full h-full object-cover"
-                      poster={selectedPlayer.beforeThumbnail}
-                      onTimeUpdate={() => handleTimeUpdate('before')}
-                      onLoadedMetadata={() => handleLoadedMetadata('before')}
-                    >
-                      <source src={selectedPlayer.beforeVideo} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                    {isStreamingPlatform(selectedPlayer.beforeVideo) ? (
+                      <iframe
+                        src={selectedPlayer.beforeVideo}
+                        className="w-full h-full"
+                        frameBorder="0"
+                        allowFullScreen
+                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                        title="Before Video - Cricket Training Progress"
+                      />
+                    ) : (
+                      <video
+                        ref={beforeVideoRef}
+                        className="w-full h-full object-cover"
+                        poster={selectedPlayer.beforeThumbnail}
+                        onTimeUpdate={() => handleTimeUpdate('before')}
+                        onLoadedMetadata={() => handleLoadedMetadata('before')}
+                      >
+                        <source src={selectedPlayer.beforeVideo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
                     
                     {/* Video Controls */}
                     <div className="video-controls absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
@@ -434,16 +461,27 @@ const BeforeAfterPlayer = () => {
                   </h4>
                   
                   <div className="video-container relative bg-black rounded-lg overflow-hidden aspect-video">
-                    <video
-                      ref={afterVideoRef}
-                      className="w-full h-full object-cover"
-                      poster={selectedPlayer.afterThumbnail}
-                      onTimeUpdate={() => handleTimeUpdate('after')}
-                      onLoadedMetadata={() => handleLoadedMetadata('after')}
-                    >
-                      <source src={selectedPlayer.afterVideo} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                    {isStreamingPlatform(selectedPlayer.afterVideo) ? (
+                      <iframe
+                        src={selectedPlayer.afterVideo}
+                        className="w-full h-full"
+                        frameBorder="0"
+                        allowFullScreen
+                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                        title="After Video - Cricket Training Progress"
+                      />
+                    ) : (
+                      <video
+                        ref={afterVideoRef}
+                        className="w-full h-full object-cover"
+                        poster={selectedPlayer.afterThumbnail}
+                        onTimeUpdate={() => handleTimeUpdate('after')}
+                        onLoadedMetadata={() => handleLoadedMetadata('after')}
+                      >
+                        <source src={selectedPlayer.afterVideo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
                     
                     {/* Video Controls */}
                     <div className="video-controls absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">

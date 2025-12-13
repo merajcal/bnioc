@@ -1,0 +1,33 @@
+[
+    {
+    "id": "ishant-debut-2024",
+    "type": "breaking_news",
+    "priority": "high",
+    "title": "Syed Mushtaq Ali Trophy Debut",
+    "message": "Congratulations to Ishant Bhardwaj on his Syed Mushtaq Ali Trophy debut against Vadodara. A proud moment for our academy as he continues to move forward in his cricketing journey.",
+    "image": "/assets/images/announcements/ishant-debut-2.jpeg",
+    "imageAlt": "Ishant Bhardwaj in action during his Syed Mushtaq Ali Trophy debut",
+    "badge": "🏏 BREAKING NEWS",
+    "publishDate": "2025-12-13T13:00:00.000Z",
+    "expiryDate": "2025-12-20T23:59:59.000Z",
+    "isActive": true,
+    "showOnce": false,
+    "category": "achievement"
+  },
+  {
+    "id": "ishant-mom-2024",
+    "type": "breaking_news",
+    "priority": "high",
+    "title": "Man of the Match Award",
+    "message": "Congratulations, Ishant Bharadwaj! Your performance was outstanding, and earning the Man of the Match award in the very second match you played in SMAT.",
+    "image": "/assets/images/announcements/ishant-mom-syed-mustaq.jpeg",
+    "imageAlt": "Ishant Bharadwaj receiving Man of the Match award in SMAT",
+    "badge": "🏆 MAN OF THE MATCH",
+    "publishDate": "2025-12-13T14:00:00.000Z",
+    "expiryDate": "2025-12-25T23:59:59.000Z",
+    "isActive": true,
+    "showOnce": false,
+    "category": "achievement"
+  }
+  
+]

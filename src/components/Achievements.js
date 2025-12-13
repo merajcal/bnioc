@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import announcementsData from '../data/announcements.json';
 
 const Achievements = () => {
   const [expandedCards, setExpandedCards] = useState({});
@@ -11,8 +12,40 @@ const Achievements = () => {
     }));
   };
 
+  // Filter active announcements for achievements category
+  const achievementAnnouncements = announcementsData.filter(announcement => {
+    const now = new Date();
+    const publishDate = new Date(announcement.publishDate);
+    const expiryDate = new Date(announcement.expiryDate);
+    
+    return announcement.isActive && 
+           announcement.category === 'achievement' &&
+           publishDate <= now && 
+           now <= expiryDate;
+  });
+
+  // Convert announcements to player achievement format
+  const announcementAchievements = achievementAnnouncements.map((announcement, index) => ({
+    id: `announcement-${announcement.id}`,
+    name: "Ishant Bharadwaj", // Extract from announcement message
+    achievement: announcement.title,
+    year: new Date(announcement.publishDate).getFullYear().toString(),
+    category: announcement.title.includes('Debut') ? 'Professional Debut' : 
+              announcement.title.includes('Man of the Match') ? 'Match Award' : 
+              'Professional Cricket',
+    image: announcement.image || "/assets/images/achievers/ishant_bharadwaj.jpeg",
+    shortDesc: announcement.message,
+    achievements: [
+      announcement.message,
+      announcement.badge
+    ],
+    isAnnouncement: true
+  }));
+
   const playerAchievements = [
-     {
+    // Add announcements first (most recent)
+    ...announcementAchievements,
+    {
       id: 2,
       name: "Ishant Bharadwaj",
       achievement: "Selected for Haryana Ranji Trophy Team",
@@ -116,6 +149,8 @@ const Achievements = () => {
       'Education': 'bg-indigo-500',
       'Social': 'bg-pink-500',
       'Ranji Trophy Selection': 'bg-red-600',
+      'Professional Debut': 'bg-blue-600',
+      'Match Award': 'bg-green-600',
       'Inter-University Champion': 'bg-gradient-to-r from-blue-500 to-indigo-600'
     };
     return colors[category] || 'bg-gray-500';
@@ -155,9 +190,17 @@ const Achievements = () => {
         </div>
 
 
+
         {/* Player Achievements */}
         <div className="space-y-8 mb-16">
-          
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-secondary-900 dark:text-white mb-4">
+              🏆 Student Success Stories
+            </h2>
+            <p className="text-lg text-secondary-600 dark:text-secondary-300">
+              Celebrating our students' remarkable achievements in cricket
+            </p>
+          </div>
             
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               {playerAchievements.map((player) => (

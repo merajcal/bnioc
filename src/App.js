@@ -17,10 +17,16 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ScrollIndicator from './components/ScrollIndicator';
 import BeforeAfterPlayer from './components/BeforeAfterPlayer';
+import AnnouncementModal from './components/AnnouncementModal';
+
+// Import announcement data
+import announcementsData from './data/announcements.json';
 
 function App() {
   const [theme, setTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showAnnouncements, setShowAnnouncements] = useState(false);
+  const [announcements, setAnnouncements] = useState([]);
 
   // Theme toggle functionality
   useEffect(() => {
@@ -31,6 +37,19 @@ function App() {
     }
   }, [theme]);
 
+  // Load announcements on app start
+  useEffect(() => {
+    console.log('Loading announcements data:', announcementsData);
+    setAnnouncements(announcementsData);
+    // Show announcements after a short delay to ensure app is loaded
+    const timer = setTimeout(() => {
+      console.log('Setting showAnnouncements to true');
+      setShowAnnouncements(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
@@ -38,6 +57,11 @@ function App() {
   // Mobile menu toggle
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Handle announcement modal close
+  const handleAnnouncementClose = () => {
+    setShowAnnouncements(false);
   };
 
   return (
@@ -71,6 +95,14 @@ function App() {
         
         {/* Global Scroll Indicator */}
         <ScrollIndicator />
+        
+        {/* Announcement Modal */}
+        {showAnnouncements && (
+          <AnnouncementModal 
+            announcements={announcements}
+            onClose={handleAnnouncementClose}
+          />
+        )}
       </div>
     </Router>
   );

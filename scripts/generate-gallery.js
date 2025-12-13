@@ -4,6 +4,7 @@ const path = require('path');
 // Auto-generate gallery images list
 function generateGalleryImages() {
   const galleryPath = path.join(__dirname, '../public/assets/images/gallery');
+  const announcementsPath = path.join(__dirname, '../public/assets/images/announcements');
   const outputPath = path.join(__dirname, '../public/data/galleryImages.json');
   
   try {
@@ -15,16 +16,25 @@ function generateGalleryImages() {
     }
 
     // Read all files from gallery folder
-    const files = fs.readdirSync(galleryPath);
+    const galleryFiles = fs.readdirSync(galleryPath);
+    
+    // Read announcement images if folder exists
+    let announcementFiles = [];
+    if (fs.existsSync(announcementsPath)) {
+      announcementFiles = fs.readdirSync(announcementsPath);
+    }
     
     // Filter only image files
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
-    const imageFiles = files.filter(file => 
+    const galleryImageFiles = galleryFiles.filter(file => 
+      imageExtensions.includes(path.extname(file).toLowerCase())
+    );
+    const announcementImageFiles = announcementFiles.filter(file => 
       imageExtensions.includes(path.extname(file).toLowerCase())
     );
 
-    // Generate image objects
-    const galleryImages = imageFiles.map((file, index) => {
+    // Generate image objects for gallery images
+    const galleryImages = galleryImageFiles.map((file, index) => {
       const name = path.parse(file).name;
       const title = name.split('-').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1)
@@ -36,9 +46,40 @@ function generateGalleryImages() {
         alt: title,
         title: title,
         description: `BNIOC ${title}`,
-        filename: file
+        filename: file,
+        category: 'gallery'
       };
     });
+
+    // Generate image objects for announcement images
+    const announcementImages = announcementImageFiles.map((file, index) => {
+      const name = path.parse(file).name;
+      let title = name.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ');
+      
+      // Special handling for announcement images
+      if (name.includes('ishant')) {
+        if (name.includes('debut')) {
+          title = 'Ishant Bharadwaj SMAT Debut';
+        } else if (name.includes('mom')) {
+          title = 'Ishant Bharadwaj Man of the Match';
+        }
+      }
+
+      return {
+        id: galleryImages.length + index + 1,
+        src: `/assets/images/announcements/${file}`,
+        alt: title,
+        title: title,
+        description: `BNIOC Achievement - ${title}`,
+        filename: file,
+        category: 'achievements'
+      };
+    });
+
+    // Combine both arrays
+    const allImages = [...galleryImages, ...announcementImages];
 
     // Create data directory if it doesn't exist
     const dataDir = path.dirname(outputPath);
@@ -47,10 +88,12 @@ function generateGalleryImages() {
     }
 
     // Write to JSON file
-    fs.writeFileSync(outputPath, JSON.stringify(galleryImages, null, 2));
+    fs.writeFileSync(outputPath, JSON.stringify(allImages, null, 2));
     
-    console.log(`✅ Generated gallery with ${galleryImages.length} images:`);
-    galleryImages.forEach(img => console.log(`   - ${img.filename}`));
+    console.log(`✅ Generated gallery with ${allImages.length} images:`);
+    console.log(`   Gallery images: ${galleryImages.length}`);
+    console.log(`   Achievement images: ${announcementImages.length}`);
+    allImages.forEach(img => console.log(`   - ${img.filename} (${img.category})`));
     
   } catch (error) {
     console.error('❌ Error generating gallery:', error);

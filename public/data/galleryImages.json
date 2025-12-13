@@ -5,7 +5,8 @@
     "alt": "BTR_U14_2024 2025_1",
     "title": "BTR_U14_2024 2025_1",
     "description": "BNIOC BTR_U14_2024 2025_1",
-    "filename": "BTR_U14_2024-2025_1.jpg"
+    "filename": "BTR_U14_2024-2025_1.jpg",
+    "category": "gallery"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "alt": "BTR_U14_2024 2025_2",
     "title": "BTR_U14_2024 2025_2",
     "description": "BNIOC BTR_U14_2024 2025_2",
-    "filename": "BTR_U14_2024-2025_2.jpeg"
+    "filename": "BTR_U14_2024-2025_2.jpeg",
+    "category": "gallery"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "alt": "Academy Facilities",
     "title": "Academy Facilities",
     "description": "BNIOC Academy Facilities",
-    "filename": "academy-facilities.jpg"
+    "filename": "academy-facilities.jpg",
+    "category": "gallery"
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "alt": "Batting Practice",
     "title": "Batting Practice",
     "description": "BNIOC Batting Practice",
-    "filename": "batting-practice.jpg"
+    "filename": "batting-practice.jpg",
+    "category": "gallery"
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "alt": "Bowling Technique",
     "title": "Bowling Technique",
     "description": "BNIOC Bowling Technique",
-    "filename": "bowling-technique.jpg"
+    "filename": "bowling-technique.jpg",
+    "category": "gallery"
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "alt": "Catching_practice",
     "title": "Catching_practice",
     "description": "BNIOC Catching_practice",
-    "filename": "catching_practice.jpg"
+    "filename": "catching_practice.jpg",
+    "category": "gallery"
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "alt": "Coaching Session",
     "title": "Coaching Session",
     "description": "BNIOC Coaching Session",
-    "filename": "coaching-session.jpg"
+    "filename": "coaching-session.jpg",
+    "category": "gallery"
   },
   {
     "id": 8,
@@ -61,7 +68,8 @@
     "alt": "Cricket Academy",
     "title": "Cricket Academy",
     "description": "BNIOC Cricket Academy",
-    "filename": "cricket-academy.jpg"
+    "filename": "cricket-academy.jpg",
+    "category": "gallery"
   },
   {
     "id": 9,
@@ -69,7 +77,8 @@
     "alt": "Cricket Coaching",
     "title": "Cricket Coaching",
     "description": "BNIOC Cricket Coaching",
-    "filename": "cricket-coaching.jpg"
+    "filename": "cricket-coaching.jpg",
+    "category": "gallery"
   },
   {
     "id": 10,
@@ -77,7 +86,8 @@
     "alt": "Cricket Excellence",
     "title": "Cricket Excellence",
     "description": "BNIOC Cricket Excellence",
-    "filename": "cricket-excellence.jpg"
+    "filename": "cricket-excellence.jpg",
+    "category": "gallery"
   },
   {
     "id": 11,
@@ -85,7 +95,8 @@
     "alt": "Cricket Match",
     "title": "Cricket Match",
     "description": "BNIOC Cricket Match",
-    "filename": "cricket-match.jpg"
+    "filename": "cricket-match.jpg",
+    "category": "gallery"
   },
   {
     "id": 12,
@@ -93,7 +104,8 @@
     "alt": "Cricket Skills",
     "title": "Cricket Skills",
     "description": "BNIOC Cricket Skills",
-    "filename": "cricket-skills.jpg"
+    "filename": "cricket-skills.jpg",
+    "category": "gallery"
   },
   {
     "id": 13,
@@ -101,7 +113,8 @@
     "alt": "Fielding Drills",
     "title": "Fielding Drills",
     "description": "BNIOC Fielding Drills",
-    "filename": "fielding-drills.jpg"
+    "filename": "fielding-drills.jpg",
+    "category": "gallery"
   },
   {
     "id": 14,
@@ -109,7 +122,8 @@
     "alt": "Ghanshyam Lomash",
     "title": "Ghanshyam Lomash",
     "description": "BNIOC Ghanshyam Lomash",
-    "filename": "ghanshyam-lomash.jpeg"
+    "filename": "ghanshyam-lomash.jpeg",
+    "category": "gallery"
   },
   {
     "id": 15,
@@ -117,7 +131,8 @@
     "alt": "Group Training",
     "title": "Group Training",
     "description": "BNIOC Group Training",
-    "filename": "group-training.jpg"
+    "filename": "group-training.jpg",
+    "category": "gallery"
   },
   {
     "id": 16,
@@ -125,7 +140,8 @@
     "alt": "Match Practice",
     "title": "Match Practice",
     "description": "BNIOC Match Practice",
-    "filename": "match-practice.jpg"
+    "filename": "match-practice.jpg",
+    "category": "gallery"
   },
   {
     "id": 17,
@@ -133,7 +149,8 @@
     "alt": "Practice Ground",
     "title": "Practice Ground",
     "description": "BNIOC Practice Ground",
-    "filename": "practice-ground.jpg"
+    "filename": "practice-ground.jpg",
+    "category": "gallery"
   },
   {
     "id": 18,
@@ -141,7 +158,8 @@
     "alt": "Sports Training",
     "title": "Sports Training",
     "description": "BNIOC Sports Training",
-    "filename": "sports-training.jpg"
+    "filename": "sports-training.jpg",
+    "category": "gallery"
   },
   {
     "id": 19,
@@ -149,7 +167,8 @@
     "alt": "Student Achievement",
     "title": "Student Achievement",
     "description": "BNIOC Student Achievement",
-    "filename": "student-achievement.jpg"
+    "filename": "student-achievement.jpg",
+    "category": "gallery"
   },
   {
     "id": 20,
@@ -157,7 +176,8 @@
     "alt": "Student Success",
     "title": "Student Success",
     "description": "BNIOC Student Success",
-    "filename": "student-success.jpg"
+    "filename": "student-success.jpg",
+    "category": "gallery"
   },
   {
     "id": 21,
@@ -165,7 +185,8 @@
     "alt": "Team Celebration",
     "title": "Team Celebration",
     "description": "BNIOC Team Celebration",
-    "filename": "team-celebration.jpg"
+    "filename": "team-celebration.jpg",
+    "category": "gallery"
   },
   {
     "id": 22,
@@ -173,7 +194,8 @@
     "alt": "Team Photo",
     "title": "Team Photo",
     "description": "BNIOC Team Photo",
-    "filename": "team-photo.jpg"
+    "filename": "team-photo.jpg",
+    "category": "gallery"
   },
   {
     "id": 23,
@@ -181,7 +203,8 @@
     "alt": "Team Spirit",
     "title": "Team Spirit",
     "description": "BNIOC Team Spirit",
-    "filename": "team-spirit.jpg"
+    "filename": "team-spirit.jpg",
+    "category": "gallery"
   },
   {
     "id": 24,
@@ -189,7 +212,8 @@
     "alt": "Tournament Action",
     "title": "Tournament Action",
     "description": "BNIOC Tournament Action",
-    "filename": "tournament-action.jpg"
+    "filename": "tournament-action.jpg",
+    "category": "gallery"
   },
   {
     "id": 25,
@@ -197,7 +221,8 @@
     "alt": "Training Ground",
     "title": "Training Ground",
     "description": "BNIOC Training Ground",
-    "filename": "training-ground.jpg"
+    "filename": "training-ground.jpg",
+    "category": "gallery"
   },
   {
     "id": 26,
@@ -205,7 +230,8 @@
     "alt": "Training Session 1",
     "title": "Training Session 1",
     "description": "BNIOC Training Session 1",
-    "filename": "training-session-1.jpg"
+    "filename": "training-session-1.jpg",
+    "category": "gallery"
   },
   {
     "id": 27,
@@ -213,6 +239,34 @@
     "alt": "Winning Moment",
     "title": "Winning Moment",
     "description": "BNIOC Winning Moment",
-    "filename": "winning-moment.jpg"
+    "filename": "winning-moment.jpg",
+    "category": "gallery"
+  },
+  {
+    "id": 28,
+    "src": "/assets/images/announcements/ishant-debut-2.jpeg",
+    "alt": "Ishant Bharadwaj SMAT Debut",
+    "title": "Ishant Bharadwaj SMAT Debut",
+    "description": "BNIOC Achievement - Ishant Bharadwaj SMAT Debut",
+    "filename": "ishant-debut-2.jpeg",
+    "category": "achievements"
+  },
+  {
+    "id": 29,
+    "src": "/assets/images/announcements/ishant-debut.jpeg",
+    "alt": "Ishant Bharadwaj SMAT Debut",
+    "title": "Ishant Bharadwaj SMAT Debut",
+    "description": "BNIOC Achievement - Ishant Bharadwaj SMAT Debut",
+    "filename": "ishant-debut.jpeg",
+    "category": "achievements"
+  },
+  {
+    "id": 30,
+    "src": "/assets/images/announcements/ishant-mom-syed-mustaq.jpeg",
+    "alt": "Ishant Bharadwaj Man of the Match",
+    "title": "Ishant Bharadwaj Man of the Match",
+    "description": "BNIOC Achievement - Ishant Bharadwaj Man of the Match",
+    "filename": "ishant-mom-syed-mustaq.jpeg",
+    "category": "achievements"
   }
 ]

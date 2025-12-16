@@ -27,11 +27,12 @@ const Achievements = () => {
   // Convert announcements to player achievement format
   const announcementAchievements = achievementAnnouncements.map((announcement, index) => ({
     id: `announcement-${announcement.id}`,
-    name: "Ishant Bharadwaj", // Extract from announcement message
+    name: announcement.title.includes('NEW BRANCH') ? "BNIOC Academy" : "Ishant Bharadwaj",
     achievement: announcement.title,
     year: new Date(announcement.publishDate).getFullYear().toString(),
     category: announcement.title.includes('Debut') ? 'Professional Debut' : 
-              announcement.title.includes('Man of the Match') ? 'Match Award' : 
+              announcement.title.includes('Man of the Match') ? 'Match Award' :
+              announcement.title.includes('NEW BRANCH') ? 'Academy Expansion' :
               'Professional Cricket',
     image: announcement.image || "/assets/images/achievers/ishant_bharadwaj.jpeg",
     shortDesc: announcement.message,
@@ -151,6 +152,7 @@ const Achievements = () => {
       'Ranji Trophy Selection': 'bg-red-600',
       'Professional Debut': 'bg-blue-600',
       'Match Award': 'bg-green-600',
+      'Academy Expansion': 'bg-purple-600',
       'Inter-University Champion': 'bg-gradient-to-r from-blue-500 to-indigo-600'
     };
     return colors[category] || 'bg-gray-500';

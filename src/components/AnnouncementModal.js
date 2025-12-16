@@ -71,7 +71,7 @@ const AnnouncementModal = ({ announcements = [], onClose }) => {
             const nextIndex = (prevIndex + 1) % sortedAnnouncements.length;
             return nextIndex;
           });
-        }, 5000); // Auto-scroll every 5 seconds
+        }, 50000); // Auto-scroll every 5 seconds
         
         setAutoScrollInterval(interval);
       }

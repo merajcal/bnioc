@@ -66,16 +66,27 @@ const Home = () => {
     },
     {
       id: 5,
-      badge: '🏏 SUMMER CAMP 2025',
-      title: 'Join Our Exclusive',
-      subtitle: 'Summer Cricket Camp',
-      description: 'Intensive 6-week program with professional coaches, daily practice sessions, and match experience. Limited seats available - Register now!',
+      badge: '🏏 CRICKET SUMMER CAMP 2026',
+      title: 'Summer Camp 2026',
+      subtitle: 'Ittangur Branch',
+      description: 'Register Now! Starts from March 28. Limited time early registration offer. Corporate booking available.',
       backgroundImage: '/assets/images/banners/academy-facilities.jpg',
+      isSummerCampSlide: true,
+      summerCampPoster: '/assets/images/anouncements/summer_camp_2026.png',
+      summerCampTimings: '06:30 - 09:00 AM & 04:00 PM - 06:30 PM',
+      summerCampOffers: [
+        { icon: '✅', text: '7 days a week for Boys, Girls and Corporate' },
+        { icon: '✅', text: 'Professional Coaching with Advanced Skill Training' },
+        { icon: '✅', text: 'Personal Technique Correction & Performance Feedback' },
+        { icon: '✅', text: 'Fitness, Agility & Strength Conditioning Sessions' },
+        { icon: '✅', text: 'Practice Matches & Match Simulation Experience' }
+      ],
+      summerCampLocation: 'Opposite to Sowparnika Tharangini, Apartment, Ittangur, Bengaluru, Karnataka 562125',
       achievements: [
-        { icon: 'fas fa-calendar-alt', text: '22 Sep 2025' },
-        { icon: 'fas fa-clock', text: '6 Weeks Intensive' },
-        { icon: 'fas fa-users', text: 'Limited Seats' },
-        { icon: 'fas fa-trophy', text: 'Certificates' }
+        { icon: 'fas fa-clock', text: '06:30-09:00 AM & 04:00-06:30 PM' },
+        { icon: 'fas fa-calendar', text: 'Starts March 28' },
+        { icon: 'fas fa-phone', text: '7974094110' },
+        { icon: 'fas fa-phone', text: '8881113107' }
       ]
     },
    
@@ -137,9 +148,9 @@ const Home = () => {
           <img 
             src={slides[currentSlide].backgroundImage}
             alt="Background"
-            className="absolute inset-0 w-full h-full object-cover transition-all duration-1000"
+            className="absolute inset-0 w-full h-full transition-all duration-1000"
             style={{ 
-              objectFit: 'cover',
+              objectFit: slides[currentSlide].id === 5 ? 'contain' : 'cover',
               objectPosition: slides[currentSlide].isExperienceSlide ? 'center 25%' : 'center'
             }}
           />
@@ -182,6 +193,69 @@ const Home = () => {
                       alt={`${slides[currentSlide].subtitle} Logo`}
                       className="w-full h-auto max-h-40 object-contain"
                     />
+                  </div>
+                </div>
+              )}
+
+              {/* Summer Camp Special Slide - Two Column Layout */}
+              {slides[currentSlide].isSummerCampSlide && (
+                <div className="mt-8 max-w-7xl mx-auto">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Left Column - Summer Camp Poster */}
+                    <div className="flex items-center justify-center">
+                      <div className="w-full max-w-md">
+                        <img 
+                          src={slides[currentSlide].summerCampPoster}
+                          alt="Summer Camp 2026 Poster"
+                          className="w-full h-auto rounded-2xl shadow-2xl border-4 border-primary-500 hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right Column - Promotional Content */}
+                    <div className="space-y-4">
+                      {/* Register Now Banner */}
+                      <div className="relative bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 rounded-2xl p-5 text-center shadow-2xl border-4 border-yellow-300 overflow-hidden">
+                        <div className="absolute top-0 right-0 text-yellow-200 opacity-20 text-7xl font-black transform rotate-12">🏏</div>
+                        <div className="relative z-10">
+                          <div className="bg-white/20 backdrop-blur-sm inline-block px-4 py-1 rounded-full mb-2 border-2 border-white/50">
+                            <p className="text-white text-xs sm:text-sm font-bold uppercase tracking-wide">Limited Time Offer</p>
+                          </div>
+                          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase mb-2 drop-shadow-2xl" style={{textShadow: '3px 3px 0px rgba(0,0,0,0.3)'}}>
+                            Register Now!
+                          </h2>
+                          <p className="text-xl sm:text-2xl font-black text-yellow-300 uppercase drop-shadow-lg">
+                            Starts March 28
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Timings */}
+                      <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-4 text-center shadow-xl border-2 border-white">
+                        <h3 className="text-lg sm:text-xl font-black text-white uppercase flex items-center justify-center gap-2">
+                          <span className="text-2xl">⏰</span>
+                          <span className="text-sm sm:text-base">{slides[currentSlide].summerCampTimings}</span>
+                        </h3>
+                      </div>
+
+                      {/* Features */}
+                      <div className="bg-white/95 backdrop-blur-md rounded-xl p-4 border-2 border-primary-500 shadow-xl">
+                        <h3 className="text-lg sm:text-xl font-black text-primary-600 text-center mb-3 uppercase">
+                          ✨ What We Offer
+                        </h3>
+                        <div className="space-y-2">
+                          {slides[currentSlide].summerCampOffers.map((offer, idx) => (
+                            <div 
+                              key={idx}
+                              className="bg-gradient-to-r from-blue-50 to-blue-100 p-2 rounded-lg flex items-center gap-2 shadow-sm border-l-4 border-blue-500"
+                            >
+                              <span className="text-lg flex-shrink-0">{offer.icon}</span>
+                              <span className="text-gray-800 font-semibold text-xs sm:text-sm leading-tight">{offer.text}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

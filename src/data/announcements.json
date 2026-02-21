@@ -1,4 +1,23 @@
 [
+  {
+    "id": "summer-camp-2026",
+    "type": "announcement",
+    "priority": "high",
+    "title": "Summer Camp 2026 - Registration Open!",
+    "message": "Join BNIOC's Summer Camp 2026 for an unforgettable cricket training experience! Professional coaching, world-class facilities, and comprehensive skill development await. Limited seats available - register now to secure your spot!",
+    "image": "/assets/images/anouncements/summer_camp_2026.png",
+    "imageAlt": "BNIOC Summer Camp 2026 Registration",
+    "badge": "☀️ SUMMER CAMP 2026",
+    "publishDate": "2026-02-21T00:00:00.000Z",
+    "expiryDate": "2027-02-21T23:59:59.000Z",
+    "isActive": true,
+    "showOnce": false,
+    "category": "program",
+    "actionButton": {
+      "text": "Register Now",
+      "link": "/contact"
+    }
+  },
     {
     "id": "ishant-debut-2024",
     "type": "breaking_news",
@@ -9,7 +28,7 @@
     "imageAlt": "Ishant Bhardwaj in action during his Syed Mushtaq Ali Trophy debut",
     "badge": "🏏 BREAKING NEWS",
     "publishDate": "2025-12-13T13:00:00.000Z",
-    "expiryDate": "2025-12-20T23:59:59.000Z",
+    "expiryDate": "2027-02-21T23:59:59.000Z",
     "isActive": true,
     "showOnce": false,
     "category": "achievement"
@@ -24,7 +43,7 @@
     "imageAlt": "Ishant Bharadwaj receiving Man of the Match award in SMAT",
     "badge": "🏆 MAN OF THE MATCH",
     "publishDate": "2025-12-13T14:00:00.000Z",
-    "expiryDate": "2025-12-25T23:59:59.000Z",
+    "expiryDate": "2027-02-21T23:59:59.000Z",
     "isActive": true,
     "showOnce": false,
     "category": "achievement"
@@ -39,7 +58,7 @@
     "imageAlt": "BNIOC Cricket Academy new branch at Ittangur Village near Prestige City East Gate",
     "badge": "🏏 BREAKING NEWS",
     "publishDate": "2025-12-13T12:00:00.000Z",
-    "expiryDate": "2026-01-15T23:59:59.000Z",
+    "expiryDate": "2027-02-21T23:59:59.000Z",
     "isActive": true,
     "showOnce": false,
     "category": "achievement",

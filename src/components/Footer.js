@@ -174,8 +174,12 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <i className="fas fa-map-marker-alt text-primary-400 mt-1 flex-shrink-0"></i>
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  Global White Pearl, Panditana Agrahara, Bengaluru, Karnataka 562125
+                <p className="text-gray-300 text-xs leading-relaxed">
+                  Survey No 111/9,<br />
+                  Opposite Sowparnika Pragati Apartment,<br />
+                  Chikkadasarahalli Road,<br />
+                  Ittangur, Sarjapura Hobli,<br />
+                  Anekal Taluka, Bangalore- 562125
                 </p>
               </div>
               <div className="flex items-center space-x-3">

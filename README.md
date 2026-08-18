@@ -117,7 +117,12 @@ bnioc/
 For support and inquiries:
 - **Email**: info@bnioc.com
 - **Phone**: +91 79740 94110
-- **Address**: Global White Pearl, Panditana Agrahara, Bengaluru, Karnataka 562125
+- **Address**:
+  Survey No 111/9,  
+  Opposite Sowparnika Pragati Apartment,  
+  Chikkadasarahalli Road,  
+  Ittangur, Sarjapura Hobli,  
+  Anekal Taluka, Bangalore- 562125
 
 ---
 

@@ -1043,7 +1043,7 @@ export default App;
                 </div>
                 <div className="contact-details">
                   <h4>Address</h4>
-                  <p>Global White Pearl, Panditana Agrahara<br />Bengaluru, Karnataka 562125</p>
+                  <p>Survey No 111/9,<br />Opposite Sowparnika Pragati Apartment,<br />Chikkadasarahalli Road,<br />Ittangur, Sarjapura Hobli,<br />Anekal Taluka, Bangalore- 562125</p>
                 </div>
               </div>
               
@@ -1142,7 +1142,7 @@ export default App;
             <div className="footer-section">
               <h4>Contact Info</h4>
               <div className="footer-contact">
-                <p><i className="fas fa-map-marker-alt"></i> Global White Pearl, Panditana Agrahara, Bengaluru</p>
+                <p><i className="fas fa-map-marker-alt"></i> Survey No 111/9,<br />Opposite Sowparnika Pragati Apartment,<br />Chikkadasarahalli Road,<br />Ittangur, Sarjapura Hobli,<br />Anekal Taluka, Bangalore- 562125</p>
                 <p><i className="fas fa-phone"></i> +91 79740 94110</p>
                 <p><i className="fas fa-envelope"></i> info@batkhelo.com</p>
               </div>

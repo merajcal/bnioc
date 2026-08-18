@@ -81,7 +81,7 @@ const Home = () => {
         { icon: '✅', text: 'Fitness, Agility & Strength Conditioning Sessions' },
         { icon: '✅', text: 'Practice Matches & Match Simulation Experience' }
       ],
-      summerCampLocation: 'Opposite to Sowparnika Tharangini, Apartment, Ittangur, Bengaluru, Karnataka 562125',
+      summerCampLocation: 'Survey No 111/9, Opposite Sowparnika Pragati Apartment, Chikkadasarahalli Road, Ittangur, Sarjapura Hobli, Anekal Taluka, Bangalore- 562125',
       achievements: [
         { icon: 'fas fa-clock', text: '06:30-09:00 AM & 04:00-06:30 PM' },
         { icon: 'fas fa-calendar', text: 'Starts March 28' },

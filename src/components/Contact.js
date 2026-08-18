@@ -6,7 +6,7 @@ const Contact = () => {
     {
       icon: 'fas fa-map-marker-alt',
       title: 'Visit Our Academy',
-      content: 'Global White Pearl, Panditana Agrahara\nBengaluru, Karnataka 562125',
+      content: 'Survey No 111/9,\nOpposite Sowparnika Pragati Apartment,\nChikkadasarahalli Road,\nIttangur, Sarjapura Hobli,\nAnekal Taluka, Bangalore- 562125',
       color: 'text-red-500'
     },
     {
@@ -68,7 +68,12 @@ const Contact = () => {
                   ))
                 ) : (
                   info.content.split('\n').map((line, i) => (
-                    <div key={i}>{line}</div>
+                    <div
+                      key={i}
+                      className={info.title === 'Visit Our Academy' ? 'text-xs leading-relaxed whitespace-nowrap' : ''}
+                    >
+                      {line}
+                    </div>
                   ))
                 )}
               </div>
@@ -188,7 +193,7 @@ const Contact = () => {
           </h3>
           <div className="relative overflow-hidden rounded-xl shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.8267!2d77.6311!3d12.9141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU0JzUwLjgiTiA3N8KwMzgnNTIuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+              src="https://www.google.com/maps?q=Survey%20No%20111%2F9%2C%20Opposite%20Sowparnika%20Pragati%20Apartment%2C%20Chikkadasarahalli%20Road%2C%20Ittangur%2C%20Sarjapura%20Hobli%2C%20Anekal%20Taluka%2C%20Bangalore-%20562125&output=embed"
               width="100%"
               height="400"
               style={{ border: 0 }}
@@ -202,7 +207,13 @@ const Contact = () => {
           <div className="text-center mt-4">
             <p className="text-secondary-600 dark:text-secondary-300 font-secondary">
               <i className="fas fa-map-marker-alt text-primary-500 mr-2"></i>
-              Global White Pearl, Panditana Agrahara, Bengaluru, Karnataka 562125
+              <span className="inline-block align-top">
+                Survey No 111/9,<br />
+                Opposite Sowparnika Pragati Apartment,<br />
+                Chikkadasarahalli Road,<br />
+                Ittangur, Sarjapura Hobli,<br />
+                Anekal Taluka, Bangalore- 562125
+              </span>
             </p>
           </div>
         </div>

@@ -90,7 +90,12 @@ bnioc/
 
 ## 📞 Contact Information
 
-- **Location**: Global White Pearl, Panditana Agrahara, Bengaluru, Karnataka 562125
+- **Location**:
+  Survey No 111/9,  
+  Opposite Sowparnika Pragati Apartment,  
+  Chikkadasarahalli Road,  
+  Ittangur, Sarjapura Hobli,  
+  Anekal Taluka, Bangalore- 562125
 - **Phone**: +91 79740 94110, +91 88811 13107
 - **Email**: info@batkhelo.com, admissions@batkhelo.com
 - **Instagram**: @bnioc_cricketers

@@ -63,9 +63,9 @@
     "showOnce": false,
     "category": "achievement",
     "location": {
-      "address": "Opposite to Sowparnika Tharangini Apartment, Ittangur Village, Bengaluru, Karnataka 562125",
+      "address": "Survey No 111/9, Opposite Sowparnika Pragati Apartment, Chikkadasarahalli Road, Ittangur, Sarjapura Hobli, Anekal Taluka, Bangalore- 562125",
       "landmark": "Near Prestige City East Gate",
-      "mapUrl": "https://www.google.com/maps/dir//opposite+to+Sowparnika+Tharangini,+Apartment,+Ittangur,+Bengaluru,+Karnataka+562125/@12.874291,77.7795364,4326m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x3bae734af402ab2b:0xcb5241f9fd0083f3!2m2!1d77.7874554!2d12.8763721?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D"
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Survey%20No%20111%2F9%2C%20Opposite%20Sowparnika%20Pragati%20Apartment%2C%20Chikkadasarahalli%20Road%2C%20Ittangur%2C%20Sarjapura%20Hobli%2C%20Anekal%20Taluka%2C%20Bangalore-%20562125"
     },
     "actionButton": {
       "text": "View Location & Register",

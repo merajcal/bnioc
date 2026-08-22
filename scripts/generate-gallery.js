@@ -1,6 +1,61 @@
 const fs = require('fs');
 const path = require('path');
 
+const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic', '.heif'];
+
+function toUrlPath(filePath) {
+  return filePath.split(path.sep).join('/');
+}
+
+function getImageFiles(folderPath) {
+  if (!fs.existsSync(folderPath)) {
+    return [];
+  }
+
+  const files = [];
+
+  function walk(currentPath) {
+    const entries = fs.readdirSync(currentPath, { withFileTypes: true });
+
+    entries.forEach((entry) => {
+      const entryPath = path.join(currentPath, entry.name);
+
+      if (entry.isDirectory()) {
+        walk(entryPath);
+        return;
+      }
+
+      if (entry.isFile() && imageExtensions.includes(path.extname(entry.name).toLowerCase())) {
+        files.push(toUrlPath(path.relative(folderPath, entryPath)));
+      }
+    });
+  }
+
+  walk(folderPath);
+  return files.sort((a, b) => a.localeCompare(b));
+}
+
+function sortGalleryFiles(files) {
+  return files.sort((a, b) => {
+    const aIsIttangur = a.startsWith('ittangur/');
+    const bIsIttangur = b.startsWith('ittangur/');
+
+    if (aIsIttangur !== bIsIttangur) {
+      return aIsIttangur ? -1 : 1;
+    }
+
+    return a.localeCompare(b);
+  });
+}
+
+function getTitleFromFile(file) {
+  const name = path.parse(file).name;
+
+  return name.split(/[-_\s]+/).map(word =>
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+}
+
 // Auto-generate gallery images list
 function generateGalleryImages() {
   const galleryPath = path.join(__dirname, '../public/assets/images/gallery');
@@ -15,30 +70,13 @@ function generateGalleryImages() {
       return;
     }
 
-    // Read all files from gallery folder
-    const galleryFiles = fs.readdirSync(galleryPath);
-    
-    // Read announcement images if folder exists
-    let announcementFiles = [];
-    if (fs.existsSync(announcementsPath)) {
-      announcementFiles = fs.readdirSync(announcementsPath);
-    }
-    
-    // Filter only image files
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
-    const galleryImageFiles = galleryFiles.filter(file => 
-      imageExtensions.includes(path.extname(file).toLowerCase())
-    );
-    const announcementImageFiles = announcementFiles.filter(file => 
-      imageExtensions.includes(path.extname(file).toLowerCase())
-    );
+    // Read all images from gallery folder, including nested folders.
+    const galleryImageFiles = sortGalleryFiles(getImageFiles(galleryPath));
+    const announcementImageFiles = getImageFiles(announcementsPath);
 
     // Generate image objects for gallery images
     const galleryImages = galleryImageFiles.map((file, index) => {
-      const name = path.parse(file).name;
-      const title = name.split('-').map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' ');
+      const title = getTitleFromFile(file);
 
       return {
         id: index + 1,
@@ -54,9 +92,7 @@ function generateGalleryImages() {
     // Generate image objects for announcement images
     const announcementImages = announcementImageFiles.map((file, index) => {
       const name = path.parse(file).name;
-      let title = name.split('-').map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1)
-      ).join(' ');
+      let title = getTitleFromFile(file);
       
       // Special handling for announcement images
       if (name.includes('ishant')) {

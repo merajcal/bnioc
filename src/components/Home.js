@@ -11,7 +11,7 @@ const Home = () => {
       title: 'Bengaluru Nex-Gen Institute',
       subtitle: 'of Cricket',
       description: 'Empowering the next generation of cricket champions through world-class training, expert coaching, and comprehensive development programs at Bengaluru\'s premier cricket academy.',
-      backgroundImage: 'assets/images/academy_bg.jpeg',
+      backgroundImage: 'assets/images/ittangur-branch/home_1.jpeg',
       achievements: [
         { icon: 'fas fa-users', text: '100+ Students Trained' },
         { icon: 'fas fa-calendar-alt', text: '15+ Years Experience' },
@@ -56,7 +56,7 @@ const Home = () => {
       title: 'Choose Your Path',
       subtitle: 'to Cricket Excellence',
       description: 'Discover our comprehensive range of training programs designed for every skill level and commitment. From weekend sessions to intensive camps, find the perfect program to elevate your game.',
-      backgroundImage: '/assets/images/banners/catching_practice.jpg',
+      backgroundImage: '/assets/images/ittangur-branch/choose_your_path.jpeg',
       achievements: [
         { icon: 'fas fa-calendar-week', text: 'Weekend Programs' },
         { icon: 'fas fa-sun', text: 'Summer Camps' },
@@ -70,7 +70,7 @@ const Home = () => {
       title: 'Summer Camp 2026',
       subtitle: 'Ittangur Branch',
       description: 'Register Now! Starts from March 28. Limited time early registration offer. Corporate booking available.',
-      backgroundImage: '/assets/images/banners/academy-facilities.jpg',
+      backgroundImage: '/assets/images/ittangur-branch/summer-camp.jpeg',
       isSummerCampSlide: true,
       summerCampPoster: '/assets/images/anouncements/summer_camp_2026.png',
       summerCampTimings: '06:30 - 09:00 AM & 04:00 PM - 06:30 PM',
@@ -96,7 +96,7 @@ const Home = () => {
       title: 'Learn from the Best',
       subtitle: 'Professional Experience',
       description: 'Train under Coach Kamal, who has worked alongside India\'s finest cricketers at elite training facilities. Experience world-class coaching methodologies used at the highest levels.',
-      backgroundImage: 'assets/images/academy_bg.jpeg', // Use default background
+      backgroundImage: 'assets/images/ittangur-branch/home_0.jpeg', // Use default background
       achievements: [
         { icon: 'fas fa-star', text: '15+ Years Elite Coaching' },
         { icon: 'fas fa-users', text: 'International Players' },

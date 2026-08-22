@@ -1,24 +1,357 @@
 [
   {
     "id": 1,
-    "src": "/assets/images/gallery/BTR_U14_2024-2025_1.jpg",
-    "alt": "BTR_U14_2024 2025_1",
-    "title": "BTR_U14_2024 2025_1",
-    "description": "BNIOC BTR_U14_2024 2025_1",
-    "filename": "BTR_U14_2024-2025_1.jpg",
+    "src": "/assets/images/gallery/ittangur/ittangur-academy-facilities.jpeg",
+    "alt": "Ittangur Academy Facilities",
+    "title": "Ittangur Academy Facilities",
+    "description": "BNIOC Ittangur Academy Facilities",
+    "filename": "ittangur/ittangur-academy-facilities.jpeg",
     "category": "gallery"
   },
   {
     "id": 2,
-    "src": "/assets/images/gallery/BTR_U14_2024-2025_2.jpeg",
-    "alt": "BTR_U14_2024 2025_2",
-    "title": "BTR_U14_2024 2025_2",
-    "description": "BNIOC BTR_U14_2024 2025_2",
-    "filename": "BTR_U14_2024-2025_2.jpeg",
+    "src": "/assets/images/gallery/ittangur/ittangur-academy-ground.jpeg",
+    "alt": "Ittangur Academy Ground",
+    "title": "Ittangur Academy Ground",
+    "description": "BNIOC Ittangur Academy Ground",
+    "filename": "ittangur/ittangur-academy-ground.jpeg",
     "category": "gallery"
   },
   {
     "id": 3,
+    "src": "/assets/images/gallery/ittangur/ittangur-academy-life.jpeg",
+    "alt": "Ittangur Academy Life",
+    "title": "Ittangur Academy Life",
+    "description": "BNIOC Ittangur Academy Life",
+    "filename": "ittangur/ittangur-academy-life.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 4,
+    "src": "/assets/images/gallery/ittangur/ittangur-batting-drills.jpeg",
+    "alt": "Ittangur Batting Drills",
+    "title": "Ittangur Batting Drills",
+    "description": "BNIOC Ittangur Batting Drills",
+    "filename": "ittangur/ittangur-batting-drills.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 5,
+    "src": "/assets/images/gallery/ittangur/ittangur-batting-practice.jpeg",
+    "alt": "Ittangur Batting Practice",
+    "title": "Ittangur Batting Practice",
+    "description": "BNIOC Ittangur Batting Practice",
+    "filename": "ittangur/ittangur-batting-practice.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 6,
+    "src": "/assets/images/gallery/ittangur/ittangur-bowling-practice.heic",
+    "alt": "Ittangur Bowling Practice",
+    "title": "Ittangur Bowling Practice",
+    "description": "BNIOC Ittangur Bowling Practice",
+    "filename": "ittangur/ittangur-bowling-practice.heic",
+    "category": "gallery"
+  },
+  {
+    "id": 7,
+    "src": "/assets/images/gallery/ittangur/ittangur-bowling-technique.jpeg",
+    "alt": "Ittangur Bowling Technique",
+    "title": "Ittangur Bowling Technique",
+    "description": "BNIOC Ittangur Bowling Technique",
+    "filename": "ittangur/ittangur-bowling-technique.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 8,
+    "src": "/assets/images/gallery/ittangur/ittangur-championship.jpeg",
+    "alt": "Ittangur Championship",
+    "title": "Ittangur Championship",
+    "description": "BNIOC Ittangur Championship",
+    "filename": "ittangur/ittangur-championship.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 9,
+    "src": "/assets/images/gallery/ittangur/ittangur-coach-guidance.jpeg",
+    "alt": "Ittangur Coach Guidance",
+    "title": "Ittangur Coach Guidance",
+    "description": "BNIOC Ittangur Coach Guidance",
+    "filename": "ittangur/ittangur-coach-guidance.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 10,
+    "src": "/assets/images/gallery/ittangur/ittangur-coaching-session.jpeg",
+    "alt": "Ittangur Coaching Session",
+    "title": "Ittangur Coaching Session",
+    "description": "BNIOC Ittangur Coaching Session",
+    "filename": "ittangur/ittangur-coaching-session.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 11,
+    "src": "/assets/images/gallery/ittangur/ittangur-cricket-academy.jpeg",
+    "alt": "Ittangur Cricket Academy",
+    "title": "Ittangur Cricket Academy",
+    "description": "BNIOC Ittangur Cricket Academy",
+    "filename": "ittangur/ittangur-cricket-academy.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 12,
+    "src": "/assets/images/gallery/ittangur/ittangur-cricket-camp.jpeg",
+    "alt": "Ittangur Cricket Camp",
+    "title": "Ittangur Cricket Camp",
+    "description": "BNIOC Ittangur Cricket Camp",
+    "filename": "ittangur/ittangur-cricket-camp.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 13,
+    "src": "/assets/images/gallery/ittangur/ittangur-cricket-coaching.jpeg",
+    "alt": "Ittangur Cricket Coaching",
+    "title": "Ittangur Cricket Coaching",
+    "description": "BNIOC Ittangur Cricket Coaching",
+    "filename": "ittangur/ittangur-cricket-coaching.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 14,
+    "src": "/assets/images/gallery/ittangur/ittangur-cricket-excellence.jpeg",
+    "alt": "Ittangur Cricket Excellence",
+    "title": "Ittangur Cricket Excellence",
+    "description": "BNIOC Ittangur Cricket Excellence",
+    "filename": "ittangur/ittangur-cricket-excellence.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 15,
+    "src": "/assets/images/gallery/ittangur/ittangur-cricket-match.jpeg",
+    "alt": "Ittangur Cricket Match",
+    "title": "Ittangur Cricket Match",
+    "description": "BNIOC Ittangur Cricket Match",
+    "filename": "ittangur/ittangur-cricket-match.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 16,
+    "src": "/assets/images/gallery/ittangur/ittangur-cricket-skills.jpeg",
+    "alt": "Ittangur Cricket Skills",
+    "title": "Ittangur Cricket Skills",
+    "description": "BNIOC Ittangur Cricket Skills",
+    "filename": "ittangur/ittangur-cricket-skills.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 17,
+    "src": "/assets/images/gallery/ittangur/ittangur-fielding-drills.jpeg",
+    "alt": "Ittangur Fielding Drills",
+    "title": "Ittangur Fielding Drills",
+    "description": "BNIOC Ittangur Fielding Drills",
+    "filename": "ittangur/ittangur-fielding-drills.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 18,
+    "src": "/assets/images/gallery/ittangur/ittangur-fielding-practice.jpeg",
+    "alt": "Ittangur Fielding Practice",
+    "title": "Ittangur Fielding Practice",
+    "description": "BNIOC Ittangur Fielding Practice",
+    "filename": "ittangur/ittangur-fielding-practice.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 19,
+    "src": "/assets/images/gallery/ittangur/ittangur-fitness-training.heic",
+    "alt": "Ittangur Fitness Training",
+    "title": "Ittangur Fitness Training",
+    "description": "BNIOC Ittangur Fitness Training",
+    "filename": "ittangur/ittangur-fitness-training.heic",
+    "category": "gallery"
+  },
+  {
+    "id": 20,
+    "src": "/assets/images/gallery/ittangur/ittangur-group-training.jpeg",
+    "alt": "Ittangur Group Training",
+    "title": "Ittangur Group Training",
+    "description": "BNIOC Ittangur Group Training",
+    "filename": "ittangur/ittangur-group-training.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 21,
+    "src": "/assets/images/gallery/ittangur/ittangur-match-moment.jpeg",
+    "alt": "Ittangur Match Moment",
+    "title": "Ittangur Match Moment",
+    "description": "BNIOC Ittangur Match Moment",
+    "filename": "ittangur/ittangur-match-moment.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 22,
+    "src": "/assets/images/gallery/ittangur/ittangur-match-practice.jpeg",
+    "alt": "Ittangur Match Practice",
+    "title": "Ittangur Match Practice",
+    "description": "BNIOC Ittangur Match Practice",
+    "filename": "ittangur/ittangur-match-practice.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 23,
+    "src": "/assets/images/gallery/ittangur/ittangur-net-practice.jpeg",
+    "alt": "Ittangur Net Practice",
+    "title": "Ittangur Net Practice",
+    "description": "BNIOC Ittangur Net Practice",
+    "filename": "ittangur/ittangur-net-practice.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 24,
+    "src": "/assets/images/gallery/ittangur/ittangur-player-practice.jpeg",
+    "alt": "Ittangur Player Practice",
+    "title": "Ittangur Player Practice",
+    "description": "BNIOC Ittangur Player Practice",
+    "filename": "ittangur/ittangur-player-practice.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 25,
+    "src": "/assets/images/gallery/ittangur/ittangur-practice-ground.jpeg",
+    "alt": "Ittangur Practice Ground",
+    "title": "Ittangur Practice Ground",
+    "description": "BNIOC Ittangur Practice Ground",
+    "filename": "ittangur/ittangur-practice-ground.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 26,
+    "src": "/assets/images/gallery/ittangur/ittangur-practice-match.jpeg",
+    "alt": "Ittangur Practice Match",
+    "title": "Ittangur Practice Match",
+    "description": "BNIOC Ittangur Practice Match",
+    "filename": "ittangur/ittangur-practice-match.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 27,
+    "src": "/assets/images/gallery/ittangur/ittangur-skills-workshop.jpeg",
+    "alt": "Ittangur Skills Workshop",
+    "title": "Ittangur Skills Workshop",
+    "description": "BNIOC Ittangur Skills Workshop",
+    "filename": "ittangur/ittangur-skills-workshop.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 28,
+    "src": "/assets/images/gallery/ittangur/ittangur-sports-training.jpeg",
+    "alt": "Ittangur Sports Training",
+    "title": "Ittangur Sports Training",
+    "description": "BNIOC Ittangur Sports Training",
+    "filename": "ittangur/ittangur-sports-training.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 29,
+    "src": "/assets/images/gallery/ittangur/ittangur-student-achievement.jpeg",
+    "alt": "Ittangur Student Achievement",
+    "title": "Ittangur Student Achievement",
+    "description": "BNIOC Ittangur Student Achievement",
+    "filename": "ittangur/ittangur-student-achievement.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 30,
+    "src": "/assets/images/gallery/ittangur/ittangur-student-success.jpeg",
+    "alt": "Ittangur Student Success",
+    "title": "Ittangur Student Success",
+    "description": "BNIOC Ittangur Student Success",
+    "filename": "ittangur/ittangur-student-success.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 31,
+    "src": "/assets/images/gallery/ittangur/ittangur-team-celebration.jpeg",
+    "alt": "Ittangur Team Celebration",
+    "title": "Ittangur Team Celebration",
+    "description": "BNIOC Ittangur Team Celebration",
+    "filename": "ittangur/ittangur-team-celebration.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 32,
+    "src": "/assets/images/gallery/ittangur/ittangur-team-huddle.jpeg",
+    "alt": "Ittangur Team Huddle",
+    "title": "Ittangur Team Huddle",
+    "description": "BNIOC Ittangur Team Huddle",
+    "filename": "ittangur/ittangur-team-huddle.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 33,
+    "src": "/assets/images/gallery/ittangur/ittangur-team-photo.heic",
+    "alt": "Ittangur Team Photo",
+    "title": "Ittangur Team Photo",
+    "description": "BNIOC Ittangur Team Photo",
+    "filename": "ittangur/ittangur-team-photo.heic",
+    "category": "gallery"
+  },
+  {
+    "id": 34,
+    "src": "/assets/images/gallery/ittangur/ittangur-team-spirit.jpeg",
+    "alt": "Ittangur Team Spirit",
+    "title": "Ittangur Team Spirit",
+    "description": "BNIOC Ittangur Team Spirit",
+    "filename": "ittangur/ittangur-team-spirit.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 35,
+    "src": "/assets/images/gallery/ittangur/ittangur-tournament-action.jpeg",
+    "alt": "Ittangur Tournament Action",
+    "title": "Ittangur Tournament Action",
+    "description": "BNIOC Ittangur Tournament Action",
+    "filename": "ittangur/ittangur-tournament-action.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 36,
+    "src": "/assets/images/gallery/ittangur/ittangur-training-ground.jpeg",
+    "alt": "Ittangur Training Ground",
+    "title": "Ittangur Training Ground",
+    "description": "BNIOC Ittangur Training Ground",
+    "filename": "ittangur/ittangur-training-ground.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 37,
+    "src": "/assets/images/gallery/ittangur/ittangur-training-session-1.jpeg",
+    "alt": "Ittangur Training Session 1",
+    "title": "Ittangur Training Session 1",
+    "description": "BNIOC Ittangur Training Session 1",
+    "filename": "ittangur/ittangur-training-session-1.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 38,
+    "src": "/assets/images/gallery/ittangur/ittangur-warmup-session.jpeg",
+    "alt": "Ittangur Warmup Session",
+    "title": "Ittangur Warmup Session",
+    "description": "BNIOC Ittangur Warmup Session",
+    "filename": "ittangur/ittangur-warmup-session.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 39,
+    "src": "/assets/images/gallery/ittangur/ittangur-winning-moment.jpeg",
+    "alt": "Ittangur Winning Moment",
+    "title": "Ittangur Winning Moment",
+    "description": "BNIOC Ittangur Winning Moment",
+    "filename": "ittangur/ittangur-winning-moment.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 40,
     "src": "/assets/images/gallery/academy-facilities.jpg",
     "alt": "Academy Facilities",
     "title": "Academy Facilities",
@@ -27,7 +360,16 @@
     "category": "gallery"
   },
   {
-    "id": 4,
+    "id": 41,
+    "src": "/assets/images/gallery/academy-life.jpg",
+    "alt": "Academy Life",
+    "title": "Academy Life",
+    "description": "BNIOC Academy Life",
+    "filename": "academy-life.jpg",
+    "category": "gallery"
+  },
+  {
+    "id": 42,
     "src": "/assets/images/gallery/batting-practice.jpg",
     "alt": "Batting Practice",
     "title": "Batting Practice",
@@ -36,7 +378,7 @@
     "category": "gallery"
   },
   {
-    "id": 5,
+    "id": 43,
     "src": "/assets/images/gallery/bowling-technique.jpg",
     "alt": "Bowling Technique",
     "title": "Bowling Technique",
@@ -45,16 +387,43 @@
     "category": "gallery"
   },
   {
-    "id": 6,
+    "id": 44,
+    "src": "/assets/images/gallery/BTR_U14_2024-2025_1.jpg",
+    "alt": "BTR U14 2024 2025 1",
+    "title": "BTR U14 2024 2025 1",
+    "description": "BNIOC BTR U14 2024 2025 1",
+    "filename": "BTR_U14_2024-2025_1.jpg",
+    "category": "gallery"
+  },
+  {
+    "id": 45,
+    "src": "/assets/images/gallery/BTR_U14_2024-2025_2.jpeg",
+    "alt": "BTR U14 2024 2025 2",
+    "title": "BTR U14 2024 2025 2",
+    "description": "BNIOC BTR U14 2024 2025 2",
+    "filename": "BTR_U14_2024-2025_2.jpeg",
+    "category": "gallery"
+  },
+  {
+    "id": 46,
     "src": "/assets/images/gallery/catching_practice.jpg",
-    "alt": "Catching_practice",
-    "title": "Catching_practice",
-    "description": "BNIOC Catching_practice",
+    "alt": "Catching Practice",
+    "title": "Catching Practice",
+    "description": "BNIOC Catching Practice",
     "filename": "catching_practice.jpg",
     "category": "gallery"
   },
   {
-    "id": 7,
+    "id": 47,
+    "src": "/assets/images/gallery/championship.jpg",
+    "alt": "Championship",
+    "title": "Championship",
+    "description": "BNIOC Championship",
+    "filename": "championship.jpg",
+    "category": "gallery"
+  },
+  {
+    "id": 48,
     "src": "/assets/images/gallery/coaching-session.jpg",
     "alt": "Coaching Session",
     "title": "Coaching Session",
@@ -63,7 +432,7 @@
     "category": "gallery"
   },
   {
-    "id": 8,
+    "id": 49,
     "src": "/assets/images/gallery/cricket-academy.jpg",
     "alt": "Cricket Academy",
     "title": "Cricket Academy",
@@ -72,7 +441,7 @@
     "category": "gallery"
   },
   {
-    "id": 9,
+    "id": 50,
     "src": "/assets/images/gallery/cricket-coaching.jpg",
     "alt": "Cricket Coaching",
     "title": "Cricket Coaching",
@@ -81,7 +450,7 @@
     "category": "gallery"
   },
   {
-    "id": 10,
+    "id": 51,
     "src": "/assets/images/gallery/cricket-excellence.jpg",
     "alt": "Cricket Excellence",
     "title": "Cricket Excellence",
@@ -90,7 +459,7 @@
     "category": "gallery"
   },
   {
-    "id": 11,
+    "id": 52,
     "src": "/assets/images/gallery/cricket-match.jpg",
     "alt": "Cricket Match",
     "title": "Cricket Match",
@@ -99,7 +468,7 @@
     "category": "gallery"
   },
   {
-    "id": 12,
+    "id": 53,
     "src": "/assets/images/gallery/cricket-skills.jpg",
     "alt": "Cricket Skills",
     "title": "Cricket Skills",
@@ -108,7 +477,7 @@
     "category": "gallery"
   },
   {
-    "id": 13,
+    "id": 54,
     "src": "/assets/images/gallery/fielding-drills.jpg",
     "alt": "Fielding Drills",
     "title": "Fielding Drills",
@@ -117,7 +486,7 @@
     "category": "gallery"
   },
   {
-    "id": 14,
+    "id": 55,
     "src": "/assets/images/gallery/ghanshyam-lomash.jpeg",
     "alt": "Ghanshyam Lomash",
     "title": "Ghanshyam Lomash",
@@ -126,7 +495,7 @@
     "category": "gallery"
   },
   {
-    "id": 15,
+    "id": 56,
     "src": "/assets/images/gallery/group-training.jpg",
     "alt": "Group Training",
     "title": "Group Training",
@@ -135,7 +504,7 @@
     "category": "gallery"
   },
   {
-    "id": 16,
+    "id": 57,
     "src": "/assets/images/gallery/match-practice.jpg",
     "alt": "Match Practice",
     "title": "Match Practice",
@@ -144,7 +513,7 @@
     "category": "gallery"
   },
   {
-    "id": 17,
+    "id": 58,
     "src": "/assets/images/gallery/practice-ground.jpg",
     "alt": "Practice Ground",
     "title": "Practice Ground",
@@ -153,16 +522,7 @@
     "category": "gallery"
   },
   {
-    "id": 18,
-    "src": "/assets/images/gallery/sports-training.jpg",
-    "alt": "Sports Training",
-    "title": "Sports Training",
-    "description": "BNIOC Sports Training",
-    "filename": "sports-training.jpg",
-    "category": "gallery"
-  },
-  {
-    "id": 19,
+    "id": 59,
     "src": "/assets/images/gallery/student-achievement.jpg",
     "alt": "Student Achievement",
     "title": "Student Achievement",
@@ -171,7 +531,7 @@
     "category": "gallery"
   },
   {
-    "id": 20,
+    "id": 60,
     "src": "/assets/images/gallery/student-success.jpg",
     "alt": "Student Success",
     "title": "Student Success",
@@ -180,7 +540,7 @@
     "category": "gallery"
   },
   {
-    "id": 21,
+    "id": 61,
     "src": "/assets/images/gallery/team-celebration.jpg",
     "alt": "Team Celebration",
     "title": "Team Celebration",
@@ -189,7 +549,7 @@
     "category": "gallery"
   },
   {
-    "id": 22,
+    "id": 62,
     "src": "/assets/images/gallery/team-photo.jpg",
     "alt": "Team Photo",
     "title": "Team Photo",
@@ -198,7 +558,7 @@
     "category": "gallery"
   },
   {
-    "id": 23,
+    "id": 63,
     "src": "/assets/images/gallery/team-spirit.jpg",
     "alt": "Team Spirit",
     "title": "Team Spirit",
@@ -207,16 +567,7 @@
     "category": "gallery"
   },
   {
-    "id": 24,
-    "src": "/assets/images/gallery/tournament-action.jpg",
-    "alt": "Tournament Action",
-    "title": "Tournament Action",
-    "description": "BNIOC Tournament Action",
-    "filename": "tournament-action.jpg",
-    "category": "gallery"
-  },
-  {
-    "id": 25,
+    "id": 64,
     "src": "/assets/images/gallery/training-ground.jpg",
     "alt": "Training Ground",
     "title": "Training Ground",
@@ -225,7 +576,7 @@
     "category": "gallery"
   },
   {
-    "id": 26,
+    "id": 65,
     "src": "/assets/images/gallery/training-session-1.jpg",
     "alt": "Training Session 1",
     "title": "Training Session 1",
@@ -234,7 +585,7 @@
     "category": "gallery"
   },
   {
-    "id": 27,
+    "id": 66,
     "src": "/assets/images/gallery/winning-moment.jpg",
     "alt": "Winning Moment",
     "title": "Winning Moment",
@@ -243,7 +594,7 @@
     "category": "gallery"
   },
   {
-    "id": 28,
+    "id": 67,
     "src": "/assets/images/announcements/ishant-debut-2.jpeg",
     "alt": "Ishant Bharadwaj SMAT Debut",
     "title": "Ishant Bharadwaj SMAT Debut",
@@ -252,7 +603,7 @@
     "category": "achievements"
   },
   {
-    "id": 29,
+    "id": 68,
     "src": "/assets/images/announcements/ishant-debut.jpeg",
     "alt": "Ishant Bharadwaj SMAT Debut",
     "title": "Ishant Bharadwaj SMAT Debut",
@@ -261,7 +612,7 @@
     "category": "achievements"
   },
   {
-    "id": 30,
+    "id": 69,
     "src": "/assets/images/announcements/ishant-mom-syed-mustaq.jpeg",
     "alt": "Ishant Bharadwaj Man of the Match",
     "title": "Ishant Bharadwaj Man of the Match",

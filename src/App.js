@@ -16,7 +16,6 @@ import WhyChooseUs from './components/WhyChooseUs';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ScrollIndicator from './components/ScrollIndicator';
-import BeforeAfterPlayer from './components/BeforeAfterPlayer';
 import AnnouncementModal from './components/AnnouncementModal';
 
 // Import announcement data
@@ -87,7 +86,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/why-choose-us" element={<WhyChooseUs />} />
             <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/progress" element={<BeforeAfterPlayer />} />
           </Routes>
         </main>
         

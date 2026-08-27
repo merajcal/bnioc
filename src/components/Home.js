@@ -17,7 +17,6 @@ const Home = () => {
         { icon: 'fas fa-calendar-alt', text: '15+ Years Experience' },
         { icon: 'fas fa-user-tie', text: '4+ Expert Coaches' },
         { icon: 'fas fa-baseball-ball', text: '5 Turf Pitches' },
-        { icon: 'fas fa-map-marker-alt', text: '2 New Grounds' }
       ]
     },
     {

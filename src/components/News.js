@@ -23,17 +23,6 @@ const News = () => {
       image: "/assets/images/gallery/BTR_U14_2024-2025_2.jpeg",
       readTime: "3 min read",
     },
-    {
-      id: 3,
-      title: "Summer Camp 2025 Registration Opens",
-      date: "February 10, 2024",
-      category: "Programs",
-      excerpt: "Early bird registration is now open for our intensive summer cricket camp. Limited seats available - secure your spot today!",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-      readTime: "4 min read"
-    },
-    
-    
     
   ];
 

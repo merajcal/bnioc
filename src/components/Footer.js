@@ -71,7 +71,15 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-4 font-primary">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link 
+                <Link
+                  to="/matches"
+                  className="whitespace-nowrap text-gray-300 hover:text-primary-400 transition-colors duration-200 text-sm"
+                >
+                  Match Center
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/" 
                   className="text-gray-300 hover:text-primary-400 transition-colors duration-200 text-sm"
                 >

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 // Import components
 import Header from './components/Header';
@@ -17,11 +17,13 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ScrollIndicator from './components/ScrollIndicator';
 import AnnouncementModal from './components/AnnouncementModal';
+import { MatchExperience } from './components/Matches';
 
 // Import announcement data
 import announcementsData from './data/announcements.json';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   const [theme, setTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAnnouncements, setShowAnnouncements] = useState(false);
@@ -64,8 +66,7 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="App min-h-screen bg-white dark:bg-secondary-900 transition-colors duration-300">
+    <div className="App min-h-screen bg-white dark:bg-secondary-900 transition-colors duration-300">
         <Header 
           theme={theme} 
           toggleTheme={toggleTheme} 
@@ -86,22 +87,31 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/why-choose-us" element={<WhyChooseUs />} />
             <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/matches" element={<MatchExperience />} />
+            <Route path="/matches/:slug" element={<MatchExperience />} />
           </Routes>
         </main>
         
-        <Footer />
+        {!location.pathname.startsWith('/matches') && <Footer />}
         
         {/* Global Scroll Indicator */}
         <ScrollIndicator />
         
         {/* Announcement Modal */}
-        {showAnnouncements && (
+        {showAnnouncements && location.pathname === '/' && (
           <AnnouncementModal 
             announcements={announcements}
             onClose={handleAnnouncementClose}
           />
         )}
       </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

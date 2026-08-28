@@ -38,7 +38,7 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
             <div className="ml-10 flex items-baseline space-x-1">
               <Link 
                 to="/" 
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                className={`whitespace-nowrap px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive('/') 
                     ? 'bg-primary-500 text-white' 
                     : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
@@ -117,6 +117,16 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
                 News & Events
               </Link>
               <Link 
+                to="/matches"
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  isActive('/matches')
+                    ? 'bg-primary-500 text-white'
+                    : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
+                }`}
+              >
+                Matches
+              </Link>
+              <Link
                 to="/contact" 
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive('/contact') 
@@ -160,7 +170,7 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-secondary-900 border-t border-gray-200 dark:border-secondary-700">
             <Link 
               to="/" 
-              className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+              className={`block whitespace-nowrap px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                 isActive('/') 
                   ? 'bg-primary-500 text-white' 
                   : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
@@ -247,6 +257,17 @@ const Header = ({ theme, toggleTheme, isMenuOpen, toggleMenu }) => {
               News & Events
             </Link>
             <Link 
+              to="/matches"
+              className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                isActive('/matches')
+                  ? 'bg-primary-500 text-white'
+                  : 'text-secondary-700 dark:text-secondary-300 hover:bg-primary-100 dark:hover:bg-secondary-800 hover:text-primary-600 dark:hover:text-primary-400'
+              }`}
+              onClick={toggleMenu}
+            >
+              Matches
+            </Link>
+            <Link
               to="/contact" 
               className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                 isActive('/contact') 

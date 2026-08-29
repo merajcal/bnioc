@@ -19,7 +19,7 @@ const getServerCore = () => { serverCorePromise = serverCorePromise || import('@
 const supabaseAdmin = async () => (await getServerCore()).createAdminClient();
 const asyncRoute = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
 const matchFields = 'id,slug,title,opponent,match_type,match_date,match_fee,location,maps_url,reporting_time,ball_type,jersey_label,overs,capacity,status,created_by,created_at';
-const registrationFields = 'id,match_id,student_id,player_name,email,phone,jersey_label,status,created_at';
+const registrationFields = 'id,match_id,student_id,player_name,email,phone,jersey_label,status,is_captain,is_wicket_keeper,created_at';
 const toMatch = (row, registrationsCount = 0) => {
   const summary = typeof registrationsCount === 'object' ? registrationsCount : { count: registrationsCount, players: [] };
   return {
@@ -29,6 +29,19 @@ const toMatch = (row, registrationsCount = 0) => {
   registrationsCount: Number(summary.count || 0), confirmedPlayers: summary.players || [], publishedAt: row.created_at,
   };
 };
+const toRegistration = (registration, payment) => ({
+  id: registration.id,
+  matchId: registration.match_id,
+  playerName: registration.player_name,
+  email: registration.email,
+  phone: registration.phone,
+  jerseyLabel: registration.jersey_label,
+  status: registration.status,
+  isCaptain: Boolean(registration.is_captain),
+  isWicketKeeper: Boolean(registration.is_wicket_keeper),
+  paymentTransactionId: payment?.transaction_id,
+  submittedAt: registration.created_at,
+});
 const toRequest = (req) => new Request(`http://${req.headers.host || 'localhost'}${req.originalUrl}`, {
   headers: { authorization: req.headers.authorization || '', apikey: req.headers.apikey || '' },
 });
@@ -83,13 +96,13 @@ app.post('/api/auth/login', asyncRoute(async (req, res) => {
 
 app.get('/api/matches', asyncRoute(async (req, res) => {
   const admin = await supabaseAdmin();
-  const { data, error } = await admin.from('matches').select(matchFields).eq('status', 'published').gte('match_date', new Date().toISOString().slice(0, 10)).order('match_date', { ascending: true });
+  const { data, error } = await admin.from('matches').select(matchFields).in('status', ['inactive', 'active']).gte('match_date', new Date().toISOString().slice(0, 10)).order('match_date', { ascending: true });
   if (error) throw error;
   const ids = (data || []).map((match) => match.id);
-  const { data: registrations, error: registrationError } = ids.length ? await admin.from('match_registrations').select('match_id,player_name,status').in('match_id', ids).neq('status', 'rejected') : { data: [], error: null };
+  const { data: registrations, error: registrationError } = ids.length ? await admin.from('match_registrations').select('match_id,player_name,status,is_captain,is_wicket_keeper').in('match_id', ids).neq('status', 'rejected') : { data: [], error: null };
   if (registrationError) throw registrationError;
   const counts = (registrations || []).reduce((result, item) => ({ ...result, [item.match_id]: (result[item.match_id] || 0) + 1 }), {});
-  const confirmedPlayers = (registrations || []).reduce((result, item) => item.status === 'confirmed' ? ({ ...result, [item.match_id]: [...(result[item.match_id] || []), item.player_name] }) : result, {});
+  const confirmedPlayers = (registrations || []).reduce((result, item) => item.status === 'confirmed' ? ({ ...result, [item.match_id]: [...(result[item.match_id] || []), `${item.player_name}${item.is_captain ? ' (Captain)' : ''}${item.is_wicket_keeper ? ' (Wicket keeper)' : ''}`] }) : result, {});
   res.json((data || []).map((match) => toMatch(match, { count: counts[match.id], players: confirmedPlayers[match.id] || [] })));
 }));
 
@@ -106,7 +119,7 @@ app.post('/api/matches', auth(['admin']), asyncRoute(async (req, res) => {
   if (missingFields.length || invalidFields.length) return res.status(400).json({ message: `Missing or invalid match fields: ${[...missingFields, ...invalidFields].join(', ')}` });
   if (new Date(`${matchDate}T23:59:59`) < new Date()) return res.status(400).json({ message: 'Match date must be in the future' });
   if (!/^https?:\/\//i.test(mapsUrl)) return res.status(400).json({ message: 'Google Maps link must start with http:// or https://' });
-  const match = { id: crypto.randomUUID(), slug: `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${Date.now()}`, title: title.trim(), opponent: opponent.trim(), match_type: matchType, match_date: matchDate, match_fee: Number(matchFee), location: location.trim(), maps_url: mapsUrl, reporting_time: reportingTime, ball_type: ballType, jersey_label: ballType === 'red' ? 'White jersey' : 'Colour jersey', overs: Number(overs), capacity: Number(capacity), status: 'published', created_by: req.user.id };
+  const match = { id: crypto.randomUUID(), slug: `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${Date.now()}`, title: title.trim(), opponent: opponent.trim(), match_type: matchType, match_date: matchDate, match_fee: Number(matchFee), location: location.trim(), maps_url: mapsUrl, reporting_time: reportingTime, ball_type: ballType, jersey_label: ballType === 'red' ? 'White jersey' : 'Colour jersey', overs: Number(overs), capacity: Number(capacity), status: 'inactive', created_by: req.user.id };
   const admin = await supabaseAdmin();
   const { data, error } = await admin.from('matches').insert(match).select(matchFields).single();
   if (error) throw error;
@@ -114,9 +127,9 @@ app.post('/api/matches', auth(['admin']), asyncRoute(async (req, res) => {
 }));
 
 app.patch('/api/admin/matches/:id', auth(['admin']), asyncRoute(async (req, res) => {
-  if (req.body.status !== 'cancelled') return res.status(400).json({ message: 'Only match cancellation is supported' });
+  if (!['inactive', 'active', 'cancelled'].includes(req.body.status)) return res.status(400).json({ message: 'Match status must be inactive, active or cancelled' });
   const admin = await supabaseAdmin();
-  const { data, error } = await admin.from('matches').update({ status: 'cancelled' }).eq('id', req.params.id).select(matchFields).single();
+  const { data, error } = await admin.from('matches').update({ status: req.body.status }).eq('id', req.params.id).select(matchFields).single();
   if (error) {
     if (error.code === 'PGRST116') return res.status(404).json({ message: 'Match not found' });
     throw error;
@@ -147,17 +160,51 @@ app.get('/api/admin/overview', auth(['admin']), asyncRoute(async (req, res) => {
   if (matchError || registrationError || paymentError) throw matchError || registrationError || paymentError;
   const counts = (registrations || []).reduce((result, item) => ({ ...result, [item.match_id]: (result[item.match_id] || 0) + (item.status === 'rejected' ? 0 : 1) }), {});
   const paymentMap = (payments || []).reduce((result, payment) => ({ ...result, [payment.registration_id]: payment }), {});
-  res.json({ matches: (matchRows || []).map((match) => toMatch(match, counts[match.id])), registrations: (registrations || []).map((registration) => ({ id: registration.id, matchId: registration.match_id, playerName: registration.player_name, email: registration.email, phone: registration.phone, jerseyLabel: registration.jersey_label, status: registration.status, paymentTransactionId: paymentMap[registration.id]?.transaction_id, submittedAt: registration.created_at })) });
+  res.json({ matches: (matchRows || []).map((match) => toMatch(match, counts[match.id])), registrations: (registrations || []).map((registration) => toRegistration(registration, paymentMap[registration.id])) });
 }));
 
 app.patch('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req, res) => {
-  if (!['confirmed', 'rejected'].includes(req.body.status)) return res.status(400).json({ message: 'Invalid registration status' });
+  const { status, isCaptain, isWicketKeeper } = req.body;
+  if (status !== undefined && !['confirmed', 'rejected'].includes(status)) return res.status(400).json({ message: 'Invalid registration status' });
+  if (isCaptain !== undefined && typeof isCaptain !== 'boolean') return res.status(400).json({ message: 'isCaptain must be boolean' });
+  if (isWicketKeeper !== undefined && typeof isWicketKeeper !== 'boolean') return res.status(400).json({ message: 'isWicketKeeper must be boolean' });
+  if (status === undefined && isCaptain === undefined && isWicketKeeper === undefined) return res.status(400).json({ message: 'Provide a status or player role update' });
   const admin = await supabaseAdmin();
-  const { data, error } = await admin.from('match_registrations').update({ status: req.body.status }).eq('id', req.params.id).select('id,status').single();
-  if (error) { if (error.code === 'PGRST116') return res.status(404).json({ message: 'Registration not found' }); throw error; }
-  const { error: paymentError } = await admin.from('payments').update({ status: req.body.status === 'confirmed' ? 'verified' : 'rejected', verified_at: new Date().toISOString(), verified_by: req.user.id }).eq('registration_id', req.params.id);
-  if (paymentError) throw paymentError;
-  res.json(data);
+  const { data: current, error: currentError } = await admin.from('match_registrations').select('id,match_id,status').eq('id', req.params.id).maybeSingle();
+  if (currentError) throw currentError;
+  if (!current) return res.status(404).json({ message: 'Registration not found' });
+  const resultingStatus = status || current.status;
+  if ((isCaptain === true || isWicketKeeper === true) && resultingStatus !== 'confirmed') return res.status(400).json({ message: 'Only confirmed players can be assigned match roles' });
+
+  if (isCaptain === true) {
+    const { error: clearCaptainError } = await admin.from('match_registrations').update({ is_captain: false }).eq('match_id', current.match_id).neq('id', current.id);
+    if (clearCaptainError) throw clearCaptainError;
+  }
+  if (isWicketKeeper === true) {
+    const { error: clearWicketKeeperError } = await admin.from('match_registrations').update({ is_wicket_keeper: false }).eq('match_id', current.match_id).neq('id', current.id);
+    if (clearWicketKeeperError) throw clearWicketKeeperError;
+  }
+
+  const updates = {};
+  if (status !== undefined) updates.status = status;
+  if (status === 'rejected') {
+    updates.is_captain = false;
+    updates.is_wicket_keeper = false;
+  } else {
+    if (isCaptain !== undefined) updates.is_captain = isCaptain;
+    if (isWicketKeeper !== undefined) updates.is_wicket_keeper = isWicketKeeper;
+  }
+  const { data, error } = await admin.from('match_registrations').update(updates).eq('id', req.params.id).select(registrationFields).single();
+  if (error) {
+    if (error.code === 'PGRST116') return res.status(404).json({ message: 'Registration not found' });
+    if (error.code === '23505') return res.status(409).json({ message: 'This match already has a player assigned to that role' });
+    throw error;
+  }
+  if (status !== undefined) {
+    const { error: paymentError } = await admin.from('payments').update({ status: status === 'confirmed' ? 'verified' : 'rejected', verified_at: new Date().toISOString(), verified_by: req.user.id }).eq('registration_id', req.params.id);
+    if (paymentError) throw paymentError;
+  }
+  res.json(toRegistration(data));
 }));
 
 app.post('/api/admin/matches/:id/players', auth(['admin']), asyncRoute(async (req, res) => {
@@ -187,7 +234,7 @@ app.post('/api/admin/matches/:id/players', auth(['admin']), asyncRoute(async (re
     if (error.code === '23502' && error.message.includes('student_id')) return res.status(500).json({ message: 'Database setup is incomplete. Run database/migrations/2026-08-28-admin-roster-actions.sql in Supabase SQL Editor.' });
     throw error;
   }
-  res.status(201).json({ id: data.id, matchId: data.match_id, playerName: data.player_name, email: data.email, phone: data.phone, jerseyLabel: data.jersey_label, status: data.status, submittedAt: data.created_at });
+  res.status(201).json(toRegistration(data));
 }));
 
 app.delete('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req, res) => {

@@ -33,11 +33,13 @@ export const submitRegistration = (matchId, registration, token) =>
 export const getAdminData = (token) =>
   request('/admin/overview', { headers: { Authorization: `Bearer ${token}` } });
 
-export const updateRegistration = (id, status, token) =>
-  request(`/admin/registrations/${id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify({ status }) });
+export const updateRegistration = (id, update, token) =>
+  request(`/admin/registrations/${id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(typeof update === 'string' ? { status: update } : update) });
 
-export const cancelMatch = (id, token) =>
-  request(`/admin/matches/${id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify({ status: 'cancelled' }) });
+export const updateMatchStatus = (id, status, token) =>
+  request(`/admin/matches/${id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify({ status }) });
+
+export const cancelMatch = (id, token) => updateMatchStatus(id, 'cancelled', token);
 
 export const addPlayer = (matchId, player, token) =>
   request(`/admin/matches/${matchId}/players`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(player) });

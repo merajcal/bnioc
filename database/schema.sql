@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS public.matches (
   jersey_label VARCHAR(40) NOT NULL,
   overs INTEGER NOT NULL DEFAULT 15 CHECK (overs > 0),
   capacity INTEGER NOT NULL DEFAULT 22 CHECK (capacity > 0),
-  status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'published', 'cancelled')),
+  status TEXT NOT NULL DEFAULT 'inactive' CHECK (status IN ('inactive', 'active', 'cancelled')),
   created_by UUID NOT NULL REFERENCES public.users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -50,6 +50,11 @@ ALTER TABLE public.matches ALTER COLUMN capacity SET DEFAULT 22;
 ALTER TABLE public.matches ALTER COLUMN capacity SET NOT NULL;
 ALTER TABLE public.matches DROP CONSTRAINT IF EXISTS matches_capacity_check;
 ALTER TABLE public.matches ADD CONSTRAINT matches_capacity_check CHECK (capacity > 0);
+ALTER TABLE public.matches DROP CONSTRAINT IF EXISTS matches_status_check;
+UPDATE public.matches SET status = 'active' WHERE status = 'published';
+UPDATE public.matches SET status = 'inactive' WHERE status = 'draft';
+ALTER TABLE public.matches ALTER COLUMN status SET DEFAULT 'inactive';
+ALTER TABLE public.matches ADD CONSTRAINT matches_status_check CHECK (status IN ('inactive', 'active', 'cancelled'));
 
 CREATE TABLE IF NOT EXISTS public.match_registrations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -60,6 +65,8 @@ CREATE TABLE IF NOT EXISTS public.match_registrations (
   phone VARCHAR(30),
   jersey_label VARCHAR(40) NOT NULL,
   status TEXT NOT NULL DEFAULT 'payment_pending' CHECK (status IN ('payment_pending', 'confirmed', 'rejected')),
+  is_captain BOOLEAN NOT NULL DEFAULT false,
+  is_wicket_keeper BOOLEAN NOT NULL DEFAULT false,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (match_id, student_id)
@@ -70,9 +77,17 @@ CREATE TABLE IF NOT EXISTS public.match_registrations (
 ALTER TABLE public.match_registrations ALTER COLUMN student_id DROP NOT NULL;
 ALTER TABLE public.match_registrations ALTER COLUMN email DROP NOT NULL;
 ALTER TABLE public.match_registrations ALTER COLUMN phone DROP NOT NULL;
+ALTER TABLE public.match_registrations ADD COLUMN IF NOT EXISTS is_captain BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE public.match_registrations ADD COLUMN IF NOT EXISTS is_wicket_keeper BOOLEAN NOT NULL DEFAULT false;
 CREATE UNIQUE INDEX IF NOT EXISTS match_registrations_match_phone_unique
   ON public.match_registrations (match_id, btrim(phone))
   WHERE phone IS NOT NULL AND btrim(phone) <> '';
+CREATE UNIQUE INDEX IF NOT EXISTS match_registrations_one_captain_per_match
+  ON public.match_registrations (match_id)
+  WHERE is_captain;
+CREATE UNIQUE INDEX IF NOT EXISTS match_registrations_one_wicket_keeper_per_match
+  ON public.match_registrations (match_id)
+  WHERE is_wicket_keeper;
 
 CREATE TABLE IF NOT EXISTS public.payments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -126,7 +141,7 @@ DECLARE
   occupied INTEGER;
 BEGIN
   SELECT * INTO target_match FROM public.matches WHERE id = p_match_id FOR UPDATE;
-  IF target_match.id IS NULL OR target_match.status <> 'published' OR target_match.match_date < CURRENT_DATE THEN
+  IF target_match.id IS NULL OR target_match.status <> 'active' OR target_match.match_date < CURRENT_DATE THEN
     RAISE EXCEPTION 'Registration is closed for this match';
   END IF;
 
@@ -171,7 +186,7 @@ ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS users_read_own_profile ON public.users;
 CREATE POLICY users_read_own_profile ON public.users FOR SELECT TO authenticated USING (id = auth.uid());
 DROP POLICY IF EXISTS matches_public_read ON public.matches;
-CREATE POLICY matches_public_read ON public.matches FOR SELECT TO anon, authenticated USING (status = 'published' AND match_date >= CURRENT_DATE);
+CREATE POLICY matches_public_read ON public.matches FOR SELECT TO anon, authenticated USING (status IN ('inactive', 'active') AND match_date >= CURRENT_DATE);
 
 REVOKE ALL ON FUNCTION public.register_for_match(UUID, UUID, TEXT, TEXT, TEXT, TEXT) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.register_for_match(UUID, UUID, TEXT, TEXT, TEXT, TEXT) TO service_role;

@@ -15,7 +15,7 @@ The new `/matches` route supports the full first version of match operations:
 
 2. Open **SQL Editor**, paste `database/schema.sql`, and run it. This creates the profile, match, registration, payment, RLS, and atomic-registration RPC objects.
 
-   If the database was already created from an earlier version, run `database/migrations/2026-08-27-add-opponent.sql` and `database/migrations/2026-08-28-admin-roster-actions.sql` once before deploying the updated API. The migration converts old `published` matches to `active` and old `draft` matches to `inactive`.
+   If the database was already created from an earlier version, run `database/migrations/2026-08-27-add-opponent.sql`, `database/migrations/2026-08-28-admin-roster-actions.sql`, and `database/migrations/2026-08-29-normalize-registration-phone.sql` once before deploying the updated API. The migrations convert old `published` matches to `active` and old `draft` matches to `inactive`, and prevent duplicate mobile-number registrations even when the number is formatted differently.
 
 3. Copy `.env.example` to `.env` and set the Supabase values:
 
@@ -53,7 +53,7 @@ The new `/matches` route supports the full first version of match operations:
 
 Students open `/matches`, select **View & register** on an active fixture, then sign in or create a student account. Inactive fixtures are visible but clearly marked as not open for registration. Students pay the displayed UPI fee, enter the payment transaction ID, and submit the registration. The registration appears in the academy console as `payment_pending` until an admin verifies it.
 
-In the academy console, an admin can make a newly created match active or inactive, cancel it with confirmation, and manage the roster. Confirm a player before assigning **Captain** or **Wicket keeper**. Assigning either role automatically moves that role from the previous player, so each match has at most one captain and one wicket keeper.
+In the academy console, an admin can make a newly created match active or inactive, cancel it with confirmation, and manage the roster. Every student-submitted payment appears as **Pending acknowledgement** until the admin acknowledges it. Acknowledging the payment marks it **Payment completed** and confirms the player; rejecting it marks both the payment and registration as rejected. Confirm a player before assigning **Captain** or **Wicket keeper**. Assigning either role automatically moves that role from the previous player, so each match has at most one captain and one wicket keeper.
 
 The match board requires the API and Supabase database for real fixtures, accounts, and registrations. A failed API request is shown as an error and is not saved only in browser storage.
 

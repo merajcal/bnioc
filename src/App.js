@@ -17,15 +17,18 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ScrollIndicator from './components/ScrollIndicator';
 import AnnouncementModal from './components/AnnouncementModal';
-import { MatchExperience } from './components/Matches';
+import { MatchExperience, AuthPanel } from './components/Matches';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 // Import announcement data
 import announcementsData from './data/announcements.json';
 
 function AppContent() {
   const location = useLocation();
+  const { setUser } = useAuth();
   const [theme, setTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const [showAnnouncements, setShowAnnouncements] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
 
@@ -51,6 +54,12 @@ function AppContent() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const openAuth = () => setAuthOpen(true);
+    window.addEventListener('bnioc-open-auth', openAuth);
+    return () => window.removeEventListener('bnioc-open-auth', openAuth);
+  }, []);
+
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
@@ -72,7 +81,9 @@ function AppContent() {
           toggleTheme={toggleTheme} 
           isMenuOpen={isMenuOpen} 
           toggleMenu={toggleMenu} 
+          onSignIn={() => setAuthOpen(true)}
         />
+        {authOpen && <AuthPanel onSuccess={(result) => { setUser(result); setAuthOpen(false); }} onClose={() => setAuthOpen(false)} />}
         
         <main className="pt-16 lg:pt-20">
           <Routes>
@@ -111,7 +122,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 }

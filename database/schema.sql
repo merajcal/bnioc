@@ -79,9 +79,26 @@ ALTER TABLE public.match_registrations ALTER COLUMN email DROP NOT NULL;
 ALTER TABLE public.match_registrations ALTER COLUMN phone DROP NOT NULL;
 ALTER TABLE public.match_registrations ADD COLUMN IF NOT EXISTS is_captain BOOLEAN NOT NULL DEFAULT false;
 ALTER TABLE public.match_registrations ADD COLUMN IF NOT EXISTS is_wicket_keeper BOOLEAN NOT NULL DEFAULT false;
-CREATE UNIQUE INDEX IF NOT EXISTS match_registrations_match_phone_unique
-  ON public.match_registrations (match_id, btrim(phone))
-  WHERE phone IS NOT NULL AND btrim(phone) <> '';
+-- Store/compare mobile numbers in a canonical form so punctuation, spaces and
+-- the Indian +91 prefix cannot be used to register the same number twice.
+CREATE OR REPLACE FUNCTION public.normalize_phone(p_phone TEXT)
+RETURNS TEXT
+LANGUAGE SQL
+IMMUTABLE
+AS $$
+  SELECT CASE
+    WHEN digits ~ '^91[6-9][0-9]{9}$' THEN right(digits, 10)
+    ELSE digits
+  END
+  FROM (
+    SELECT regexp_replace(COALESCE(p_phone, ''), '[^0-9]', '', 'g') AS digits
+  ) normalized;
+$$;
+
+DROP INDEX IF EXISTS match_registrations_match_phone_unique;
+CREATE UNIQUE INDEX match_registrations_match_phone_unique
+  ON public.match_registrations (match_id, public.normalize_phone(phone))
+  WHERE phone IS NOT NULL AND public.normalize_phone(phone) <> '';
 CREATE UNIQUE INDEX IF NOT EXISTS match_registrations_one_captain_per_match
   ON public.match_registrations (match_id)
   WHERE is_captain;
@@ -152,8 +169,18 @@ BEGIN
     RAISE EXCEPTION 'This match is full';
   END IF;
 
+  IF EXISTS (
+    SELECT 1
+    FROM public.match_registrations
+    WHERE match_id = p_match_id
+      AND public.normalize_phone(phone) = public.normalize_phone(p_phone)
+      AND public.normalize_phone(p_phone) <> ''
+  ) THEN
+    RAISE EXCEPTION 'This mobile number is already registered for this match';
+  END IF;
+
   INSERT INTO public.match_registrations (match_id, student_id, player_name, email, phone, jersey_label)
-  VALUES (p_match_id, p_student_id, trim(p_player_name), NULLIF(lower(trim(p_email)), ''), trim(p_phone),
+  VALUES (p_match_id, p_student_id, trim(p_player_name), NULLIF(lower(trim(p_email)), ''), public.normalize_phone(p_phone),
           CASE WHEN target_match.ball_type = 'red' THEN 'White jersey' ELSE 'Colour jersey' END)
   RETURNING * INTO registration;
 
@@ -168,6 +195,7 @@ BEGIN
     'phone', registration.phone,
     'jerseyLabel', registration.jersey_label,
     'paymentTransactionId', trim(p_transaction_id),
+    'paymentStatus', 'submitted',
     'status', registration.status
   );
 EXCEPTION

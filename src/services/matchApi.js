@@ -18,8 +18,8 @@ const request = async (path, options = {}) => {
 
 export const getMatches = () => request('/matches');
 
-export const login = ({ email, password, role }) =>
-  request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password, role }) });
+export const login = ({ email, password }) =>
+  request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
 
 export const registerStudent = ({ name, email, phone, password }) =>
   request('/auth/register', { method: 'POST', body: JSON.stringify({ name, email, phone, password }) });

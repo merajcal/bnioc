@@ -39,6 +39,9 @@ export const updateRegistration = (id, update, token) =>
 export const updateMatchStatus = (id, status, token) =>
   request(`/admin/matches/${id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify({ status }) });
 
+export const updateMatch = (id, match, token) =>
+  request(`/admin/matches/${id}`, { method: 'PATCH', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(match) });
+
 export const cancelMatch = (id, token) => updateMatchStatus(id, 'cancelled', token);
 
 export const addPlayer = (matchId, player, token) =>

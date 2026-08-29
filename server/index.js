@@ -18,13 +18,13 @@ const supabasePublic = () => createClient(supabaseUrl, publishableKey, {
 const getServerCore = () => { serverCorePromise = serverCorePromise || import('@supabase/server/core'); return serverCorePromise; };
 const supabaseAdmin = async () => (await getServerCore()).createAdminClient();
 const asyncRoute = (handler) => (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
-const matchFields = 'id,slug,title,opponent,match_type,match_date,match_fee,location,maps_url,reporting_time,ball_type,jersey_label,overs,capacity,status,created_by,created_at';
+const matchFields = 'id,slug,title,opponent,match_type,match_date,match_fee,location,maps_url,match_link,reporting_time,ball_type,jersey_label,overs,capacity,status,created_by,created_at';
 const registrationFields = 'id,match_id,student_id,player_name,email,phone,jersey_label,status,is_captain,is_wicket_keeper,created_at';
 const toMatch = (row, registrationsCount = 0) => {
   const summary = typeof registrationsCount === 'object' ? registrationsCount : { count: registrationsCount, players: [] };
   return {
   id: row.id, slug: row.slug, title: row.title, opponent: row.opponent, matchType: row.match_type, matchDate: row.match_date,
-  matchFee: row.match_fee, location: row.location, mapsUrl: row.maps_url, reportingTime: String(row.reporting_time).slice(0, 5),
+  matchFee: row.match_fee, location: row.location, mapsUrl: row.maps_url, matchLink: row.match_link, reportingTime: String(row.reporting_time).slice(0, 5),
   ballType: row.ball_type, jerseyLabel: row.jersey_label, overs: row.overs, capacity: row.capacity, status: row.status,
   registrationsCount: Number(summary.count || 0), confirmedPlayers: summary.players || [], publishedAt: row.created_at,
   };
@@ -120,7 +120,7 @@ app.get('/api/matches', asyncRoute(async (req, res) => {
 }));
 
 app.post('/api/matches', auth(['admin']), asyncRoute(async (req, res) => {
-  const { title, opponent, matchType, matchDate, matchFee, location, mapsUrl, reportingTime, ballType, overs, capacity } = req.body;
+  const { title, opponent, matchType, matchDate, matchFee, location, mapsUrl, matchLink, reportingTime, ballType, overs, capacity } = req.body;
   const missingFields = [['title', title], ['opponent', opponent], ['matchType', matchType], ['matchDate', matchDate], ['location', location], ['mapsUrl', mapsUrl], ['reportingTime', reportingTime]]
     .filter(([, value]) => value === undefined || value === null || String(value).trim() === '')
     .map(([field]) => field);
@@ -132,7 +132,8 @@ app.post('/api/matches', auth(['admin']), asyncRoute(async (req, res) => {
   if (missingFields.length || invalidFields.length) return res.status(400).json({ message: `Missing or invalid match fields: ${[...missingFields, ...invalidFields].join(', ')}` });
   if (new Date(`${matchDate}T23:59:59`) < new Date()) return res.status(400).json({ message: 'Match date must be in the future' });
   if (!/^https?:\/\//i.test(mapsUrl)) return res.status(400).json({ message: 'Google Maps link must start with http:// or https://' });
-  const match = { id: crypto.randomUUID(), slug: `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${Date.now()}`, title: title.trim(), opponent: opponent.trim(), match_type: matchType, match_date: matchDate, match_fee: Number(matchFee), location: location.trim(), maps_url: mapsUrl, reporting_time: reportingTime, ball_type: ballType, jersey_label: ballType === 'red' ? 'White jersey' : 'Colour jersey', overs: Number(overs), capacity: Number(capacity), status: 'inactive', created_by: req.user.id };
+  if (matchLink && !/^https?:\/\//i.test(String(matchLink).trim())) return res.status(400).json({ message: 'Match link must start with http:// or https://' });
+  const match = { id: crypto.randomUUID(), slug: `${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}-${Date.now()}`, title: title.trim(), opponent: opponent.trim(), match_type: matchType, match_date: matchDate, match_fee: Number(matchFee), location: location.trim(), maps_url: mapsUrl, match_link: matchLink && String(matchLink).trim() ? String(matchLink).trim() : null, reporting_time: reportingTime, ball_type: ballType, jersey_label: ballType === 'red' ? 'White jersey' : 'Colour jersey', overs: Number(overs), capacity: Number(capacity), status: 'inactive', created_by: req.user.id };
   const admin = await supabaseAdmin();
   const { data, error } = await admin.from('matches').insert(match).select(matchFields).single();
   if (error) throw error;
@@ -140,9 +141,51 @@ app.post('/api/matches', auth(['admin']), asyncRoute(async (req, res) => {
 }));
 
 app.patch('/api/admin/matches/:id', auth(['admin']), asyncRoute(async (req, res) => {
-  if (!['inactive', 'active', 'cancelled'].includes(req.body.status)) return res.status(400).json({ message: 'Match status must be inactive, active or cancelled' });
+  const { status, title, opponent, matchType, matchDate, matchFee, location, mapsUrl, matchLink, reportingTime, ballType, overs, capacity } = req.body;
+  const updates = {};
+  if (status !== undefined) {
+    if (!['inactive', 'active', 'cancelled'].includes(status)) return res.status(400).json({ message: 'Match status must be inactive, active or cancelled' });
+    updates.status = status;
+  }
+  const textFields = [['title', title, 'title'], ['opponent', opponent, 'opponent'], ['matchType', matchType, 'match_type'], ['location', location, 'location'], ['reportingTime', reportingTime, 'reporting_time']];
+  textFields.forEach(([field, value, column]) => {
+    if (value !== undefined) {
+      if (!String(value).trim()) throw Object.assign(new Error(`${field} is required`), { status: 400 });
+      updates[column] = String(value).trim();
+    }
+  });
+  if (matchDate !== undefined) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(matchDate) || new Date(`${matchDate}T23:59:59`) < new Date()) return res.status(400).json({ message: 'Match date must be in the future' });
+    updates.match_date = matchDate;
+  }
+  if (matchFee !== undefined) {
+    if (!Number.isFinite(Number(matchFee)) || Number(matchFee) < 0) return res.status(400).json({ message: 'Match fee must be zero or more' });
+    updates.match_fee = Number(matchFee);
+  }
+  if (mapsUrl !== undefined) {
+    if (!/^https?:\/\//i.test(String(mapsUrl).trim())) return res.status(400).json({ message: 'Google Maps link must start with http:// or https://' });
+    updates.maps_url = String(mapsUrl).trim();
+  }
+  if (matchLink !== undefined) {
+    if (matchLink && !/^https?:\/\//i.test(String(matchLink).trim())) return res.status(400).json({ message: 'Match link must start with http:// or https://' });
+    updates.match_link = matchLink && String(matchLink).trim() ? String(matchLink).trim() : null;
+  }
+  if (ballType !== undefined) {
+    if (!['red', 'white'].includes(ballType)) return res.status(400).json({ message: 'Ball type must be red or white' });
+    updates.ball_type = ballType;
+    updates.jersey_label = ballType === 'red' ? 'White jersey' : 'Colour jersey';
+  }
+  if (overs !== undefined) {
+    if (!Number.isInteger(Number(overs)) || Number(overs) < 1) return res.status(400).json({ message: 'Overs must be a positive whole number' });
+    updates.overs = Number(overs);
+  }
+  if (capacity !== undefined) {
+    if (!Number.isInteger(Number(capacity)) || Number(capacity) < 1) return res.status(400).json({ message: 'Player capacity must be a positive whole number' });
+    updates.capacity = Number(capacity);
+  }
+  if (Object.keys(updates).length === 0) return res.status(400).json({ message: 'Provide match details to update' });
   const admin = await supabaseAdmin();
-  const { data, error } = await admin.from('matches').update({ status: req.body.status }).eq('id', req.params.id).select(matchFields).single();
+  const { data, error } = await admin.from('matches').update(updates).eq('id', req.params.id).select(matchFields).single();
   if (error) {
     if (error.code === 'PGRST116') return res.status(404).json({ message: 'Match not found' });
     throw error;

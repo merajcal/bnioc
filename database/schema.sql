@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS public.matches (
   match_fee NUMERIC(10, 2) NOT NULL CHECK (match_fee >= 0),
   location VARCHAR(255) NOT NULL,
   maps_url TEXT NOT NULL CHECK (maps_url ~* '^https?://'),
+  match_link TEXT CHECK (match_link IS NULL OR match_link ~* '^https?://'),
   reporting_time TIME NOT NULL,
   ball_type TEXT NOT NULL CHECK (ball_type IN ('red', 'white')),
   jersey_label VARCHAR(40) NOT NULL,

@@ -16,7 +16,7 @@ AS $$
 $$;
 
 DROP INDEX IF EXISTS public.match_registrations_match_phone_unique;
-CREATE UNIQUE INDEX public.match_registrations_match_phone_unique
+CREATE UNIQUE INDEX match_registrations_match_phone_unique
   ON public.match_registrations (match_id, public.normalize_phone(phone))
   WHERE phone IS NOT NULL AND public.normalize_phone(phone) <> '';
 

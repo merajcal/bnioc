@@ -47,7 +47,13 @@ const toRequest = (req) => new Request(`http://${req.headers.host || 'localhost'
 });
 const getUserId = (claims) => claims?.id || claims?.sub;
 
-app.use(cors({ origin: process.env.WEB_ORIGIN || true }));
+const allowedOrigins = (process.env.WEB_ORIGIN || '').split(',').map((origin) => origin.trim()).filter(Boolean);
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || !allowedOrigins.length || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(null, false);
+  },
+}));
 app.use(express.json({ type: ['application/json', 'text/plain'], limit: '1mb' }));
 
 const auth = (roles = []) => async (req, res, next) => {

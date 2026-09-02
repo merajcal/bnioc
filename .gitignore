@@ -1,0 +1,14 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/prod.env
+
+# Dependencies and generated output
+node_modules/
+build/
+.yarn/install-state.gz
+.yarn/cache/
+
+# Local OS/editor files
+.DS_Store

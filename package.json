@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "A modern, responsive React Progressive Web Application (PWA) for Bengaluru Nex-Gen Institute of Cricket, featuring comprehensive cricket training programs, expert coaching profiles, and seamless user experience.",
   "main": "src/index.js",
+  "proxy": "http://localhost:4000",
   "scripts": {
     "start": "react-scripts start",
+    "server": "node server/index.js",
+    "create-admin": "node server/create-admin.js",
+    "dev:full": "concurrently \"PORT=3000 npm start\" \"API_PORT=4000 npm run server\"",
     "build": "npm run generate-gallery && react-scripts build",
     "build:prod": "npm run generate-gallery && react-scripts build && npm run zip:build",
     "test": "react-scripts test",
@@ -21,10 +25,17 @@
     "pwa"
   ],
   "dependencies": {
+    "@supabase/server": "^1.4.1",
+    "@supabase/supabase-js": "^2.112.4",
+    "concurrently": "^9.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "ws": "^8.18.0"
   },
   "browserslist": {
     "production": [

@@ -10,6 +10,7 @@
     "create-admin": "node server/create-admin.js",
     "dev:full": "concurrently \"PORT=3000 npm start\" \"API_PORT=4000 npm run server\"",
     "build": "npm run generate-gallery && react-scripts build",
+    "build-prod": "REACT_APP_API_URL=https://bnioc-api-prod.onrender.com/api npm run build",
     "build:prod": "npm run generate-gallery && react-scripts build && npm run zip:build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

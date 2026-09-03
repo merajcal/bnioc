@@ -30,6 +30,9 @@ export const createMatch = (match, token) =>
 export const submitRegistration = (matchId, registration, token) =>
   request(`/matches/${matchId}/registrations`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(registration) });
 
+export const getMyRegistration = (matchId, token) =>
+  request(`/matches/${matchId}/registrations/me`, { headers: { Authorization: `Bearer ${token}` } });
+
 export const getAdminData = (token) =>
   request('/admin/overview', { headers: { Authorization: `Bearer ${token}` } });
 

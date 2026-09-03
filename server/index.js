@@ -119,6 +119,24 @@ app.get('/api/matches', asyncRoute(async (req, res) => {
   res.json((data || []).map((match) => toMatch(match, { count: counts[match.id], players: confirmedPlayers[match.id] || [] })));
 }));
 
+app.get('/api/matches/:id/registrations/me', auth(['student']), asyncRoute(async (req, res) => {
+  const admin = await supabaseAdmin();
+  const { data: registration, error: registrationError } = await admin.from('match_registrations')
+    .select(registrationFields)
+    .eq('match_id', req.params.id)
+    .eq('student_id', req.user.id)
+    .maybeSingle();
+  if (registrationError) throw registrationError;
+  if (!registration) return res.json({ registration: null });
+
+  const { data: payment, error: paymentError } = await admin.from('payments')
+    .select('transaction_id,status,submitted_at,verified_at')
+    .eq('registration_id', registration.id)
+    .maybeSingle();
+  if (paymentError) throw paymentError;
+  res.json({ registration: toRegistration(registration, payment) });
+}));
+
 app.post('/api/matches', auth(['admin']), asyncRoute(async (req, res) => {
   const { title, opponent, matchType, matchDate, matchFee, location, mapsUrl, matchLink, reportingTime, ballType, overs, capacity } = req.body;
   const missingFields = [['title', title], ['opponent', opponent], ['matchType', matchType], ['matchDate', matchDate], ['location', location], ['mapsUrl', mapsUrl], ['reportingTime', reportingTime]]
@@ -227,14 +245,12 @@ app.patch('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req
   if (paymentStatus !== undefined && !['submitted', 'verified', 'rejected'].includes(paymentStatus)) return res.status(400).json({ message: 'Invalid payment status' });
   if (isCaptain !== undefined && typeof isCaptain !== 'boolean') return res.status(400).json({ message: 'isCaptain must be boolean' });
   if (isWicketKeeper !== undefined && typeof isWicketKeeper !== 'boolean') return res.status(400).json({ message: 'isWicketKeeper must be boolean' });
-  const paymentRegistrationStatus = paymentStatus === 'verified' ? 'confirmed' : paymentStatus === 'rejected' ? 'rejected' : undefined;
-  if (status && paymentRegistrationStatus && status !== paymentRegistrationStatus) return res.status(400).json({ message: 'Registration and payment statuses do not match' });
   if (status === undefined && paymentStatus === undefined && isCaptain === undefined && isWicketKeeper === undefined) return res.status(400).json({ message: 'Provide a registration, payment or player role update' });
   const admin = await supabaseAdmin();
   const { data: current, error: currentError } = await admin.from('match_registrations').select('id,match_id,status').eq('id', req.params.id).maybeSingle();
   if (currentError) throw currentError;
   if (!current) return res.status(404).json({ message: 'Registration not found' });
-  const resultingStatus = status || paymentRegistrationStatus || current.status;
+  const resultingStatus = status || current.status;
   if ((isCaptain === true || isWicketKeeper === true) && resultingStatus !== 'confirmed') return res.status(400).json({ message: 'Only confirmed players can be assigned match roles' });
 
   if (isCaptain === true) {
@@ -248,8 +264,7 @@ app.patch('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req
 
   const updates = {};
   if (status !== undefined) updates.status = status;
-  if (paymentRegistrationStatus) updates.status = paymentRegistrationStatus;
-  if (status === 'rejected' || paymentRegistrationStatus === 'rejected') {
+  if (status === 'rejected') {
     updates.is_captain = false;
     updates.is_wicket_keeper = false;
   } else {
@@ -262,9 +277,8 @@ app.patch('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req
     if (error.code === '23505') return res.status(409).json({ message: 'This match already has a player assigned to that role' });
     throw error;
   }
-  const resultingPaymentStatus = paymentStatus || (status === 'confirmed' ? 'verified' : status === 'rejected' ? 'rejected' : undefined);
-  if (resultingPaymentStatus) {
-    const { error: paymentError } = await admin.from('payments').update({ status: resultingPaymentStatus, verified_at: resultingPaymentStatus === 'submitted' ? null : new Date().toISOString(), verified_by: resultingPaymentStatus === 'submitted' ? null : req.user.id }).eq('registration_id', req.params.id);
+  if (paymentStatus !== undefined) {
+    const { error: paymentError } = await admin.from('payments').update({ status: paymentStatus, verified_at: paymentStatus === 'submitted' ? null : new Date().toISOString(), verified_by: paymentStatus === 'submitted' ? null : req.user.id }).eq('registration_id', req.params.id);
     if (paymentError) throw paymentError;
   }
   const { data: payment, error: paymentLookupError } = await admin.from('payments').select('transaction_id,status,submitted_at,verified_at').eq('registration_id', req.params.id).maybeSingle();

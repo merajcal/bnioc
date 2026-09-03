@@ -5,7 +5,7 @@ const AnnouncementModal = ({ announcements = [], onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [activeAnnouncements, setActiveAnnouncements] = useState([]);
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches);
   const [autoScrollInterval, setAutoScrollInterval] = useState(null);
 
   useEffect(() => {

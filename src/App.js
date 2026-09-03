@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 // Import components
 import Header from './components/Header';
@@ -25,6 +25,7 @@ import announcementsData from './data/announcements.json';
 
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { setUser } = useAuth();
   const [theme, setTheme] = useState('dark');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,6 +61,10 @@ function AppContent() {
     return () => window.removeEventListener('bnioc-open-auth', openAuth);
   }, []);
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname, location.search]);
+
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
@@ -83,7 +88,7 @@ function AppContent() {
           toggleMenu={toggleMenu} 
           onSignIn={() => setAuthOpen(true)}
         />
-        {authOpen && <AuthPanel onSuccess={(result) => { setUser(result); setAuthOpen(false); }} onClose={() => setAuthOpen(false)} />}
+        {authOpen && <AuthPanel onSuccess={(result) => { setUser(result); setAuthOpen(false); if (result.user.role === 'admin') navigate('/matches?admin=1'); }} onClose={() => setAuthOpen(false)} />}
         
         <main className="pt-16 lg:pt-20">
           <Routes>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -6,8 +6,13 @@ const userInitials = (name = '') => name.split(/\s+/).filter(Boolean).slice(0, 2
 
 function ProfileControl({ onSignIn, theme, toggleTheme }) {
   const { user, logout } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname, location.search]);
 
   return <div className="relative">
     <button onClick={() => setOpen((value) => !value)} className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-secondary-700 transition hover:border-primary-400 hover:text-primary-600 dark:border-secondary-700 dark:text-secondary-200 dark:hover:border-primary-500" aria-label={user?.user ? `Open ${user.user.name} profile` : 'Open profile menu'} aria-expanded={open}>
@@ -18,7 +23,7 @@ function ProfileControl({ onSignIn, theme, toggleTheme }) {
         <div className="border-b border-slate-100 px-3 py-2 dark:border-secondary-700"><p className="truncate text-sm font-bold text-secondary-900 dark:text-white">{user.user.name}</p><p className="text-xs capitalize text-secondary-500 dark:text-secondary-400">{user.user.role}</p></div>
         {user.user.role === 'admin' && <button onClick={() => { setOpen(false); window.dispatchEvent(new Event('bnioc-open-admin-console')); navigate('/matches?admin=1'); }} className="mt-2 block w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-secondary-700 hover:bg-primary-50 hover:text-primary-600 dark:text-secondary-200 dark:hover:bg-secondary-800">Open academy console</button>}
       </> : <button onClick={() => { setOpen(false); onSignIn(); }} className="block w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-secondary-700 hover:bg-primary-50 hover:text-primary-600 dark:text-secondary-200 dark:hover:bg-secondary-800">Sign in</button>}
-      <button onClick={toggleTheme} className="mt-1 flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm font-semibold text-secondary-700 hover:bg-slate-100 dark:text-secondary-200 dark:hover:bg-secondary-800"><span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span><i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'} text-sm`} aria-hidden="true" /></button>
+      <button onClick={() => { toggleTheme(); setOpen(false); }} className="mt-1 flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm font-semibold text-secondary-700 hover:bg-slate-100 dark:text-secondary-200 dark:hover:bg-secondary-800"><span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span><i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'} text-sm`} aria-hidden="true" /></button>
       {user?.user && <button onClick={() => { logout(); setOpen(false); }} className="mt-1 w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-secondary-700 hover:bg-slate-100 dark:text-secondary-200 dark:hover:bg-secondary-800">Sign out</button>}
     </div>}
   </div>;

@@ -212,8 +212,9 @@ app.patch('/api/admin/matches/:id', auth(['admin']), asyncRoute(async (req, res)
 }));
 
 app.post('/api/matches/:id/registrations', auth(['student']), asyncRoute(async (req, res) => {
-  const { playerName, email, phone, paymentTransactionId } = req.body;
-  if (!playerName || !String(playerName).trim() || !phone || !String(phone).trim() || !paymentTransactionId || !String(paymentTransactionId).trim()) return res.status(400).json({ message: 'Player name, mobile number and payment transaction ID are required' });
+  const { paymentTransactionId } = req.body;
+  const { name: playerName, email, phone } = req.user;
+  if (!playerName || !String(playerName).trim() || !phone || !String(phone).trim() || !paymentTransactionId || !String(paymentTransactionId).trim()) return res.status(400).json({ message: 'Your profile must include a name and mobile number. Payment transaction ID is also required.' });
   const normalizedPhone = normalizePhone(phone);
   if (!/^[6-9]\d{9}$/.test(normalizedPhone)) return res.status(400).json({ message: 'Enter a valid 10-digit mobile number' });
   const admin = await supabaseAdmin();

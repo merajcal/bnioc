@@ -258,7 +258,12 @@ app.post('/api/matches/:id/payment-order', auth(['student']), asyncRoute(async (
     amount,
     currency: 'INR',
     receipt: `match_${match.id.slice(0, 8)}_${Date.now()}`,
-    notes: { match_id: match.id, student_id: req.user.id },
+    notes: {
+      match_id: match.id,
+      match_name: String(match.title || '').slice(0, 256),
+      student_id: req.user.id,
+      student_name: String(req.user.name || '').slice(0, 256),
+    },
   });
   res.status(201).json({ keyId: razorpayKeyId, orderId: order.id, amount: order.amount, currency: order.currency, name: 'BNIOC', description: match.title });
 }));

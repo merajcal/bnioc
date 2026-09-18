@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { getAdminData, getMatches, getMyRegistration, login, registerStudent, createMatch, submitRegistration, updateRegistration, updateMatchStatus, updateMatch, addPlayer, removePlayer } from '../services/matchApi';
+import { getAdminData, getMatches, getMyRegistration, login, registerStudent, createMatch, submitRegistration, createPaymentOrder, verifyPayment, updateRegistration, updateMatchStatus, updateMatch, addPlayer, removePlayer } from '../services/matchApi';
 import { useAuth } from '../context/AuthContext';
 
 const emptyMatch = { title: '', opponent: '', matchType: 'U14', matchDate: '', matchFee: '', location: '', mapsUrl: '', matchLink: '', reportingTime: '06:30', ballType: 'white', capacity: 22, overs: 15 };
@@ -153,7 +153,7 @@ function LegacyRegistrationModal({ match, user, onClose, onLogin, onSubmitted })
   return <div className="fixed inset-0 z-[60] overflow-y-auto bg-slate-950/70 p-4 backdrop-blur-sm"><div className="mx-auto my-8 w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl dark:bg-slate-900 sm:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-primary-500">Match registration</p><h2 className="mt-1 text-2xl font-black text-slate-900 dark:text-white">{match.title}</h2><p className="mt-1 text-sm font-semibold text-primary-600 dark:text-primary-300">vs {match.opponent}</p><p className="mt-1 text-sm text-slate-500">{formatDate(match.matchDate)} · {match.location}</p></div><button onClick={onClose} className="text-2xl text-slate-400" aria-label="Close">×</button></div>{done ? <div className="my-10 rounded-2xl bg-emerald-50 p-6 text-center dark:bg-emerald-950/30"><div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-2xl text-white">✓</div><h3 className="text-xl font-black text-emerald-800 dark:text-emerald-300">Registration received</h3><p className="mt-2 text-sm text-emerald-700 dark:text-emerald-400">Your payment proof is pending academy verification. We’ll confirm your spot after reviewing the transaction.</p><button onClick={onClose} className="mt-5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white">Done</button></div> : !user ? <div className="my-12 text-center"><div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-2xl text-primary-500 dark:bg-primary-950/50">🔐</div><h3 className="text-xl font-black text-slate-900 dark:text-white">Sign in to register</h3><p className="mx-auto mt-2 max-w-sm text-sm text-slate-500">Create your student profile first. You’ll add the payment transaction ID on the next step.</p><button onClick={onLogin} className="mt-6 rounded-xl bg-primary-500 px-6 py-3 font-bold text-white">Sign in / create account</button></div> : <form onSubmit={submit} className="mt-7"><div className="mb-6 grid gap-4 rounded-2xl bg-orange-50 p-5 dark:bg-orange-950/20 sm:grid-cols-[1fr_auto] sm:items-center"><div><p className="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-300">Step 1 · Pay before registering</p><p className="mt-1 text-sm text-orange-800 dark:text-orange-200">Pay <strong>{formatMoney(match.matchFee)}</strong> to BNIOC UPI: <strong>bnioc@upi</strong></p><p className="mt-1 text-xs text-orange-700/80 dark:text-orange-300/80">Payment gateway integration can replace this UPI instruction later.</p></div><p className="text-sm text-orange-800 dark:text-orange-200"><span className="font-bold">Dress code:</span> <span className="font-semibold">{match.ballType === 'red' ? 'White jersey' : 'Colour jersey'}</span></p></div><div className="grid gap-4 sm:grid-cols-2"><Field label="Player name"><input required className={inputClass} value={form.playerName} onChange={(e) => setForm({ ...form, playerName: e.target.value })} /></Field><Field label="Phone"><input required className={inputClass} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="10-digit mobile number" /></Field><Field label="Email"><input required type="email" className={inputClass} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field><Field label="Payment transaction ID" hint="UPI reference / bank transaction number"><input required className={inputClass} value={form.paymentTransactionId} onChange={(e) => setForm({ ...form, paymentTransactionId: e.target.value })} placeholder="e.g. 412398765432" /></Field></div>{error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 dark:bg-red-950/40 dark:text-red-300">{error}</p>}<button disabled={busy} className="mt-6 w-full rounded-xl bg-primary-500 px-4 py-3.5 font-bold text-white transition hover:bg-primary-600 disabled:opacity-60">{busy ? 'Submitting…' : 'Submit registration for verification'}</button><p className="mt-3 text-center text-xs text-slate-400">Registration closes automatically at midnight on match day.</p></form>}</div></div>;
 }
 
-function RegistrationModal({ match, user, onClose, onLogin, onSubmitted }) {
+function ManualRegistrationModal({ match, user, onClose, onLogin, onSubmitted }) {
   const [form, setForm] = useState({ playerName: user?.user?.name || '', email: user?.user?.email || '', phone: user?.user?.phone || '', paymentTransactionId: '' });
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
@@ -188,6 +188,107 @@ function RegistrationModal({ match, user, onClose, onLogin, onSubmitted }) {
   const readOnlyProfileClass = `${inputClass} cursor-not-allowed bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300`;
   return <div className="fixed inset-0 z-[60] overflow-y-auto bg-slate-950/70 p-4 backdrop-blur-sm"><div className="mx-auto my-8 w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl dark:bg-slate-900 sm:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-primary-500">Match registration</p><h2 className="mt-1 text-2xl font-black text-slate-900 dark:text-white">{match.title}</h2><p className="mt-1 text-sm font-semibold text-primary-600 dark:text-primary-300">vs {match.opponent}</p><p className="mt-1 text-sm text-slate-500">{formatDate(match.matchDate)} · {match.location}</p></div><button onClick={onClose} className="text-2xl text-slate-400" aria-label="Close">×</button></div>{done ? <div className="my-10 rounded-2xl bg-emerald-50 p-6 text-center dark:bg-emerald-950/30"><div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-2xl text-white">✓</div><h3 className="text-xl font-black text-emerald-800 dark:text-emerald-300">Registration received</h3><p className="mt-2 text-sm text-emerald-700 dark:text-emerald-400">Your payment proof is pending academy verification. We’ll confirm your spot after reviewing the transaction.</p><button onClick={onClose} className="mt-5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white">Done</button></div> : !user ? <div className="my-12 text-center"><div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-2xl text-primary-500 dark:bg-primary-950/50">🔐</div><h3 className="text-xl font-black text-slate-900 dark:text-white">Sign in to register</h3><p className="mx-auto mt-2 max-w-sm text-sm text-slate-500">Create your student profile first. You’ll add the payment transaction ID on the next step.</p><button onClick={onLogin} className="mt-6 rounded-xl bg-primary-500 px-6 py-3 font-bold text-white">Sign in / create account</button></div> : checkingRegistration ? <div className="my-12 text-center text-sm font-semibold text-slate-500">Checking your registration…</div> : existingRegistration ? <div className="my-8 rounded-2xl bg-emerald-50 p-6 dark:bg-emerald-950/30"><div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xl text-white">✓</span><div><h3 className="text-lg font-black text-emerald-800 dark:text-emerald-300">You are already registered</h3><p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">You can register only once for this match.</p><p className="mt-3 text-xs font-semibold uppercase tracking-wide text-emerald-800 dark:text-emerald-300">Player status: {existingRegistration.status === 'confirmed' ? 'Accepted' : existingRegistration.status === 'rejected' ? 'Rejected' : 'Awaiting approval'}</p><p className="mt-1 text-xs font-semibold uppercase tracking-wide text-emerald-800 dark:text-emerald-300">Payment: {paymentStatusLabel(existingRegistration.paymentStatus)}</p></div></div><button onClick={onClose} className="mt-5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white">Done</button></div> : <form onSubmit={submit} className="mt-7"><div className="mb-6 grid gap-4 rounded-2xl bg-orange-50 p-5 dark:bg-orange-950/20 sm:grid-cols-[1fr_auto] sm:items-center"><div><p className="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-300">Step 1 · Pay before registering</p><p className="mt-1 text-sm text-orange-800 dark:text-orange-200">Pay <strong>{formatMoney(match.matchFee)}</strong> to BNIOC UPI: <strong>bnioc@upi</strong></p><p className="mt-1 text-xs text-orange-700/80 dark:text-orange-300/80">Payment gateway integration can replace this UPI instruction later.</p></div><p className="text-sm text-orange-800 dark:text-orange-200"><span className="font-bold">Dress code:</span> <span className="font-semibold">{match.ballType === 'red' ? 'White jersey' : 'Colour jersey'}</span></p></div><div className="grid gap-4 sm:grid-cols-2"><Field label="Player name (from profile)"><input required readOnly aria-readonly="true" className={readOnlyProfileClass} value={form.playerName} /></Field><Field label="Mobile number (from profile)" hint="Your profile number is used for this registration"><input required readOnly aria-readonly="true" type="tel" className={readOnlyProfileClass} value={form.phone} /></Field><Field label="Email (from profile, optional)"><input readOnly aria-readonly="true" type="email" className={readOnlyProfileClass} value={form.email} /></Field><Field label="Payment transaction ID" hint="UPI reference / bank transaction number"><input required className={inputClass} value={form.paymentTransactionId} onChange={(e) => setForm({ ...form, paymentTransactionId: e.target.value })} placeholder="e.g. 412398765432" /></Field></div>{error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 dark:bg-red-950/40 dark:text-red-300">{error}</p>}<button disabled={busy || !form.playerName || !form.phone} className="mt-6 w-full rounded-xl bg-primary-500 px-4 py-3.5 font-bold text-white transition hover:bg-primary-600 disabled:opacity-60">{busy ? 'Submitting…' : 'Submit registration for verification'}</button><p className="mt-3 text-center text-xs text-slate-400">Registration closes automatically at midnight on match day.</p></form>}</div></div>;
 }
+
+const loadRazorpayCheckout = () => new Promise((resolve, reject) => {
+  if (window.Razorpay) return resolve();
+  const existingScript = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+  if (existingScript) {
+    existingScript.addEventListener('load', resolve, { once: true });
+    existingScript.addEventListener('error', () => reject(new Error('Could not load Razorpay checkout')), { once: true });
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+  script.async = true;
+  script.onload = resolve;
+  script.onerror = () => reject(new Error('Could not load Razorpay checkout'));
+  document.body.appendChild(script);
+});
+
+function RegistrationModal({ match, user, onClose, onLogin, onSubmitted }) {
+  const [error, setError] = useState('');
+  const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [checkingRegistration, setCheckingRegistration] = useState(Boolean(user));
+  const [existingRegistration, setExistingRegistration] = useState(null);
+  const [paymentId, setPaymentId] = useState('');
+
+  useEffect(() => {
+    setExistingRegistration(null);
+    setPaymentId('');
+    setDone(false);
+    setError('');
+    if (!user?.token) {
+      setCheckingRegistration(false);
+      return undefined;
+    }
+    let cancelled = false;
+    setCheckingRegistration(true);
+    getMyRegistration(match.id, user.token)
+      .then((result) => { if (!cancelled) setExistingRegistration(result.registration); })
+      .catch((lookupError) => { if (!cancelled) setError(lookupError.message); })
+      .finally(() => { if (!cancelled) setCheckingRegistration(false); });
+    return () => { cancelled = true; };
+  }, [match.id, user?.token]);
+
+  const startPayment = async () => {
+    if (!user?.user?.name || !user?.user?.phone) {
+      setError('Complete your name and mobile number in your student profile before paying.');
+      return;
+    }
+    setError('');
+    setBusy(true);
+    try {
+      await loadRazorpayCheckout();
+      const order = await createPaymentOrder(match.id, user.token);
+      const checkout = new window.Razorpay({
+        key: order.keyId,
+        amount: order.amount,
+        currency: order.currency,
+        name: order.name,
+        description: order.description,
+        order_id: order.orderId,
+        prefill: { name: user.user.name, email: user.user.email, contact: user.user.phone },
+        config: {
+          display: {
+            blocks: {
+              upi: { name: 'Pay via UPI', instruments: [{ method: 'upi' }] },
+            },
+            sequence: ['block.upi'],
+            preferences: { show_default_blocks: true },
+          },
+        },
+        theme: { color: '#f97316' },
+        handler: async (response) => {
+          try {
+            const registration = await verifyPayment(match.id, response, user.token);
+            setPaymentId(registration.paymentTransactionId || response.razorpay_payment_id);
+            setDone(true);
+            onSubmitted();
+          } catch (verificationError) {
+            setError(verificationError.message);
+          } finally {
+            setBusy(false);
+          }
+        },
+        modal: { ondismiss: () => setBusy(false) },
+      });
+      checkout.on('payment.failed', (response) => {
+        setError(response?.error?.description || 'Payment failed. No registration was created.');
+        setBusy(false);
+      });
+      checkout.open();
+    } catch (paymentError) {
+      setError(paymentError.message);
+      setBusy(false);
+    }
+  };
+
+  const readOnlyProfileClass = `${inputClass} cursor-not-allowed bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300`;
+  return <div className="fixed inset-0 z-[60] overflow-y-auto bg-slate-950/70 p-4 backdrop-blur-sm"><div className="mx-auto my-8 w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl dark:bg-slate-900 sm:p-8"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-primary-500">Match registration</p><h2 className="mt-1 text-2xl font-black text-slate-900 dark:text-white">{match.title}</h2><p className="mt-1 text-sm font-semibold text-primary-600 dark:text-primary-300">vs {match.opponent}</p><p className="mt-1 text-sm text-slate-500">{formatDate(match.matchDate)} · {match.location}</p></div><button onClick={onClose} className="text-2xl text-slate-400" aria-label="Close">×</button></div>{done ? <div className="my-10 rounded-2xl bg-emerald-50 p-6 text-center dark:bg-emerald-950/30"><div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-2xl text-white">✓</div><h3 className="text-xl font-black text-emerald-800 dark:text-emerald-300">Registration confirmed</h3><p className="mt-2 text-sm text-emerald-700 dark:text-emerald-400">Payment was captured and your place in this match is reserved.</p>{paymentId && <p className="mt-3 text-xs font-semibold text-emerald-700 dark:text-emerald-400">Payment ID: {paymentId}</p>}<button onClick={onClose} className="mt-5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white">Done</button></div> : !user ? <div className="my-12 text-center"><div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-50 text-2xl text-primary-500 dark:bg-primary-950/50">🔐</div><h3 className="text-xl font-black text-slate-900 dark:text-white">Sign in to register</h3><p className="mx-auto mt-2 max-w-sm text-sm text-slate-500">Create your student profile first. Payment is required to reserve your place.</p><button onClick={onLogin} className="mt-6 rounded-xl bg-primary-500 px-6 py-3 font-bold text-white">Sign in / create account</button></div> : checkingRegistration ? <div className="my-12 text-center text-sm font-semibold text-slate-500">Checking your registration…</div> : existingRegistration ? <div className="my-8 rounded-2xl bg-emerald-50 p-6 dark:bg-emerald-950/30"><div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xl text-white">✓</span><div><h3 className="text-lg font-black text-emerald-800 dark:text-emerald-300">You are already registered</h3><p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">You can register only once for this match.</p><p className="mt-3 text-xs font-semibold uppercase tracking-wide text-emerald-800 dark:text-emerald-300">Player status: {existingRegistration.status === 'confirmed' ? 'Confirmed' : existingRegistration.status}</p><p className="mt-1 text-xs font-semibold uppercase tracking-wide text-emerald-800 dark:text-emerald-300">Payment: {paymentStatusLabel(existingRegistration.paymentStatus)}</p></div></div><button onClick={onClose} className="mt-5 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white">Done</button></div> : <div className="mt-7"><div className="mb-6 rounded-2xl bg-orange-50 p-5 dark:bg-orange-950/20"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-300">Payment required to register</p><p className="mt-1 text-sm text-orange-800 dark:text-orange-200">Pay <strong>{formatMoney(match.matchFee)}</strong> securely with Razorpay. Your registration is created only after payment is captured.</p></div><span className="rounded-full bg-white px-3 py-1 text-xs font-black text-orange-700 shadow-sm dark:bg-orange-950/50 dark:text-orange-200">Test mode</span></div><p className="mt-3 text-xs text-orange-700/80 dark:text-orange-300/80">Dress code: <strong>{match.ballType === 'red' ? 'White jersey' : 'Colour jersey'}</strong></p></div><div className="grid gap-4 sm:grid-cols-3"><Field label="Player name"><input required readOnly aria-readonly="true" className={readOnlyProfileClass} value={user.user.name || ''} /></Field><Field label="Mobile number"><input required readOnly aria-readonly="true" type="tel" className={readOnlyProfileClass} value={user.user.phone || ''} /></Field><Field label="Email (optional)"><input readOnly aria-readonly="true" type="email" className={readOnlyProfileClass} value={user.user.email || ''} /></Field></div>{error && <p className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 dark:bg-red-950/40 dark:text-red-300">{error}</p>}<button type="button" onClick={startPayment} disabled={busy} className="mt-6 w-full rounded-xl bg-primary-500 px-4 py-3.5 font-bold text-white transition hover:bg-primary-600 disabled:cursor-wait disabled:opacity-60">{busy ? 'Opening secure checkout…' : `Pay ${formatMoney(match.matchFee)} & complete registration`}</button><p className="mt-3 text-center text-xs text-slate-400">Razorpay test mode is active. Use Razorpay’s test payment details during development.</p></div>}</div></div>;
+}
+
+const RazorpayRegistrationModal = RegistrationModal;
 
 function LegacyAdminDashboard({ user, matches, onCreated, onLogout }) {
   const [form, setForm] = useState(emptyMatch); const [data, setData] = useState({ matches, registrations: [] }); const [error, setError] = useState(''); const [notice, setNotice] = useState('');
@@ -465,7 +566,7 @@ export function MatchExperience() {
           {loading ? <div className="py-16 text-center text-slate-500">Loading fixtures…</div> : activeMatches.length ? <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">{activeMatches.map((match) => <MatchCard key={match.id} match={match} onSelect={setSelectedMatch} />)}</div> : <div className="rounded-3xl border border-dashed border-slate-300 p-12 text-center dark:border-slate-700"><p className="text-lg font-bold text-slate-700 dark:text-slate-200">No open matches right now</p><p className="mt-1 text-sm text-slate-500">Check back soon for the next academy fixture.</p><button onClick={openAuth} className="mt-5 rounded-xl bg-primary-500 px-5 py-3 text-sm font-bold text-white">Sign in for updates</button></div>}
         </section>
       )}
-      {selectedMatch && <RegistrationModal match={selectedMatch} user={user?.user?.role === 'student' ? user : null} onClose={() => setSelectedMatch(null)} onLogin={() => openAuth('student')} onSubmitted={() => setNotice('Registration submitted. Your payment proof is awaiting verification.')} />}
+      {selectedMatch && <RazorpayRegistrationModal match={selectedMatch} user={user?.user?.role === 'student' ? user : null} onClose={() => setSelectedMatch(null)} onLogin={() => openAuth('student')} onSubmitted={() => setNotice('Payment captured. Your registration is confirmed.')} />}
     </div>
   );
 }

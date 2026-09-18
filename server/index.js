@@ -10,6 +10,8 @@ const app = express();
 const port = process.env.API_PORT || process.env.PORT || 4000;
 const supabaseUrl = process.env.SUPABASE_URL;
 const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
+const razorpayKeyId = process.env.RAZORPAY_KEY_ID;
+const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET;
 let serverCorePromise;
 
 const supabasePublic = () => createClient(supabaseUrl, publishableKey, {
@@ -52,6 +54,30 @@ const getUserId = (claims) => claims?.id || claims?.sub;
 const normalizePhone = (value) => {
   const digits = String(value || '').replace(/\D/g, '');
   return /^91[6-9]\d{9}$/.test(digits) ? digits.slice(-10) : digits;
+};
+const razorpayRequest = async (method, endpoint, body) => {
+  if (!razorpayKeyId || !razorpayKeySecret) throw Object.assign(new Error('Razorpay is not configured on the server'), { status: 503 });
+  const response = await fetch(`https://api.razorpay.com/v1${endpoint}`, {
+    method,
+    headers: {
+      Authorization: `Basic ${Buffer.from(`${razorpayKeyId}:${razorpayKeySecret}`).toString('base64')}`,
+      'Content-Type': 'application/json',
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const message = payload?.error?.description || payload?.message || 'Razorpay request failed';
+    throw Object.assign(new Error(message), { status: response.status >= 500 ? 502 : 400 });
+  }
+  return payload;
+};
+const hasValidSignature = (orderId, paymentId, signature) => {
+  if (!razorpayKeySecret) return false;
+  const expected = crypto.createHmac('sha256', razorpayKeySecret).update(`${orderId}|${paymentId}`).digest('hex');
+  const actualBuffer = Buffer.from(String(signature || ''));
+  const expectedBuffer = Buffer.from(expected);
+  return actualBuffer.length === expectedBuffer.length && crypto.timingSafeEqual(actualBuffer, expectedBuffer);
 };
 
 const allowedOrigins = (process.env.WEB_ORIGIN || '').split(',').map((origin) => origin.trim()).filter(Boolean);
@@ -212,13 +238,67 @@ app.patch('/api/admin/matches/:id', auth(['admin']), asyncRoute(async (req, res)
 }));
 
 app.post('/api/matches/:id/registrations', auth(['student']), asyncRoute(async (req, res) => {
-  const { paymentTransactionId } = req.body;
-  const { name: playerName, email, phone } = req.user;
-  if (!playerName || !String(playerName).trim() || !phone || !String(phone).trim() || !paymentTransactionId || !String(paymentTransactionId).trim()) return res.status(400).json({ message: 'Your profile must include a name and mobile number. Payment transaction ID is also required.' });
-  const normalizedPhone = normalizePhone(phone);
-  if (!/^[6-9]\d{9}$/.test(normalizedPhone)) return res.status(400).json({ message: 'Enter a valid 10-digit mobile number' });
+  res.status(410).json({ message: 'Manual payment registration is disabled. Please use Razorpay checkout.' });
+}));
+
+app.post('/api/matches/:id/payment-order', auth(['student']), asyncRoute(async (req, res) => {
   const admin = await supabaseAdmin();
-  const { data, error } = await admin.rpc('register_for_match', { p_match_id: req.params.id, p_student_id: req.user.id, p_player_name: playerName, p_email: email && String(email).trim() ? String(email).trim() : null, p_phone: normalizedPhone, p_transaction_id: paymentTransactionId });
+  const { data: match, error: matchError } = await admin.from('matches').select('id,title,match_date,match_fee,status,capacity').eq('id', req.params.id).maybeSingle();
+  if (matchError) throw matchError;
+  if (!match || match.status !== 'active' || match.match_date < new Date().toISOString().slice(0, 10)) return res.status(400).json({ message: 'Registration is closed for this match' });
+  const { data: existing, error: existingError } = await admin.from('match_registrations').select('id').eq('match_id', match.id).eq('student_id', req.user.id).maybeSingle();
+  if (existingError) throw existingError;
+  if (existing) return res.status(409).json({ message: 'You are already registered for this match' });
+  const { count, error: countError } = await admin.from('match_registrations').select('id', { count: 'exact', head: true }).eq('match_id', match.id).neq('status', 'rejected');
+  if (countError) throw countError;
+  if (count >= match.capacity) return res.status(400).json({ message: 'This match is full' });
+  const amount = Math.round(Number(match.match_fee) * 100);
+  if (!Number.isInteger(amount) || amount < 1) return res.status(400).json({ message: 'This match has an invalid entry fee' });
+  const order = await razorpayRequest('POST', '/orders', {
+    amount,
+    currency: 'INR',
+    receipt: `match_${match.id.slice(0, 8)}_${Date.now()}`,
+    notes: { match_id: match.id, student_id: req.user.id },
+  });
+  res.status(201).json({ keyId: razorpayKeyId, orderId: order.id, amount: order.amount, currency: order.currency, name: 'BNIOC', description: match.title });
+}));
+
+app.post('/api/matches/:id/payment-verify', auth(['student']), asyncRoute(async (req, res) => {
+  if (!razorpayKeyId || !razorpayKeySecret) throw Object.assign(new Error('Razorpay is not configured on the server'), { status: 503 });
+  const { razorpay_order_id: orderId, razorpay_payment_id: paymentId, razorpay_signature: signature } = req.body;
+  if (!orderId || !paymentId || !signature) return res.status(400).json({ message: 'Incomplete Razorpay payment response' });
+  if (!hasValidSignature(orderId, paymentId, signature)) return res.status(400).json({ message: 'Payment signature verification failed' });
+
+  const admin = await supabaseAdmin();
+  const { data: match, error: matchError } = await admin.from('matches').select('id,title,match_date,match_fee,status,capacity').eq('id', req.params.id).maybeSingle();
+  if (matchError) throw matchError;
+  if (!match || match.status !== 'active' || match.match_date < new Date().toISOString().slice(0, 10)) return res.status(400).json({ message: 'Registration is closed for this match' });
+  const expectedAmount = Math.round(Number(match.match_fee) * 100);
+  const order = await razorpayRequest('GET', `/orders/${encodeURIComponent(orderId)}`);
+  if (order.amount !== expectedAmount || order.currency !== 'INR') return res.status(400).json({ message: 'Payment amount does not match this match fee' });
+  if (order.notes?.match_id !== match.id || order.notes?.student_id !== req.user.id) return res.status(400).json({ message: 'Payment does not belong to this registration' });
+  const payment = await razorpayRequest('GET', `/payments/${encodeURIComponent(paymentId)}`);
+  if (payment.order_id !== orderId || payment.amount !== expectedAmount || payment.currency !== 'INR') return res.status(400).json({ message: 'Payment details could not be matched to this match' });
+  let paymentStatus = payment.status;
+  if (paymentStatus === 'authorized') {
+    const captured = await razorpayRequest('POST', `/payments/${encodeURIComponent(paymentId)}/capture`, { amount: expectedAmount, currency: 'INR' });
+    paymentStatus = captured.status;
+  }
+  if (paymentStatus !== 'captured') return res.status(400).json({ message: 'Payment is not captured yet. Please try again in a moment.' });
+
+  const { name: playerName, email, phone } = req.user;
+  const normalizedPhone = normalizePhone(phone);
+  if (!playerName || !normalizedPhone || !/^[6-9]\d{9}$/.test(normalizedPhone)) return res.status(400).json({ message: 'Your profile must include a valid name and mobile number' });
+  const { data, error } = await admin.rpc('register_razorpay_match', {
+    p_match_id: match.id,
+    p_student_id: req.user.id,
+    p_player_name: playerName,
+    p_email: email && String(email).trim() ? String(email).trim() : null,
+    p_phone: normalizedPhone,
+    p_amount: Number(match.match_fee),
+    p_order_id: orderId,
+    p_payment_id: paymentId,
+  });
   if (error) {
     if (error.code === '23505' || error.message.includes('already registered') || error.message.includes('already used')) return res.status(409).json({ message: error.message });
     if (error.message.includes('closed') || error.message.includes('full')) return res.status(400).json({ message: error.message });

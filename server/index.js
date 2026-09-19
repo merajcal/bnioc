@@ -55,6 +55,19 @@ const normalizePhone = (value) => {
   const digits = String(value || '').replace(/\D/g, '');
   return /^91[6-9]\d{9}$/.test(digits) ? digits.slice(-10) : digits;
 };
+const findStudentRegistration = async (admin, matchId, user) => {
+  const { data, error } = await admin.from('match_registrations')
+    .select(registrationFields)
+    .eq('match_id', matchId);
+  if (error) throw error;
+  const email = String(user.email || '').trim().toLowerCase();
+  const phone = normalizePhone(user.phone);
+  return (data || []).find((registration) => (
+    registration.student_id === user.id
+    || (email && String(registration.email || '').trim().toLowerCase() === email)
+    || (phone && normalizePhone(registration.phone) === phone)
+  )) || null;
+};
 const razorpayRequest = async (method, endpoint, body) => {
   if (!razorpayKeyId || !razorpayKeySecret) throw Object.assign(new Error('Razorpay is not configured on the server'), { status: 503 });
   const response = await fetch(`https://api.razorpay.com/v1${endpoint}`, {
@@ -147,12 +160,7 @@ app.get('/api/matches', asyncRoute(async (req, res) => {
 
 app.get('/api/matches/:id/registrations/me', auth(['student']), asyncRoute(async (req, res) => {
   const admin = await supabaseAdmin();
-  const { data: registration, error: registrationError } = await admin.from('match_registrations')
-    .select(registrationFields)
-    .eq('match_id', req.params.id)
-    .eq('student_id', req.user.id)
-    .maybeSingle();
-  if (registrationError) throw registrationError;
+  const registration = await findStudentRegistration(admin, req.params.id, req.user);
   if (!registration) return res.json({ registration: null });
 
   const { data: payment, error: paymentError } = await admin.from('payments')
@@ -246,9 +254,13 @@ app.post('/api/matches/:id/payment-order', auth(['student']), asyncRoute(async (
   const { data: match, error: matchError } = await admin.from('matches').select('id,title,match_date,match_fee,status,capacity').eq('id', req.params.id).maybeSingle();
   if (matchError) throw matchError;
   if (!match || match.status !== 'active' || match.match_date < new Date().toISOString().slice(0, 10)) return res.status(400).json({ message: 'Registration is closed for this match' });
-  const { data: existing, error: existingError } = await admin.from('match_registrations').select('id').eq('match_id', match.id).eq('student_id', req.user.id).maybeSingle();
-  if (existingError) throw existingError;
-  if (existing) return res.status(409).json({ message: 'You are already registered for this match' });
+  const existing = await findStudentRegistration(admin, match.id, req.user);
+  if (existing && existing.status !== 'payment_pending') return res.status(409).json({ message: 'You are already registered for this match' });
+  if (existing) {
+    const { data: existingPayment, error: existingPaymentError } = await admin.from('payments').select('id').eq('registration_id', existing.id).maybeSingle();
+    if (existingPaymentError) throw existingPaymentError;
+    if (existingPayment) return res.status(409).json({ message: 'Payment is already associated with this registration' });
+  }
   const { count, error: countError } = await admin.from('match_registrations').select('id', { count: 'exact', head: true }).eq('match_id', match.id).neq('status', 'rejected');
   if (countError) throw countError;
   if (count >= match.capacity) return res.status(400).json({ message: 'This match is full' });
@@ -336,6 +348,11 @@ app.patch('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req
   const { data: current, error: currentError } = await admin.from('match_registrations').select('id,match_id,status').eq('id', req.params.id).maybeSingle();
   if (currentError) throw currentError;
   if (!current) return res.status(404).json({ message: 'Registration not found' });
+  if (status === 'confirmed') {
+    const { data: currentPayment, error: currentPaymentError } = await admin.from('payments').select('status').eq('registration_id', req.params.id).maybeSingle();
+    if (currentPaymentError) throw currentPaymentError;
+    if ((paymentStatus || currentPayment?.status) !== 'verified') return res.status(400).json({ message: 'Payment must be verified before confirming this player' });
+  }
   const resultingStatus = status || current.status;
   if ((isCaptain === true || isWicketKeeper === true) && resultingStatus !== 'confirmed') return res.status(400).json({ message: 'Only confirmed players can be assigned match roles' });
 
@@ -375,6 +392,7 @@ app.patch('/api/admin/registrations/:id', auth(['admin']), asyncRoute(async (req
 app.post('/api/admin/matches/:id/players', auth(['admin']), asyncRoute(async (req, res) => {
   const { playerName, email, phone } = req.body;
   if (!playerName || !String(playerName).trim()) return res.status(400).json({ message: 'Player name is required' });
+  if ((!email || !String(email).trim()) && (!phone || !String(phone).trim())) return res.status(400).json({ message: 'Provide the student email or phone so they can claim this registration and pay online' });
   const normalizedPhone = phone && String(phone).trim() ? normalizePhone(phone) : null;
   if (normalizedPhone && !/^[6-9]\d{9}$/.test(normalizedPhone)) return res.status(400).json({ message: 'Enter a valid 10-digit mobile number' });
   const admin = await supabaseAdmin();
@@ -394,7 +412,7 @@ app.post('/api/admin/matches/:id/players', auth(['admin']), asyncRoute(async (re
     email: email ? String(email).trim().toLowerCase() : null,
     phone: normalizedPhone,
     jersey_label: match.jersey_label,
-    status: 'confirmed',
+    status: 'payment_pending',
   }).select(registrationFields).single();
   if (error) {
     if (error.code === '23505') return res.status(409).json({ message: 'This player is already on the match roster' });

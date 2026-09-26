@@ -3,6 +3,7 @@
 .env.*
 !.env.example
 **/prod.env
+server/rzp-key.csv
 
 # Dependencies and generated output
 node_modules/

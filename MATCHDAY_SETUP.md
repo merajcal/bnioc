@@ -5,7 +5,7 @@ The new `/matches` route supports the full first version of match operations:
 - Public, future-dated fixtures with opponent, match type, fee, Google Maps URL, reporting time, ball type, overs (default 15), player capacity (default 22), and shareable URLs.
 - Student accounts and admin accounts. Admins can create an inactive match, activate it when registration should open, cancel it, manage its players, and review registrations.
 - Inactive matches remain visible on the public fixture board, but students cannot register until an admin makes the match active. Admins can assign one confirmed player as captain and one confirmed player as wicket keeper per match.
-- Payment-before-registration flow using UPI instructions and a required transaction ID. Mobile number is required and can only be used once per match; email is optional. Payment status is deliberately separate from registration status so staff can verify it. Admins can also manually add confirmed roster players without a payment record.
+- Razorpay payment-before-registration flow. Mobile number is required and can only be used once per match; email is optional. Admin-added players remain payment pending until the student signs in with the matching email or phone and completes Razorpay checkout.
 - Red-ball matches show **White jersey**; white-ball matches show **Colour jersey**.
 - Match registration closes after midnight on match day in both the API and Supabase PostgreSQL RPC.
 
@@ -15,7 +15,7 @@ The new `/matches` route supports the full first version of match operations:
 
 2. Open **SQL Editor**, paste `database/schema.sql`, and run it. This creates the profile, match, registration, payment, RLS, and atomic-registration RPC objects.
 
-   If the database was already created from an earlier version, run `database/migrations/2026-08-27-add-opponent.sql`, `database/migrations/2026-08-28-admin-roster-actions.sql`, and `database/migrations/2026-08-29-normalize-registration-phone.sql` once before deploying the updated API. The migrations convert old `published` matches to `active` and old `draft` matches to `inactive`, and prevent duplicate mobile-number registrations even when the number is formatted differently.
+   If the database was already created from an earlier version, run `database/migrations/2026-08-27-add-opponent.sql`, `database/migrations/2026-08-28-admin-roster-actions.sql`, `database/migrations/2026-08-29-normalize-registration-phone.sql`, `database/migrations/2026-09-18-razorpay-registration.sql`, and `database/migrations/2026-09-19-admin-payment-registration.sql` once before deploying the updated API. The migrations convert old `published` matches to `active` and old `draft` matches to `inactive`, prevent duplicate mobile-number registrations even when the number is formatted differently, and add Razorpay-backed registration.
 
 3. Copy `.env.example` to `.env` and set the Supabase values:
 
@@ -51,7 +51,7 @@ The new `/matches` route supports the full first version of match operations:
 
 ## Student registration
 
-Students open `/matches`, select **View & register** on an active fixture, then sign in or create a student account. Inactive fixtures are visible but clearly marked as not open for registration. Students pay the displayed UPI fee, enter the payment transaction ID, and submit the registration. The registration appears in the academy console as `payment_pending` until an admin verifies it.
+Students open `/matches`, select **View & register** on an active fixture, then sign in or create a student account. Inactive fixtures are visible but clearly marked as not open for registration. Students complete Razorpay checkout; the registration is created as `confirmed` only after the payment is verified and captured. If an admin has already added the student, the student must sign in with the same email or phone and pay to claim that reserved slot.
 
 In the academy console, an admin can make a newly created match active or inactive, cancel it with confirmation, and manage the roster. Every student-submitted payment appears as **Pending acknowledgement** until the admin acknowledges it. Acknowledging the payment marks it **Payment completed** and confirms the player; rejecting it marks both the payment and registration as rejected. Confirm a player before assigning **Captain** or **Wicket keeper**. Assigning either role automatically moves that role from the previous player, so each match has at most one captain and one wicket keeper.
 
@@ -59,4 +59,4 @@ The match board requires the API and Supabase database for real fixtures, accoun
 
 ## Payment gateway follow-up
 
-The current `payments` table stores the manually supplied UPI transaction ID and its review status. A gateway can be added by creating an order before registration, redirecting to the provider, and writing the provider’s verified order/payment IDs to the same record. The registration endpoint should remain server-side and should only confirm after a provider webhook or admin review.
+The Razorpay flow creates an order server-side, verifies the Checkout signature and captured payment, and stores the verified order/payment IDs in `payments`. Keep the Razorpay secret on the API server only.

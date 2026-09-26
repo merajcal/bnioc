@@ -30,6 +30,12 @@ export const createMatch = (match, token) =>
 export const submitRegistration = (matchId, registration, token) =>
   request(`/matches/${matchId}/registrations`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(registration) });
 
+export const createPaymentOrder = (matchId, token) =>
+  request(`/matches/${matchId}/payment-order`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+
+export const verifyPayment = (matchId, payment, token) =>
+  request(`/matches/${matchId}/payment-verify`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: JSON.stringify(payment) });
+
 export const getMyRegistration = (matchId, token) =>
   request(`/matches/${matchId}/registrations/me`, { headers: { Authorization: `Bearer ${token}` } });
 
